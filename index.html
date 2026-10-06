@@ -50,7 +50,7 @@
 </head>
 <body class="bg-brand-dark text-slate-100 antialiased selection:bg-brand-gold selection:text-brand-dark overflow-x-hidden">
 
-  <!-- CABEÇALHO ULTRA PREMIUM -->
+  <!-- CABEÇALHO -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-box">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -64,7 +64,9 @@
       </div>
 
       <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
-        <a href="#clube-vitrine" class="hover:text-brand-gold transition-colors">O Clube de Campo</a>
+        <button onclick="selectCategory('clube')" class="hover:text-brand-gold transition-colors flex items-center gap-1 font-semibold">
+          <i data-lucide="trees" class="w-4 h-4 text-brand-gold"></i> O Clube de Campo
+        </button>
         <a href="#diferencial" class="hover:text-brand-gold transition-colors">Diferencial Único</a>
         <a href="#galeria-setores" class="hover:text-brand-gold transition-colors">Vitrines Reais (69 Fotos)</a>
         <a href="#avaliacoes" class="hover:text-brand-gold transition-colors">Avaliações 5★</a>
@@ -93,11 +95,11 @@
       </h1>
 
       <p class="text-base sm:text-xl text-slate-200 font-light max-w-3xl mx-auto mb-4 leading-relaxed drop-shadow">
-        Uma mansão de 750 m² construída no conceito de resort privativo, localizada dentro do <strong>maior e mais nobre Clube de Campo Fazenda</strong> da região de Itatiba/SP.
+        Uma mansão de 750 m² concebida no conceito de resort privativo, localizada dentro do <strong>maior e mais nobre Clube de Campo Fazenda</strong> da região de Itatiba/SP.
       </p>
 
       <p class="text-xs sm:text-sm text-brand-goldLight font-medium max-w-2xl mx-auto mb-10">
-        De frente para o grande lago • Todos os quartos abrem direto para a piscina • Salão para festas familiares • Iluminação ultravioleta • Dupla lareira • Portaria 24h a 150m • Terreno privativo de 2.000 m²
+        De frente para o grande lago • Todos os quartos abrem direto para a piscina • Salão para festas familiares • Iluminação ultravioleta • Dupla lareira • Portaria 24h a 150m • Terreno de 2.000 m²
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -105,10 +107,10 @@
           <i data-lucide="calendar" class="w-4 h-4"></i>
           Consultar Disponibilidade
         </a>
-        <a href="#galeria-setores" class="w-full sm:w-auto px-8 py-4 rounded-full glass-box text-white font-semibold text-xs uppercase tracking-widest hover:border-brand-gold transition-all flex items-center justify-center gap-2">
-          <i data-lucide="images" class="w-4 h-4 text-brand-gold"></i>
-          Ver Catálogo Completo (69 Fotos Reais)
-        </a>
+        <button onclick="selectCategory('clube')" class="w-full sm:w-auto px-8 py-4 rounded-full glass-box text-white font-semibold text-xs uppercase tracking-widest hover:border-brand-gold transition-all flex items-center justify-center gap-2">
+          <i data-lucide="trees" class="w-4 h-4 text-brand-gold"></i>
+          Ver Fotos do Clube de Campo & Lago
+        </button>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
@@ -132,7 +134,7 @@
     </div>
   </section>
 
-  <!-- VITRINE DO CLUBE DE CAMPO FAZENDA -->
+  <!-- VITRINE DO CLUBE DE CAMPO FAZENDA (FOTOS AMPLIÁVEIS E AÇÃO DIRETA) -->
   <section id="clube-vitrine" class="py-24 bg-brand-surface relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
@@ -142,10 +144,11 @@
         <p class="text-slate-400 text-sm mt-3">De frente para o grande lago do condomínio, rodeada por natureza exuberante e dotada da infraestrutura de segurança mais rigorosa de Itatiba/SP.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="rounded-2xl overflow-hidden glass-box group">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="rounded-2xl overflow-hidden glass-box group cursor-pointer transition-all hover:border-brand-gold" onclick="openPhotoModal('https://lh3.googleusercontent.com/d/15tYGdza9AHSPKcf66lILDryR-c6Wnujv=w1600')">
           <div class="h-60 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/15tYGdza9AHSPKcf66lILDryR-c6Wnujv=w1200" referrerpolicy="no-referrer" alt="Lago do Clube de Campo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-2 py-1 rounded bg-black/70 text-brand-gold text-[10px] font-bold uppercase">Clique p/ Ampliar</span>
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">Frente para o Lago</h4>
@@ -153,9 +156,10 @@
           </div>
         </div>
 
-        <div class="rounded-2xl overflow-hidden glass-box group">
+        <div class="rounded-2xl overflow-hidden glass-box group cursor-pointer transition-all hover:border-brand-gold" onclick="openPhotoModal('https://lh3.googleusercontent.com/d/1ktrPyzI8_ByoRlVgblT-zw2Ux7bAzPNb=w1600')">
           <div class="h-60 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/1ktrPyzI8_ByoRlVgblT-zw2Ux7bAzPNb=w1200" referrerpolicy="no-referrer" alt="Natureza Preservada" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-2 py-1 rounded bg-black/70 text-brand-gold text-[10px] font-bold uppercase">Clique p/ Ampliar</span>
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">Natureza Preservada</h4>
@@ -163,25 +167,34 @@
           </div>
         </div>
 
-        <div class="rounded-2xl overflow-hidden glass-box group">
+        <div class="rounded-2xl overflow-hidden glass-box group cursor-pointer transition-all hover:border-brand-gold" onclick="openPhotoModal('https://lh3.googleusercontent.com/d/10garicjoEdLcbGdB1zSsntdq3I9jbsN_=w1600')">
           <div class="h-60 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/10garicjoEdLcbGdB1zSsntdq3I9jbsN_=w1200" referrerpolicy="no-referrer" alt="Segurança Rigorosa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-2 py-1 rounded bg-black/70 text-brand-gold text-[10px] font-bold uppercase">Clique p/ Ampliar</span>
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">Segurança 24h a 150m</h4>
-            <p class="text-xs text-slate-400 mt-1">Portaria monitorada com cancelas e rondas permanentes.</p>
+            <p class="text-xs text-slate-400 mt-1">Portaria monitorizada com cancelas e rondas permanentes.</p>
           </div>
         </div>
 
-        <div class="rounded-2xl overflow-hidden glass-box group">
+        <div class="rounded-2xl overflow-hidden glass-box group cursor-pointer transition-all hover:border-brand-gold" onclick="openPhotoModal('https://lh3.googleusercontent.com/d/1CH1UTiRUfnStQduiz0mtOlbKGjSHz7kq=w1600')">
           <div class="h-60 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/1CH1UTiRUfnStQduiz0mtOlbKGjSHz7kq=w1200" referrerpolicy="no-referrer" alt="Terreno de 2.000m²" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-2 py-1 rounded bg-black/70 text-brand-gold text-[10px] font-bold uppercase">Clique p/ Ampliar</span>
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">2.000 m² Privativos</h4>
-            <p class="text-xs text-slate-400 mt-1">Gramado amplo com total privacidade familiar.</p>
+            <p class="text-xs text-slate-400 mt-1">Relvado amplo com total privacidade familiar.</p>
           </div>
         </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="selectCategory('clube')" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest hover:scale-105 shadow-xl transition-all">
+          <i data-lucide="images" class="w-4 h-4"></i>
+          Ver Todas as 22 Fotos do Clube de Campo & Lago
+        </button>
       </div>
 
     </div>
@@ -201,7 +214,7 @@
             Não Existe Outra Chácara <span class="gold-gradient">Neste Estilo</span>
           </h2>
           <p class="text-slate-300 leading-relaxed font-light">
-            Enquanto as propriedades convencionais possuem a piscina isolada nos fundos, a <strong>Chácara Profitter</strong> possui a piscina como o núcleo geométrico da mansão.
+            Enquanto as propriedades convencionais possuem a piscina isolada no exterior, a <strong>Chácara Profitter</strong> possui a piscina como o núcleo geométrico da habitação.
           </p>
           <p class="text-slate-300 leading-relaxed font-light">
             Todos os quartos abrem as portas de correr diretamente para a piscina e para o complexo gourmet. À noite, a iluminação ultravioleta importada cria uma atmosfera relaxante para banhos sob o céu de Itatiba.
@@ -226,7 +239,7 @@
             <img src="https://lh3.googleusercontent.com/d/1r8pMcvH_ny-q-VP1_HfEvOkrO2bz-C4G=w1200" referrerpolicy="no-referrer" alt="Vista da Piscina Integrada" class="w-full h-[440px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
               <div>
-                <span class="px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-brand-gold text-brand-dark mb-2 inline-block">Projeto Arquitetônico</span>
+                <span class="px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-brand-gold text-brand-dark mb-2 inline-block">Projeto Arquitetónico</span>
                 <h3 class="text-xl font-serif font-bold text-white">Integração Total dos Quartos com a Piscina</h3>
               </div>
             </div>
@@ -237,7 +250,7 @@
     </div>
   </section>
 
-  <!-- VITRINES REAIS (69 FOTOS 100% ÚNICAS DO GOOGLE DRIVE) -->
+  <!-- VITRINES REAIS (69 FOTOS 100% AUDITADAS) -->
   <section id="galeria-setores" class="py-24 bg-brand-surface relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
@@ -249,16 +262,16 @@
 
       <!-- Abas de Filtros -->
       <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
-        <button onclick="filterCategory('all', this)" class="tab-btn active-tab px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all">Todas as Fotos (<span id="count-all">0</span>)</button>
-        <button onclick="filterCategory('festas', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🎉 Salão & Festas (<span id="count-festas">0</span>)</button>
-        <button onclick="filterCategory('clube', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🌳 Clube & Lago (<span id="count-clube">0</span>)</button>
-        <button onclick="filterCategory('piscina', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🏊 Piscina no Centro (<span id="count-piscina">0</span>)</button>
-        <button onclick="filterCategory('noite-uv', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🔮 Noite & UV (<span id="count-noite-uv">0</span>)</button>
-        <button onclick="filterCategory('gourmet', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🥩 Espaço Gourmet (<span id="count-gourmet">0</span>)</button>
-        <button onclick="filterCategory('quartos', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🛏️ Suítes & Quartos (<span id="count-quartos">0</span>)</button>
-        <button onclick="filterCategory('living', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🍷 Living & Lareira (<span id="count-living">0</span>)</button>
-        <button onclick="filterCategory('cozinha', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">☕ Cozinha & Bar (<span id="count-cozinha">0</span>)</button>
-        <button onclick="filterCategory('banheiros', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🚿 Banheiros & Varanda (<span id="count-banheiros">0</span>)</button>
+        <button id="btn-all" onclick="filterCategory('all', this)" class="tab-btn active-tab px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all">Todas as Fotos (<span id="count-all">0</span>)</button>
+        <button id="btn-clube" onclick="filterCategory('clube', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🌳 Clube & Lago (<span id="count-clube">0</span>)</button>
+        <button id="btn-festas" onclick="filterCategory('festas', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🎉 Salão & Festas (<span id="count-festas">0</span>)</button>
+        <button id="btn-piscina" onclick="filterCategory('piscina', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🏊 Piscina no Centro (<span id="count-piscina">0</span>)</button>
+        <button id="btn-noite-uv" onclick="filterCategory('noite-uv', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🔮 Noite & UV (<span id="count-noite-uv">0</span>)</button>
+        <button id="btn-gourmet" onclick="filterCategory('gourmet', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🥩 Espaço Gourmet (<span id="count-gourmet">0</span>)</button>
+        <button id="btn-quartos" onclick="filterCategory('quartos', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🛏️ Suítes & Quartos (<span id="count-quartos">0</span>)</button>
+        <button id="btn-living" onclick="filterCategory('living', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🍷 Living & Lareira (<span id="count-living">0</span>)</button>
+        <button id="btn-cozinha" onclick="filterCategory('cozinha', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">☕ Cozinha & Bar (<span id="count-cozinha">0</span>)</button>
+        <button id="btn-banheiros" onclick="filterCategory('banheiros', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🚿 Banheiros & Varanda (<span id="count-banheiros">0</span>)</button>
       </div>
 
       <!-- Grade Dinâmica -->
@@ -267,7 +280,7 @@
     </div>
   </section>
 
-  <!-- AVALIAÇÕES REAIS 5 ESTRELAS -->
+  <!-- AVALIAÇÕES 5 ESTRELAS -->
   <section id="avaliacoes" class="py-24 bg-brand-dark relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
@@ -285,7 +298,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
         <div class="glass-box p-8 rounded-3xl relative flex flex-col justify-between">
           <div>
             <div class="flex items-center gap-1 text-brand-gold mb-4">
@@ -351,7 +363,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
     </div>
@@ -364,7 +375,7 @@
       <div class="text-center max-w-3xl mx-auto mb-14">
         <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Experiência Audiovisual</span>
         <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Vídeos Oficiais do Imóvel</h2>
-        <p class="text-slate-400 text-xs sm:text-sm mt-3">Assista aos registros originais da piscina central, da área gourmet e da propriedade.</p>
+        <p class="text-slate-400 text-xs sm:text-sm mt-3">Assista aos registos originais da piscina central, da área gourmet e da propriedade.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -462,17 +473,9 @@
   <script>
     lucide.createIcons();
 
-    // BANCO DE DADOS DE FOTOS REAIS DO GOOGLE DRIVE (69 FOTOS SEM DUPLICAÇÕES)
+    // BANCO DE DADOS DE FOTOS REAIS DO GOOGLE DRIVE (69 FOTOS 100% AUDITADAS)
     const allPhotos = [
-      // 1. SALÃO DE FESTAS & CELEBRAÇÕES FAMILIARES (6 fotos únicas)
-      { id: "1EjIQg-s2WZ3gywAIZ-3EhVm5qzVJ8PAN", cat: "festas", tag: "Salão de Festas", badge: "bg-amber-500 text-brand-dark", title: "Salão de Festas Coberto", desc: "Espaço amplo com pé-direito alto para celebrações familiares e recepções." },
-      { id: "1METJm9_3X8Vtnr9TgIL3t4HqIlrryfDd", cat: "festas", tag: "Confraternização", badge: "bg-amber-500 text-brand-dark", title: "Área de Eventos Familiares", desc: "Perfeito para encontros familiares, casamentos ao ar livre e aniversários." },
-      { id: "1tLYv4A79eh6BSL-lryrP2N8MKHmAHS2H", cat: "festas", tag: "Pátio de Eventos", badge: "bg-amber-500 text-brand-dark", title: "Pátio Integrado de Convivência", desc: "Integração do salão com os jardins e a área externa da propriedade." },
-      { id: "1uVC1bH273rIiAO-24M9LZgV4myxs2mHe", cat: "festas", tag: "Lazer Coletivo", badge: "bg-amber-500 text-brand-dark", title: "Convivência e Lazer Familiar", desc: "Espaço preparado para receber grandes grupos com conforto e privacidade." },
-      { id: "1ewaEHyFMsWgRpPCxt-Y6pU76loHxxKSg", cat: "festas", tag: "Espaço Aberto", badge: "bg-amber-500 text-brand-dark", title: "Área Aberta para Cerimônias", desc: "Cenário ideal para fotos memoráveis e comemorações especiais." },
-      { id: "1mZJqg4OFVbFuO2Xgqeijbx57Cod19H95", cat: "festas", tag: "Infraestrutura", badge: "bg-amber-500 text-brand-dark", title: "Estrutura para Mesas e Buffet", desc: "Espaço coberto e circulação livre integrada ao gramado." },
-
-      // 2. CLUBE & LAGO & PAISAGEM EXTERNA (22 fotos únicas)
+      // 1. CLUBE & LAGO & PAISAGEM EXTERNA (22 fotos únicas)
       { id: "15tYGdza9AHSPKcf66lILDryR-c6Wnujv", cat: "clube", tag: "Clube & Lago", badge: "bg-emerald-500", title: "Lago em Frente à Propriedade", desc: "Vista cinematográfica para o lago principal do Clube de Campo Fazenda." },
       { id: "10garicjoEdLcbGdB1zSsntdq3I9jbsN_", cat: "clube", tag: "Clube & Lago", badge: "bg-emerald-500", title: "Área Verde do Condomínio", desc: "Tranquilidade e segurança para caminhadas em volta do lago." },
       { id: "12_gGwBSTY8lj61kYvex_T0kk71IHlHLX", cat: "clube", tag: "Clube & Lago", badge: "bg-emerald-500", title: "Bosque Nativo Preservado", desc: "Clima ameno de serra a cerca de 1 hora de São Paulo." },
@@ -495,6 +498,14 @@
       { id: "11NfNgJkAujeb6YveWKKMfcKZbS9qv9ik", cat: "clube", tag: "Estacionamento", badge: "bg-emerald-500", title: "Estacionamento Privativo (7 Vagas)", desc: "Espaço amplo para manobra e acomodação de veículos." },
       { id: "17lMy3lOetJkHoiD07uam9LKLesizygyk", cat: "clube", tag: "Acesso", badge: "bg-emerald-500", title: "Acesso Gramado à Residência", desc: "Circulação externa com calçamento e grama cuidada." },
       { id: "1iqZXYA39T6ye_F-F_BIzz0VBq1ArKzT-", cat: "clube", tag: "Jardim Frontal", badge: "bg-emerald-500", title: "Jardim e Área Externa", desc: "Paisagismo acolhedor logo na chegada da mansão." },
+
+      // 2. SALÃO DE FESTAS & CELEBRAÇÕES FAMILIARES (6 fotos únicas)
+      { id: "1EjIQg-s2WZ3gywAIZ-3EhVm5qzVJ8PAN", cat: "festas", tag: "Salão de Festas", badge: "bg-amber-500 text-brand-dark", title: "Salão de Festas Coberto", desc: "Espaço amplo com pé-direito alto para celebrações familiares e recepções." },
+      { id: "1METJm9_3X8Vtnr9TgIL3t4HqIlrryfDd", cat: "festas", tag: "Confraternização", badge: "bg-amber-500 text-brand-dark", title: "Área de Eventos Familiares", desc: "Perfeito para encontros familiares, casamentos ao ar livre e aniversários." },
+      { id: "1tLYv4A79eh6BSL-lryrP2N8MKHmAHS2H", cat: "festas", tag: "Pátio de Eventos", badge: "bg-amber-500 text-brand-dark", title: "Pátio Integrado de Convivência", desc: "Integração do salão com os jardins e a área externa da propriedade." },
+      { id: "1uVC1bH273rIiAO-24M9LZgV4myxs2mHe", cat: "festas", tag: "Lazer Coletivo", badge: "bg-amber-500 text-brand-dark", title: "Convivência e Lazer Familiar", desc: "Espaço preparado para receber grandes grupos com conforto e privacidade." },
+      { id: "1ewaEHyFMsWgRpPCxt-Y6pU76loHxxKSg", cat: "festas", tag: "Espaço Aberto", badge: "bg-amber-500 text-brand-dark", title: "Área Aberta para Cerimônias", desc: "Cenário ideal para fotos memoráveis e comemorações especiais." },
+      { id: "1mZJqg4OFVbFuO2Xgqeijbx57Cod19H95", cat: "festas", tag: "Infraestrutura", badge: "bg-amber-500 text-brand-dark", title: "Estrutura para Mesas e Buffet", desc: "Espaço coberto e circulação livre integrada ao gramado." },
 
       // 3. PISCINA NO CENTRO (4 fotos únicas)
       { id: "1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT", cat: "piscina", tag: "Átrio Central", badge: "bg-brand-gold text-brand-dark", title: "A Piscina no Centro da Casa", desc: "O átrio central geométrico que conecta todos os quartos e o espaço gourmet." },
@@ -554,7 +565,7 @@
 
     // Atualização dos Contadores
     document.getElementById('count-all').innerText = allPhotos.length;
-    const cats = ['festas', 'clube', 'piscina', 'noite-uv', 'gourmet', 'quartos', 'living', 'cozinha', 'banheiros'];
+    const cats = ['clube', 'festas', 'piscina', 'noite-uv', 'gourmet', 'quartos', 'living', 'cozinha', 'banheiros'];
     cats.forEach(c => {
       const el = document.getElementById(`count-${c}`);
       if (el) el.innerText = allPhotos.filter(p => p.cat === c).length;
@@ -588,9 +599,21 @@
         b.classList.remove('active-tab');
         b.classList.add('bg-brand-card', 'text-slate-300');
       });
-      btn.classList.add('active-tab');
-      btn.classList.remove('bg-brand-card', 'text-slate-300');
+      if (btn) {
+        btn.classList.add('active-tab');
+        btn.classList.remove('bg-brand-card', 'text-slate-300');
+      }
       renderGallery(cat);
+    }
+
+    // Ação Quântica: Selecionar e navegar direto para a categoria
+    function selectCategory(cat) {
+      const btn = document.getElementById(`btn-${cat}`);
+      filterCategory(cat, btn);
+      const target = document.getElementById('galeria-setores');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
     // Modal de Foto Ampliada
