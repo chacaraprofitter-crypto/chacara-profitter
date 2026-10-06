@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chácara Profitter | Refúgio de Luxo no Clube de Campo Fazenda</title>
+  <meta name="description" content="Casa exclusiva com 750m² de construção, piscina no centro da casa, de frente ao lago e 150m da portaria com segurança 24h.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { gold: '#D4AF37', goldLight: '#F3E5AB', dark: '#0B0F17', darkSecondary: '#141A24', card: '#1A2230' }
+          },
+          fontFamily: {
+            serif: ['Georgia', 'serif'],
+            sans: ['system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .glass-effect { background: rgba(20, 26, 36, 0.85); backdrop-filter: blur(12px); }
+    .gold-border { border: 1px solid rgba(212, 175, 55, 0.25); }
+    .gold-gradient { background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA820A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-200 antialiased selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border border-brand-gold/40 flex items-center justify-center bg-brand-darkSecondary">
+          <i data-lucide="crown" class="w-5 h-5 text-brand-gold"></i>
+        </div>
+        <div>
+          <span class="font-serif text-lg text-white font-bold tracking-wider block">CHÁCARA PROFITTER</span>
+          <span class="text-[10px] tracking-widest text-brand-gold uppercase block">Clube de Campo Fazenda</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#conceito" class="hover:text-brand-gold transition-colors">O Conceito</a>
+        <a href="#estrutura" class="hover:text-brand-gold transition-colors">Estrutura</a>
+        <a href="#galeria" class="hover:text-brand-gold transition-colors">Galeria</a>
+        <a href="#reserva" class="hover:text-brand-gold transition-colors">Disponibilidade</a>
+      </nav>
+      <a href="https://wa.me/5511972501377?text=Olá!+Gostaria+de+consultar+datas+para+a+Chácara+Profitter." target="_blank" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase bg-brand-gold text-brand-dark hover:bg-brand-goldLight transition-all">
+        Reservar WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2000&q=80" alt="Fachada Chácara Profitter" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-brand-dark/40"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <span class="inline-block px-4 py-1.5 rounded-full glass-effect gold-border text-xs uppercase tracking-widest text-brand-goldLight mb-6">
+        Refúgio Privativo • Itatiba / SP
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-serif text-white font-bold mb-6">
+        Mansão com a <span class="gold-gradient">Piscina no Centro</span> da Casa
+      </h1>
+      <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+        750m² de área construída em terreno de 2.000m². De frente para o lago do Clube de Campo Fazenda, com segurança 24h e a 150m da portaria.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#reserva" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-wider hover:bg-brand-goldLight transition-all">
+          Consultar Datas
+        </a>
+        <a href="#galeria" class="w-full sm:w-auto px-8 py-4 rounded-full glass-effect text-white font-medium text-xs uppercase tracking-wider border border-slate-700 hover:border-brand-gold transition-all">
+          Ver Ambientes
+        </a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto pt-8 border-t border-slate-800">
+        <div class="p-4 rounded-xl bg-brand-darkSecondary/80 border border-slate-800">
+          <div class="font-serif text-2xl font-bold text-brand-gold">750 m²</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase">Área Construída</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-darkSecondary/80 border border-slate-800">
+          <div class="font-serif text-2xl font-bold text-brand-gold">2.000 m²</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase">Terreno Privativo</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-darkSecondary/80 border border-slate-800">
+          <div class="font-serif text-2xl font-bold text-brand-gold">Até 20</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase">Hóspedes</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-darkSecondary/80 border border-slate-800">
+          <div class="font-serif text-2xl font-bold text-brand-gold">150 m</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase">Da Portaria</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conceito -->
+  <section id="conceito" class="py-24 bg-brand-darkSecondary">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Arquitetura Integrada</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-white font-bold mt-2 mb-6">Piscina no Núcleo da Residência</h2>
+        <p class="text-slate-300 leading-relaxed mb-4">
+          Conceito arquitetônico exclusivo em átrio: os dormitórios, a sala e o espaço gourmet abrem-se diretamente para o deque da piscina.
+        </p>
+        <p class="text-slate-300 leading-relaxed mb-6">
+          Equipada com iluminação cênica noturna com efeito ultravioleta, lareira interna em alvenaria e fire pit externo para noites ao ar livre.
+        </p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-sm text-slate-200">
+            <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+            <span>Acesso direto de todos os quartos para a piscina</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-slate-200">
+            <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+            <span>Localizada de frente para um dos lagos do clube</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-slate-200">
+            <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+            <span>Vigilância armada e portaria monitorada 24 horas</span>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden gold-border shadow-2xl h-96">
+        <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1000&q=80" alt="Piscina central" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </section>
+
+  <!-- Estrutura -->
+  <section id="estrutura" class="py-24 bg-brand-dark">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Comodidades</span>
+        <h2 class="text-3xl font-serif text-white font-bold mt-2">Estrutura Completa de Conforto</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-brand-card gold-border">
+          <i data-lucide="bed-double" class="w-8 h-8 text-brand-gold mb-4"></i>
+          <h3 class="text-lg font-bold text-white mb-2">3 Quartos (1 Suíte) + 4 Banheiros</h3>
+          <p class="text-slate-400 text-sm">Acomoda confortavelmente até 20 pessoas com camas de casal, colchões avulsos e beliches.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-card gold-border">
+          <i data-lucide="flame" class="w-8 h-8 text-brand-gold mb-4"></i>
+          <h3 class="text-lg font-bold text-white mb-2">Gourmet & Dupla Lareira</h3>
+          <p class="text-slate-400 text-sm">Churrasqueira integrada, bancada de apoio, lareira de inverno no living e lareira de chão externa.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-card gold-border">
+          <i data-lucide="car" class="w-8 h-8 text-brand-gold mb-4"></i>
+          <h3 class="text-lg font-bold text-white mb-2">Estacionamento para 7+ Vagas</h3>
+          <p class="text-slate-400 text-sm">Área interna de garagem ampla, segura e a 150 metros da entrada principal do condomínio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria" class="py-24 bg-brand-darkSecondary">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Ambientes</span>
+          <h2 class="text-3xl font-serif text-white font-bold mt-2">Registros Oficiais</h2>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1ZdEXKOrXnryS2fLqaw_mguEFPhbWXT2Y?usp=drive_link" target="_blank" class="px-4 py-2 rounded-lg text-xs font-semibold text-slate-300 border border-slate-700 hover:border-brand-gold flex items-center gap-2">
+          <i data-lucide="folder" class="w-4 h-4 text-brand-gold"></i>
+          Drive com Todas as Fotos
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden gold-border h-64">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulário de Consulta -->
+  <section id="reserva" class="py-24 bg-brand-dark">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="p-8 md:p-12 rounded-3xl bg-brand-card gold-border shadow-2xl">
+        <div class="text-center mb-8">
+          <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Reserva Direta</span>
+          <h2 class="text-3xl font-serif text-white font-bold mt-2">Consultar Período</h2>
+        </div>
+        <form onsubmit="sendBooking(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase text-slate-300 mb-2">Nome Completo</label>
+              <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-brand-darkSecondary border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+            </div>
+            <div>
+              <label class="block text-xs uppercase text-slate-300 mb-2">Telefone</label>
+              <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl bg-brand-darkSecondary border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs uppercase text-slate-300 mb-2">Check-in</label>
+              <input type="date" id="checkin" required class="w-full px-4 py-3 rounded-xl bg-brand-darkSecondary border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+            </div>
+            <div>
+              <label class="block text-xs uppercase text-slate-300 mb-2">Check-out</label>
+              <input type="date" id="checkout" required class="w-full px-4 py-3 rounded-xl bg-brand-darkSecondary border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+            </div>
+            <div>
+              <label class="block text-xs uppercase text-slate-300 mb-2">Hóspedes</label>
+              <select id="guests" class="w-full px-4 py-3 rounded-xl bg-brand-darkSecondary border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+                <option value="Até 10 pessoas">Até 10 pessoas</option>
+                <option value="11 a 15 pessoas">11 a 15 pessoas</option>
+                <option value="16 a 20 pessoas" selected>16 a 20 pessoas</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="w-full py-4 rounded-xl bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-wider hover:bg-brand-goldLight transition-all flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            Enviar Solicitação no WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="py-12 bg-brand-darkSecondary border-t border-slate-800 text-center text-xs text-slate-500">
+    <p class="text-slate-300 font-bold mb-2">Chácara Profitter • Clube de Campo Fazenda Itatiba/SP</p>
+    <p>WhatsApp: (11) 97250-1377 | Av. dos Marmelos, 173</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    function sendBooking(e) {
+      e.preventDefault();
+      const n = document.getElementById('name').value;
+      const p = document.getElementById('phone').value;
+      const ci = document.getElementById('checkin').value;
+      const co = document.getElementById('checkout').value;
+      const g = document.getElementById('guests').value;
+      const text = `*SOLICITAÇÃO DE RESERVA - CHÁCARA PROFITTER*%0A%0A*Nome:* ${encodeURIComponent(n)}%0A*Contato:* ${encodeURIComponent(p)}%0A*Check-in:* ${encodeURIComponent(ci)}%0A*Check-out:* ${encodeURIComponent(co)}%0A*Hóspedes:* ${encodeURIComponent(g)}`;
+      window.open(`https://wa.me/5511972501377?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>
