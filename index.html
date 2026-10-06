@@ -18,9 +18,9 @@
             brand: {
               gold: '#D4AF37',
               goldLight: '#F5E6B3',
-              dark: '#060A11',
-              surface: '#0E1626',
-              card: '#152136',
+              dark: '#05080E',
+              surface: '#0B1220',
+              card: '#121C2F',
               uv: '#9B51E0'
             }
           }
@@ -31,7 +31,7 @@
 
   <style>
     .glass-box {
-      background: rgba(14, 22, 38, 0.92);
+      background: rgba(11, 18, 32, 0.94);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.28);
     }
@@ -42,7 +42,7 @@
     }
     .active-tab {
       background: linear-gradient(135deg, #F5E6B3 0%, #D4AF37 100%) !important;
-      color: #060A11 !important;
+      color: #05080E !important;
       font-weight: 700 !important;
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
     }
@@ -50,7 +50,7 @@
 </head>
 <body class="bg-brand-dark text-slate-100 antialiased selection:bg-brand-gold selection:text-brand-dark overflow-x-hidden">
 
-  <!-- CABEÇALHO ULTRA PREMIUM -->
+  <!-- CABEÇALHO -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-box">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -75,7 +75,7 @@
     </div>
   </header>
 
-  <!-- HERO SECTION CINEMATOGRÁFICA -->
+  <!-- APRESENTAÇÃO PRINCIPAL -->
   <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img src="https://lh3.googleusercontent.com/d/1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT=w1920" referrerpolicy="no-referrer" alt="Piscina Real da Chácara Profitter" class="w-full h-full object-cover">
@@ -93,11 +93,11 @@
       </h1>
 
       <p class="text-base sm:text-xl text-slate-200 font-light max-w-3xl mx-auto mb-4 leading-relaxed drop-shadow">
-        Não existe outra chácara com esse estilo. 750 m² construídos em conceito de resort privativo, localizada dentro do <strong>maior e mais prestigiado Clube de Campo Fazenda</strong> da região de Itatiba/SP.
+        Uma mansão de 750 m² construída sob o conceito de resort privativo, localizada no <strong>maior e mais nobre Clube de Campo Fazenda</strong> da região de Itatiba/SP.
       </p>
 
       <p class="text-xs sm:text-sm text-brand-goldLight font-medium max-w-2xl mx-auto mb-10">
-        De frente para o lago • Todos os quartos com saída para a piscina • Iluminação importada ultravioleta • Dupla lareira • Portaria 24h a 150 metros
+        De frente para o lago • Quartos com saída direta para a piscina • Iluminação ultravioleta importada • Dupla lareira • Portaria 24h a 150m
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -111,7 +111,6 @@
         </a>
       </div>
 
-      <!-- Resumo Estrutural -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
         <div class="p-4 rounded-2xl glass-box">
           <div class="font-serif text-2xl md:text-3xl font-bold text-brand-gold">750 m²</div>
@@ -123,7 +122,7 @@
         </div>
         <div class="p-4 rounded-2xl glass-box">
           <div class="font-serif text-2xl md:text-3xl font-bold text-brand-gold">Até 25</div>
-          <div class="text-[10px] text-slate-300 uppercase tracking-widest mt-1">Hóspedes Confortáveis</div>
+          <div class="text-[10px] text-slate-300 uppercase tracking-widest mt-1">Pessoas Acomodadas</div>
         </div>
         <div class="p-4 rounded-2xl glass-box">
           <div class="font-serif text-2xl md:text-3xl font-bold text-brand-gold">150 m</div>
@@ -133,25 +132,24 @@
     </div>
   </section>
 
-  <!-- VITRINE ESPECIAL: O MAIOR CLUBE DE CAMPO FAZENDA -->
+  <!-- VITRINE DO CLUBE DE CAMPO FAZENDA -->
   <section id="clube-vitrine" class="py-24 bg-brand-surface relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Localização Nobre & Privilegiada</span>
         <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Dentro do Maior Clube de Campo Fazenda</h2>
-        <p class="text-slate-400 text-sm mt-3">Uma experiência exclusiva: de frente para o lago cinematográfico, com o ar puro do interior e a infraestrutura de segurança mais rigorosa de Itatiba/SP.</p>
+        <p class="text-slate-400 text-sm mt-3">De frente para o grande lago do condomínio, rodeada por natureza exuberante e dotada da infraestrutura de segurança mais rigorosa de Itatiba/SP.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="rounded-2xl overflow-hidden glass-box group">
           <div class="h-60 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/15tYGdza9AHSPKcf66lILDryR-c6Wnujv=w1200" referrerpolicy="no-referrer" alt="Lago do Clube de Campo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">Frente para o Lago</h4>
-            <p class="text-xs text-slate-400 mt-1">Vista aberta para as águas calmas do lago do condomínio.</p>
+            <p class="text-xs text-slate-400 mt-1">Vista desafogada para o lago do condomínio.</p>
           </div>
         </div>
 
@@ -161,17 +159,17 @@
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">Natureza Preservada</h4>
-            <p class="text-xs text-slate-400 mt-1">Bosques, pássaros nativos e ar puro da serra.</p>
+            <p class="text-xs text-slate-400 mt-1">Bosques nativos e ar puro da serra.</p>
           </div>
         </div>
 
         <div class="rounded-2xl overflow-hidden glass-box group">
           <div class="h-60 overflow-hidden relative">
-            <img src="https://lh3.googleusercontent.com/d/10garicjoEdLcbGdB1zSsntdq3I9jbsN_=w1200" referrerpolicy="no-referrer" alt="Entorno Exclusivo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="https://lh3.googleusercontent.com/d/10garicjoEdLcbGdB1zSsntdq3I9jbsN_=w1200" referrerpolicy="no-referrer" alt="Segurança Rigorosa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           </div>
           <div class="p-5">
-            <h4 class="font-serif font-bold text-white text-base">Segurança Total 24h</h4>
-            <p class="text-xs text-slate-400 mt-1">Portaria monitorada a apenas 150m e rondas periódicas.</p>
+            <h4 class="font-serif font-bold text-white text-base">Segurança 24h a 150m</h4>
+            <p class="text-xs text-slate-400 mt-1">Portaria monitorada e rondas permanentes.</p>
           </div>
         </div>
 
@@ -181,78 +179,74 @@
           </div>
           <div class="p-5">
             <h4 class="font-serif font-bold text-white text-base">2.000 m² Privativos</h4>
-            <p class="text-xs text-slate-400 mt-1">Gramado impecável para a sua família aproveitar com privacidade.</p>
+            <p class="text-xs text-slate-400 mt-1">Relvado amplo com total privacidade familiar.</p>
           </div>
         </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- O DIFERENCIAL EXCLUSIVO: ARQUITETURA EM ÁTRIO -->
+  <!-- DIFERENCIAIS EXCLUSIVOS -->
   <section id="diferencial" class="py-24 bg-brand-dark relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        
         <div class="lg:col-span-6 space-y-6">
           <span class="text-xs uppercase font-bold tracking-widest text-brand-gold flex items-center gap-2">
             <i data-lucide="gem" class="w-4 h-4"></i>
             Conceito Único no Mercado
           </span>
           <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold leading-tight">
-            Não Existe Outra Chácara <span class="gold-gradient">Nesse Estilo</span>
+            Não Existe Outra Chácara <span class="gold-gradient">Neste Estilo</span>
           </h2>
           <p class="text-slate-300 leading-relaxed font-light">
-            Enquanto a maioria das propriedades possui a piscina isolada no fundo do terreno, a <strong>Chácara Profitter</strong> foi projetada em estilo de átrio central: a piscina é o núcleo geométrico da mansão.
+            Enquanto as propriedades comuns mantêm a piscina isolada no exterior, a <strong>Chácara Profitter</strong> possui a piscina como o núcleo geométrico da habitação.
           </p>
           <p class="text-slate-300 leading-relaxed font-light">
-            Você abre a porta de vidro do seu quarto pela manhã e já está de frente para as águas cristalinas e para o espaço gourmet. À noite, a iluminação importada ultravioleta cria uma atmosfera neon sensorial e relaxante.
+            Todos os quartos abrem diretamente para as águas e para a área gourmet. À noite, a iluminação ultravioleta importada cria uma atmosfera relaxante para banhos sob as estrelas.
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div class="p-4 rounded-xl glass-box">
               <i data-lucide="moon" class="w-5 h-5 text-brand-gold mb-2"></i>
               <h4 class="text-sm font-bold text-white mb-1">Iluminação UV Noturna</h4>
-              <p class="text-xs text-slate-400">Sistema importado com luz ultravioleta para banhos noturnos de piscina.</p>
+              <p class="text-xs text-slate-400">Sistema importado com luz ultravioleta na piscina.</p>
             </div>
             <div class="p-4 rounded-xl glass-box">
               <i data-lucide="flame" class="w-5 h-5 text-brand-gold mb-2"></i>
               <h4 class="text-sm font-bold text-white mb-1">Dupla Lareira</h4>
-              <p class="text-xs text-slate-400">Lareira em alvenaria no living e lareira externa de chão (Fire Pit) no gramado.</p>
+              <p class="text-xs text-slate-400">Lareira em alvenaria no living e Fire Pit exterior no relvado.</p>
             </div>
           </div>
         </div>
 
         <div class="lg:col-span-6">
           <div class="rounded-3xl overflow-hidden glass-box p-3 shadow-2xl relative group">
-            <img src="https://lh3.googleusercontent.com/d/1r8pMcvH_ny-q-VP1_HfEvOkrO2bz-C4G=w1200" referrerpolicy="no-referrer" alt="Vista Real da Piscina Integrada" class="w-full h-[440px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700">
+            <img src="https://lh3.googleusercontent.com/d/1r8pMcvH_ny-q-VP1_HfEvOkrO2bz-C4G=w1200" referrerpolicy="no-referrer" alt="Vista da Piscina Integrada" class="w-full h-[440px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
               <div>
-                <span class="px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-brand-gold text-brand-dark mb-2 inline-block">Projeto Autoral</span>
+                <span class="px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-brand-gold text-brand-dark mb-2 inline-block">Projeto Arquitetónico</span>
                 <h3 class="text-xl font-serif font-bold text-white">Integração Total dos Quartos com a Piscina</h3>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- TODAS AS FOTOS REAIS DO GOOGLE DRIVE DIVIDIDAS EM 8 VITRINES -->
+  <!-- TODAS AS FOTOS REAIS DO GOOGLE DRIVE EM VITRINES -->
   <section id="galeria-setores" class="py-24 bg-brand-surface relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
       <div class="text-center max-w-3xl mx-auto mb-10">
-        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Acervo Completo do Google Drive</span>
+        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Arquivo Fotográfico Original</span>
         <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Vitrines Reais por Categoria</h2>
-        <p class="text-slate-400 text-xs sm:text-sm mt-2">Filtre pelos botões abaixo para ver todas as fotos reais de cada setor da propriedade.</p>
+        <p class="text-slate-400 text-xs sm:text-sm mt-2">Utilize os filtros abaixo para percorrer os registos fotográficos detalhados de cada ambiente.</p>
       </div>
 
-      <!-- Menu de Abas Interativas -->
       <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
         <button onclick="filterCategory('all', this)" class="tab-btn active-tab px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all">Todas as Fotos</button>
         <button onclick="filterCategory('clube', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🌳 Clube & Lago</button>
@@ -265,16 +259,15 @@
         <button onclick="filterCategory('banheiros', this)" class="tab-btn px-4 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🚿 Banheiros, Duchas & Varanda</button>
       </div>
 
-      <!-- Grade de Fotos com Zoom Modal -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-container">
 
-        <!-- 1. CLUBE & LAGO -->
+        <!-- CLUBE & LAGO -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="clube" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/15tYGdza9AHSPKcf66lILDryR-c6Wnujv=w1200" referrerpolicy="no-referrer" alt="Lago Clube de Campo Fazenda" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-500 text-brand-dark">Clube & Lago</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Lago em Frente à Chácara</h4>
+          <h4 class="text-sm font-bold text-white">Lago em Frente à Propriedade</h4>
           <p class="text-xs text-slate-400">Visual do lago principal no condomínio Clube de Campo Fazenda.</p>
         </div>
 
@@ -284,7 +277,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-500 text-brand-dark">Clube & Lago</span>
           </div>
           <h4 class="text-sm font-bold text-white">Vista para a Área Verde do Condomínio</h4>
-          <p class="text-xs text-slate-400">Tranquilidade e segurança para caminhadas em volta do lago.</p>
+          <p class="text-xs text-slate-400">Tranquilidade e segurança para caminhadas ao redor do lago.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="clube" onclick="openPhoto(this)">
@@ -293,16 +286,16 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-500 text-brand-dark">Clube & Lago</span>
           </div>
           <h4 class="text-sm font-bold text-white">Horizonte e Vegetação Nativa</h4>
-          <p class="text-xs text-slate-400">Clima ameno de serra a 1 hora de São Paulo.</p>
+          <p class="text-xs text-slate-400">Clima ameno de serra a cerca de 1 hora de São Paulo.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="clube" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
-            <img src="https://lh3.googleusercontent.com/d/1CH1UTiRUfnStQduiz0mtOlbKGjSHz7kq=w1200" referrerpolicy="no-referrer" alt="Gramado de 2.000m²" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="https://lh3.googleusercontent.com/d/1CH1UTiRUfnStQduiz0mtOlbKGjSHz7kq=w1200" referrerpolicy="no-referrer" alt="Relvado de 2.000m²" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-500 text-brand-dark">Terreno 2.000 m²</span>
           </div>
           <h4 class="text-sm font-bold text-white">2.000 m² de Terreno Privativo</h4>
-          <p class="text-xs text-slate-400">Área gramada ampla com árvores frutíferas e paisagismo.</p>
+          <p class="text-xs text-slate-400">Área ajardinada com árvores e paisagismo integrado.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="clube" onclick="openPhoto(this)">
@@ -310,18 +303,18 @@
             <img src="https://lh3.googleusercontent.com/d/1C8evFrsXASLCHfbYFejC9biOQMsJxRjK=w1200" referrerpolicy="no-referrer" alt="Entorno Natural" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-500 text-brand-dark">Clube & Lago</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Trilhas e Ar Puro da Fazenda</h4>
-          <p class="text-xs text-slate-400">Condomínio fechado com portaria monitorada 24h a 150m.</p>
+          <h4 class="text-sm font-bold text-white">Trilhos e Ar Puro da Fazenda</h4>
+          <p class="text-xs text-slate-400">Condomínio fechado com portaria monitorizada 24h a 150m.</p>
         </div>
 
-        <!-- 2. PISCINA NO CENTRO (O DIFERENCIAL) -->
+        <!-- PISCINA NO CENTRO -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="piscina" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT=w1200" referrerpolicy="no-referrer" alt="Piscina no Centro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-brand-gold text-brand-dark">Piscina no Centro</span>
           </div>
           <h4 class="text-sm font-bold text-white">A Piscina no Coração da Casa</h4>
-          <p class="text-xs text-slate-400">Vista ampla do pátio aquático que conecta todos os cômodos.</p>
+          <p class="text-xs text-slate-400">Pátio aquático que interliga os principais aposentos.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="piscina" onclick="openPhoto(this)">
@@ -330,7 +323,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-brand-gold text-brand-dark">Piscina no Centro</span>
           </div>
           <h4 class="text-sm font-bold text-white">Deque e Saída das Suítes</h4>
-          <p class="text-xs text-slate-400">Acesso direto das portas de vidro dos quartos para a piscina.</p>
+          <p class="text-xs text-slate-400">Acesso direto das portas de correr para o deque molhado.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="piscina" onclick="openPhoto(this)">
@@ -338,18 +331,18 @@
             <img src="https://lh3.googleusercontent.com/d/1fjaE3Zp6hzscUfdIFYanI8569y3OodzP=w1200" referrerpolicy="no-referrer" alt="Átrio Aquático" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-brand-gold text-brand-dark">Piscina no Centro</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Solarium Privativo</h4>
-          <p class="text-xs text-slate-400">Espaço perfeito para espreguiçadeiras e banhos de sol em família.</p>
+          <h4 class="text-sm font-bold text-white">Solário Privativo</h4>
+          <p class="text-xs text-slate-400">Espaço concebido para espreguiçadeiras e banhos de sol.</p>
         </div>
 
-        <!-- 3. NOITE MÁGICA, ILUMINAÇÃO UV & FIRE PIT -->
+        <!-- NOITE & ILUMINAÇÃO UV -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="noite-uv" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1ScWdLxhq6q9yIuzc6kNf1qvb8StJ_vCz=w1200" referrerpolicy="no-referrer" alt="Iluminação Ultravioleta Noturna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-500 text-white">Iluminação UV</span>
           </div>
           <h4 class="text-sm font-bold text-white">Iluminação Ultravioleta Importada</h4>
-          <p class="text-xs text-slate-400">Efeito neon relaxante na água para banhos de piscina noturnos.</p>
+          <p class="text-xs text-slate-400">Efeito néon relaxante na água para banhos noturnos de piscina.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="noite-uv" onclick="openPhoto(this)">
@@ -358,7 +351,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-500 text-white">Iluminação UV</span>
           </div>
           <h4 class="text-sm font-bold text-white">Atmosfera Noturna Sensorial</h4>
-          <p class="text-xs text-slate-400">Efeito visual deslumbrante sob o céu de Itatiba.</p>
+          <p class="text-xs text-slate-400">Experiência relaxante sob o céu límpido de Itatiba.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="noite-uv" onclick="openPhoto(this)">
@@ -366,18 +359,18 @@
             <img src="https://lh3.googleusercontent.com/d/1NmByFM1zrBo7Tjh6QNs7ysfz5CvRSorw=w1200" referrerpolicy="no-referrer" alt="Lareira Externa de Chão" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-amber-500 text-brand-dark">Fire Pit</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Lareira Externa de Chão (Fire Pit)</h4>
-          <p class="text-xs text-slate-400">Espaço ao ar livre para vinhos, queijos e fogueira sob as estrelas.</p>
+          <h4 class="text-sm font-bold text-white">Lareira Exterior de Chão (Fire Pit)</h4>
+          <p class="text-xs text-slate-400">Espaço ao ar livre para vinhos, queijos e convívio ao luar.</p>
         </div>
 
-        <!-- 4. ESPAÇO GOURMET 4 EM 1 -->
+        <!-- ESPAÇO GOURMET 4 EM 1 -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="gourmet" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1X1OIxRzT4uyp5WuD7MS3mOxDtQrsAAHd=w1200" referrerpolicy="no-referrer" alt="Churrasqueira Grill" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-red-500 text-white">Gourmet</span>
           </div>
           <h4 class="text-sm font-bold text-white">Churrasqueira com Sistema Grill</h4>
-          <p class="text-xs text-slate-400">Bancada completa para churrascos em família com vista para a piscina.</p>
+          <p class="text-xs text-slate-400">Bancada ampla para refeições com vista para o átrio.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="gourmet" onclick="openPhoto(this)">
@@ -386,7 +379,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-red-500 text-white">Gourmet</span>
           </div>
           <h4 class="text-sm font-bold text-white">Fogão a Lenha Caipira</h4>
-          <p class="text-xs text-slate-400">Chapa tradicional de ferro fundido para culinária autêntica de fazenda.</p>
+          <p class="text-xs text-slate-400">Chapa tradicional de ferro fundido para culinária típica de fazenda.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="gourmet" onclick="openPhoto(this)">
@@ -395,7 +388,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-red-500 text-white">Gourmet</span>
           </div>
           <h4 class="text-sm font-bold text-white">Forno a Lenha para Pizzas</h4>
-          <p class="text-xs text-slate-400">Forno em alvenaria para noites de pizza e assados especiais.</p>
+          <p class="text-xs text-slate-400">Construção em alvenaria para confecionar pizzas e assados especiais.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="gourmet" onclick="openPhoto(this)">
@@ -403,8 +396,8 @@
             <img src="https://lh3.googleusercontent.com/d/1Rtg9QkrAUS6Ii0HlDB-PZ-8oa0i_QEzP=w1200" referrerpolicy="no-referrer" alt="Defumador Artesanal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-red-500 text-white">Gourmet</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Defumador a Lenha Artesanal</h4>
-          <p class="text-xs text-slate-400">Estrutura para defumação de carnes e queijos artesanais.</p>
+          <h4 class="text-sm font-bold text-white">Defumador Artesanal a Lenha</h4>
+          <p class="text-xs text-slate-400">Estrutura dedicada para a cura e defumação de carnes e queijos.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="gourmet" onclick="openPhoto(this)">
@@ -413,17 +406,17 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-red-500 text-white">Gourmet</span>
           </div>
           <h4 class="text-sm font-bold text-white">Bancada Gourmet Integrada</h4>
-          <p class="text-xs text-slate-400">Ponto de encontro com pias, bancadas e vista para o deque.</p>
+          <p class="text-xs text-slate-400">Bancadas de preparação em pedra com vista contínua para a piscina.</p>
         </div>
 
-        <!-- 5. SUÍTES & ACOMODAÇÕES (Até 25 HÓSPEDES) -->
+        <!-- SUÍTES & ACOMODAÇÕES (ATÉ 25 PESSOAS) -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="quartos" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1ARlPpUlVwGzAsJ1x7WDLoIcRFbUbJZG7=w1200" referrerpolicy="no-referrer" alt="Suíte Master" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-400 text-brand-dark">Suíte Master</span>
           </div>
           <h4 class="text-sm font-bold text-white">Suíte Master com Saída Piscina</h4>
-          <p class="text-xs text-slate-400">Porta balcão panorâmica com acesso direto para o espelho d'água.</p>
+          <p class="text-xs text-slate-400">Porta envidraçada panorâmica com acesso ao deque molhado.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="quartos" onclick="openPhoto(this)">
@@ -432,7 +425,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-400 text-brand-dark">Quartos</span>
           </div>
           <h4 class="text-sm font-bold text-white">Dormitório Integrado ao Deque</h4>
-          <p class="text-xs text-slate-400">Porta de vidro, iluminação solar natural e ventilação cruzada.</p>
+          <p class="text-xs text-slate-400">Excelente luminosidade natural e circulação de ar constante.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="quartos" onclick="openPhoto(this)">
@@ -441,7 +434,7 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-400 text-brand-dark">Quartos</span>
           </div>
           <h4 class="text-sm font-bold text-white">Dormitórios Espaçosos</h4>
-          <p class="text-xs text-slate-400">Acomoda confortavelmente Até 25 pessoas em camas e colchões.</p>
+          <p class="text-xs text-slate-400">Capacidade adaptada para receber até 25 pessoas confortavelmente.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="quartos" onclick="openPhoto(this)">
@@ -453,14 +446,14 @@
           <p class="text-xs text-slate-400">Quartos arejados e bem distribuídos para a privacidade dos hóspedes.</p>
         </div>
 
-        <!-- 6. LIVING COM LAREIRA INTERNA -->
+        <!-- LIVING COM LAREIRA INTERNA -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="living" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1tN4ISHhevEtB6kCauJmzNjo2flr3s8Mw=w1200" referrerpolicy="no-referrer" alt="Sala com Lareira Interna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-amber-600 text-white">Living</span>
           </div>
           <h4 class="text-sm font-bold text-white">Sala de Estar com Lareira em Alvenaria</h4>
-          <p class="text-xs text-slate-400">Sofisticação e conforto térmico para dias e noites de inverno.</p>
+          <p class="text-xs text-slate-400">Conforto térmico no interior da residência nos dias mais frios.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="living" onclick="openPhoto(this)">
@@ -469,17 +462,17 @@
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-amber-600 text-white">Living</span>
           </div>
           <h4 class="text-sm font-bold text-white">Ambiente de Convivência Amplo</h4>
-          <p class="text-xs text-slate-400">Pé-direito alto e circulação integrada aos quartos e varanda.</p>
+          <p class="text-xs text-slate-400">Pé-direito imponente e circulação fluida entre os ambientes.</p>
         </div>
 
-        <!-- 7. COZINHA, JANTAR & BAR -->
+        <!-- COZINHA, JANTAR & BAR -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="cozinha" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1vbwAywbE6oboq0S-y0enVHG530COLv2D=w1200" referrerpolicy="no-referrer" alt="Sala de Jantar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-teal-500 text-brand-dark">Jantar</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Sala de Jantar Completa</h4>
-          <p class="text-xs text-slate-400">Mesa ampla para refeições em família com total comodidade.</p>
+          <h4 class="text-sm font-bold text-white">Sala de Jantar Principal</h4>
+          <p class="text-xs text-slate-400">Mesa espaçosa para refeições coletivas com conforto.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="cozinha" onclick="openPhoto(this)">
@@ -487,8 +480,8 @@
             <img src="https://lh3.googleusercontent.com/d/1GD_n9juuyoH2JYqyXvAJICUG0zCyzusQ=w1200" referrerpolicy="no-referrer" alt="Cantinho do Café" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-teal-500 text-brand-dark">Café</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Cantinho do Café Planejado</h4>
-          <p class="text-xs text-slate-400">Bancada dedicada para o café da manhã prático e saboroso.</p>
+          <h4 class="text-sm font-bold text-white">Espaço do Café</h4>
+          <p class="text-xs text-slate-400">Bancada dedicada para o pequeno-almoço diário.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="cozinha" onclick="openPhoto(this)">
@@ -496,18 +489,18 @@
             <img src="https://lh3.googleusercontent.com/d/1nTgXZICf9B4KD3DIwjDexDZgiQAAp-xM=w1200" referrerpolicy="no-referrer" alt="Barzinho de Bebidas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-teal-500 text-brand-dark">Bar</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Barzinho Temático</h4>
-          <p class="text-xs text-slate-400">Aparador preparado para drinques, taças e confraternização.</p>
+          <h4 class="text-sm font-bold text-white">Bar de Convivência</h4>
+          <p class="text-xs text-slate-400">Móvel planeado para preparação de bebidas e aperitivos.</p>
         </div>
 
-        <!-- 8. BANHEIROS, DUCHAS & VARANDAS -->
+        <!-- BANHEIROS, DUCHAS & VARANDAS -->
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="banheiros" onclick="openPhoto(this)">
           <div class="h-64 rounded-xl overflow-hidden relative mb-2">
             <img src="https://lh3.googleusercontent.com/d/1_vFca-jRO0tZR1fLNRXHlNCBonOTYdap=w1200" referrerpolicy="no-referrer" alt="Banheiro Suíte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-sky-400 text-brand-dark">Banheiros</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Banheiro da Suíte Master</h4>
-          <p class="text-xs text-slate-400">Box de vidro e privacidade completa na suíte.</p>
+          <h4 class="text-sm font-bold text-white">Casa de Banho da Suíte Master</h4>
+          <p class="text-xs text-slate-400">Privacidade completa e comodidade dentro da suíte.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="banheiros" onclick="openPhoto(this)">
@@ -515,8 +508,8 @@
             <img src="https://lh3.googleusercontent.com/d/1fqgONXRUY2znPOs3F7JRly_NS63GoQ7_=w1200" referrerpolicy="no-referrer" alt="Duchas Externas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-sky-400 text-brand-dark">Duchas</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Área de Duchas Externas</h4>
-          <p class="text-xs text-slate-400">Ducha externa para refrescar após os banhos de sol e piscina.</p>
+          <h4 class="text-sm font-bold text-white">Zona de Duchas Exteriores</h4>
+          <p class="text-xs text-slate-400">Ducha externa para refrescar após os banhos de sol.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="banheiros" onclick="openPhoto(this)">
@@ -524,8 +517,8 @@
             <img src="https://lh3.googleusercontent.com/d/1n1JVK4hr5UC5ZgK9-eXKp1977GEDuTKn=w1200" referrerpolicy="no-referrer" alt="Lavabo Social" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-sky-400 text-brand-dark">Lavabos</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Lavabo Social Decorado</h4>
-          <p class="text-xs text-slate-400">4 banheiros e lavabos distribuídos para o conforto de todos.</p>
+          <h4 class="text-sm font-bold text-white">Lavabo Social</h4>
+          <p class="text-xs text-slate-400">4 instalações sanitárias e lavabos distribuídos para conveniência do grupo.</p>
         </div>
 
         <div class="gallery-card p-3 rounded-2xl glass-box group cursor-pointer" data-category="banheiros" onclick="openPhoto(this)">
@@ -533,8 +526,8 @@
             <img src="https://lh3.googleusercontent.com/d/1tam3fOqrjDMicY2i5b3iMfN9V07i4kZ_=w1200" referrerpolicy="no-referrer" alt="Varandão de Descanso" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-orange-400 text-brand-dark">Varanda</span>
           </div>
-          <h4 class="text-sm font-bold text-white">Varandão Coberto de Convivência</h4>
-          <p class="text-xs text-slate-400">Espaço sombreado com vista para o gramado e redes de descanso.</p>
+          <h4 class="text-sm font-bold text-white">Varandão Coberto de Descanso</h4>
+          <p class="text-xs text-slate-400">Espaço sombreado com vista panorâmica para o relvado.</p>
         </div>
 
       </div>
@@ -542,24 +535,23 @@
     </div>
   </section>
 
-  <!-- SEÇÃO DE VÍDEOS REAIS DO GOOGLE DRIVE -->
+  <!-- VÍDEOS OFICIAIS -->
   <section id="videos-reais" class="py-24 bg-brand-dark relative border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-6">
       
       <div class="text-center max-w-3xl mx-auto mb-14">
-        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Experiência em Vídeo</span>
-        <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Vídeos Gravados no Imóvel</h2>
-        <p class="text-slate-400 text-xs sm:text-sm mt-3">Confira a piscina central, a área gourmet e o tour completo em vídeo.</p>
+        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Experiência Audiovisual</span>
+        <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Vídeos Oficiais do Imóvel</h2>
+        <p class="text-slate-400 text-xs sm:text-sm mt-3">Assista aos registos originais da piscina central e da área gourmet.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
         <div class="glass-box p-4 rounded-3xl">
           <div class="relative w-full pb-[56.25%] rounded-2xl overflow-hidden bg-black mb-4">
             <iframe src="https://drive.google.com/file/d/1VXa-NUCYBkCcIEpE4PjOc2JEU6nWjOfq/preview" class="absolute inset-0 w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe>
           </div>
           <h3 class="text-base font-bold text-white">01. Vídeo da Piscina Central</h3>
-          <p class="text-xs text-slate-400 mt-1">Tour no pátio com a piscina localizada no coração da mansão.</p>
+          <p class="text-xs text-slate-400 mt-1">A piscina como o núcleo da mansão integrada com os aposentos.</p>
         </div>
 
         <div class="glass-box p-4 rounded-3xl">
@@ -567,7 +559,7 @@
             <iframe src="https://drive.google.com/file/d/1Oi2ycS2HOfX9l5KB4yHBczvt_ARk4brV/preview" class="absolute inset-0 w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe>
           </div>
           <h3 class="text-base font-bold text-white">02. Vídeo do Espaço Gourmet</h3>
-          <p class="text-xs text-slate-400 mt-1">Área gourmet com churrasqueira, fogão a lenha e bancada.</p>
+          <p class="text-xs text-slate-400 mt-1">Espaço gourmet com churrasqueira, fogão a lenha e bancadas.</p>
         </div>
 
         <div class="glass-box p-4 rounded-3xl">
@@ -577,13 +569,12 @@
           <h3 class="text-base font-bold text-white">03. Tour Chácara Profitter</h3>
           <p class="text-xs text-slate-400 mt-1">Apresentação geral da estrutura completa da propriedade.</p>
         </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- FORMULÁRIO DE RESERVA DIRETA VIA WHATSAPP -->
+  <!-- FORMULÁRIO DE RESERVA DIRETA (WHATSAPP) -->
   <section id="reserva" class="py-24 bg-brand-surface relative border-t border-slate-800">
     <div class="max-w-3xl mx-auto px-6">
       <div class="glass-box p-8 md:p-12 rounded-3xl shadow-2xl">
@@ -597,7 +588,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Seu Nome</label>
-              <input type="text" id="name" required placeholder="Digite seu nome" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
+              <input type="text" id="name" required placeholder="Digite o seu nome" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
             </div>
             <div>
               <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Seu WhatsApp</label>
@@ -618,7 +609,7 @@
               <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Hóspedes</label>
               <select id="guests" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm focus:border-brand-gold outline-none">
                 <option value="Até 10 pessoas">Até 10 pessoas</option>
-                <option value="11 a 15 pessoas">11 a 15 pessoas</option>
+                <option value="11 a 18 pessoas">11 a 18 pessoas</option>
                 <option value="19 a 25 pessoas" selected>19 a 25 pessoas (Capacidade Máxima)</option>
               </select>
             </div>
@@ -633,13 +624,13 @@
     </div>
   </section>
 
-  <!-- RODAPÉ OFICIAL -->
+  <!-- RODAPÉ -->
   <footer class="py-10 bg-brand-dark border-t border-slate-800 text-center text-xs text-slate-400">
     <p class="font-bold text-white uppercase tracking-wider mb-1">Chácara Profitter • Clube de Campo Fazenda Itatiba/SP</p>
     <p>Avenida dos Marmelos, 173 • WhatsApp: (11) 97250-1377</p>
   </footer>
 
-  <!-- MODAL DE ZOOM DE IMAGEM -->
+  <!-- MODAL DE IMAGEM -->
   <div id="photo-modal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4" onclick="closePhoto()">
     <div class="relative max-w-5xl max-h-[90vh]">
       <img id="modal-image" src="" alt="Foto Ampliada" class="max-w-full max-h-[85vh] rounded-2xl object-contain border border-brand-gold/40 shadow-2xl">
@@ -649,7 +640,6 @@
   <script>
     lucide.createIcons();
 
-    // Filtros por Categoria / Cômodo
     function filterCategory(category, btn) {
       document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('active-tab');
@@ -668,7 +658,6 @@
       });
     }
 
-    // Modal de Foto Ampliada
     const modal = document.getElementById('photo-modal');
     const modalImg = document.getElementById('modal-image');
     function openPhoto(card) {
@@ -682,7 +671,6 @@
       modal.classList.remove('flex');
     }
 
-    // Envio para o WhatsApp
     function handleBooking(e) {
       e.preventDefault();
       const n = document.getElementById('name').value;
@@ -696,4 +684,3 @@
   </script>
 </body>
 </html>
-
