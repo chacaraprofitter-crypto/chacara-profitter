@@ -23,7 +23,7 @@
       .toLowerCase();
   }
 
-  // 1. Estilos da Galeria Dinâmica e Modais
+  // 1. Estilos da Vitrine e Painel Ultra Premium
   const css = document.createElement('style');
   css.textContent = `
     #quantum-universal-grid {
@@ -109,10 +109,10 @@
       background: #1e3a8a;
       color: #93c5fd;
       border: 1px solid #3b82f6;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
       transition: all 0.2s;
     }
@@ -124,10 +124,10 @@
       background: #7f1d1d;
       color: #fca5a5;
       border: 1px solid #ef4444;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
       transition: all 0.2s;
     }
@@ -162,7 +162,7 @@
     document.body.appendChild(m);
   };
 
-  // 3. Motor de Sincronização da Vitrine Pública
+  // 3. Sincronização Dinâmica da Vitrine
   async function sincronizarVitrineUniversal(client, menuParaAtivar) {
     try {
       const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
@@ -301,7 +301,7 @@
     }
   }
 
-  // 4. Painel Administrativo Quântico com Edição e Renomeação Total
+  // 4. Painel Administrativo com Gestão Integrada por Ambiente
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -323,11 +323,11 @@
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
-        <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
+        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir Fotos em Geral</button>
+        <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus & Ambientes (Edição Completa)</button>
       </div>
 
-      <!-- ABA 1: MIDIAS -->
+      <!-- ABA 1: MIDIAS GERAIS -->
       <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
           <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Enviar Ficheiros em Lote</h3>
@@ -344,11 +344,11 @@
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">3. Título do Ambiente</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Cozinha Americana Completa" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="inp-titulo" placeholder="Ex: Sala de Estar e Lareira" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Descrição Ultra Premium</label>
-              <textarea id="inp-desc" rows="3" placeholder="Ex: ampla cozinha americana com ilha..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
+              <textarea id="inp-desc" rows="3" placeholder="Ex: ampla sala com pé-direito duplo..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
             </div>
             <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar no Menu</button>
           </form>
@@ -362,10 +362,10 @@
         </div>
       </div>
 
-      <!-- ABA 2: MENUS -->
-      <div id="secao-categorias" style="display:block;max-width:1100px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones</h3>
-        <p style="color:#aaa;font-size:12px;margin:0 0 14px 0;">Clique em <b>✏️ Editar</b> em qualquer item abaixo para renomear, trocar ícone ou alterar o nível de submenu.</p>
+      <!-- ABA 2: GESTAO COMPLETA DE MENUS -->
+      <div id="secao-categorias" style="display:block;max-width:1150px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
+        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones & Fotos</h3>
+        <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Clique em <b>✏️ Editar</b> em qualquer menu (como a Sala) para renomear, trocar ícone, <b>subir novas fotos diretamente nela</b> ou gerenciar as fotos existentes.</p>
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
@@ -374,8 +374,8 @@
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Menu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu</label>
+              <input type="text" id="new-cat-name" placeholder="Ex: 🛋️ LIVING & SALA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -387,7 +387,7 @@
           </div>
         </form>
 
-        <div id="lista-cats" style="max-height:480px;overflow-y:auto;padding-right:5px;">
+        <div id="lista-cats" style="max-height:550px;overflow-y:auto;padding-right:5px;">
           <p style="color:#888;text-align:center;">A carregar menus...</p>
         </div>
       </div>
@@ -405,7 +405,7 @@
       const btnEmoji = document.createElement('button');
       btnEmoji.type = 'button';
       btnEmoji.innerText = emoji;
-      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:6px 11px;border-radius:6px;cursor:pointer;transition:transform 0.2s;';
+      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:6px 11px;border-radius:6px;cursor:pointer;';
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         btnEmoji.style.border = '2px solid #ffd700';
@@ -490,8 +490,8 @@
             : 'display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;';
 
           const rotulo = ehSubmenu 
-            ? `<div style="display:flex;align-items:center;gap:6px;"><span style="color:#888;">↳</span><span style="color:#e2e8f0;font-size:13px;font-weight:600;">${item.nome}</span><span style="background:#222;color:#aaa;font-size:10px;padding:1px 6px;border-radius:3px;border:1px solid #3a3a3a;">Submenu</span></div>`
-            : `<div style="display:flex;align-items:center;gap:8px;"><b style="color:#ffd700;font-size:14.5px;">${item.nome}</b><span style="background:#262626;color:#888;font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #3a3a3a;">Principal</span></div>`;
+            ? `<div style="display:flex;align-items:center;gap:6px;"><span style="color:#888;">↳</span><span style="color:#e2e8f0;font-size:13.5px;font-weight:600;">${item.nome}</span><span style="background:#222;color:#aaa;font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid #3a3a3a;">Submenu</span></div>`
+            : `<div style="display:flex;align-items:center;gap:8px;"><b style="color:#ffd700;font-size:15px;">${item.nome}</b><span style="background:#262626;color:#888;font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #3a3a3a;">Principal</span></div>`;
 
           divItem.innerHTML = `
             ${rotulo}
@@ -501,34 +501,89 @@
             </div>
           `;
 
-          // Botão Editar (Abre o formulário Inline)
-          divItem.querySelector('.btn-action-edit').onclick = () => {
+          // Botão Editar Completo (Abre Centro de Gestão do Ambiente)
+          divItem.querySelector('.btn-action-edit').onclick = async () => {
             const editBox = document.createElement('div');
-            editBox.style.cssText = 'background:#0f0f0f;border:1px solid #ffd700;padding:14px;border-radius:8px;margin-top:8px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 20px rgba(0,0,0,0.8);';
+            editBox.style.cssText = 'background:#0f0f0f;border:1px solid #ffd700;padding:16px;border-radius:8px;margin-top:10px;display:flex;flex-direction:column;gap:16px;box-shadow:0 8px 30px rgba(0,0,0,0.85);';
             
+            // Busca fotos que já pertencem a este menu
+            const { data: fotosMenu } = await client.from('conteudos').select('*').eq('categoria_id', item.id).order('created_at', { ascending: false });
+
             const optionsPais = pais
               .filter(p => p.id !== item.id)
               .map(p => `<option value="${p.id}" ${item.pai_id === p.id ? 'selected' : ''}>Dentro de: ${p.nome}</option>`)
               .join('');
 
+            let htmlFotosAtuais = '';
+            if (fotosMenu && fotosMenu.length > 0) {
+              fotosMenu.forEach(f => {
+                htmlFotosAtuais += `
+                  <div style="background:#161616;border:1px solid #333;border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;">
+                    <img src="${f.url}" style="width:55px;height:45px;object-fit:cover;border-radius:4px;border:1px solid #ffd700;">
+                    <div style="flex-grow:1;overflow:hidden;">
+                      <div style="color:#ffd700;font-size:13px;font-weight:bold;">${f.titulo || 'Foto sem título'}</div>
+                      <div style="color:#aaa;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.descricao || 'Sem descrição'}</div>
+                    </div>
+                    <button class="del-foto-inline" data-midiaid="${f.id}" style="background:#7f1d1d;color:#fca5a5;border:1px solid #ef4444;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Remover</button>
+                  </div>
+                `;
+              });
+            } else {
+              htmlFotosAtuais = '<p style="color:#777;font-size:12px;margin:5px 0;">Nenhuma foto cadastrada especificamente neste menu ainda.</p>';
+            }
+
             editBox.innerHTML = `
-              <div style="font-size:12px;font-weight:bold;color:#ffd700;">✏️ Editando: ${item.nome}</div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:10px;">
+                <div style="font-size:14px;font-weight:bold;color:#ffd700;">⚙️ GESTÃO COMPLETA DO AMBIENTE: ${item.nome}</div>
+                <button class="btn-cancel-inline" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:bold;">✕ Fechar</button>
+              </div>
+
+              <!-- 1. DADOS E NOME -->
+              <div style="display:flex;gap:12px;flex-wrap:wrap;background:#161616;padding:12px;border-radius:6px;border:1px solid #2a2a2a;">
                 <div style="flex:1;min-width:220px;">
-                  <label style="display:block;font-size:11px;color:#ccc;margin-bottom:4px;">Nome com Ícone:</label>
-                  <input type="text" class="inp-edit-name" value="${item.nome.replace(/"/g, '&quot;')}" style="width:100%;padding:8px;background:#1c1c1c;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                  <label style="display:block;font-size:11px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Nome com Ícone do Menu:</label>
+                  <input type="text" class="inp-edit-name" value="${item.nome.replace(/"/g, '&quot;')}" style="width:100%;padding:8px;background:#111;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
                 </div>
                 <div style="width:240px;">
-                  <label style="display:block;font-size:11px;color:#ccc;margin-bottom:4px;">Hierarquia:</label>
-                  <select class="sel-edit-parent" style="width:100%;padding:8px;background:#1c1c1c;border:1px solid #555;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                  <label style="display:block;font-size:11px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Hierarquia:</label>
+                  <select class="sel-edit-parent" style="width:100%;padding:8px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
                     <option value="" ${!item.pai_id ? 'selected' : ''}>Menu Principal da Vitrine</option>
                     ${optionsPais}
                   </select>
                 </div>
+                <div style="display:flex;align-items:flex-end;">
+                  <button class="btn-save-meta" style="background:#ffd700;color:#000;border:none;padding:9px 18px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:12px;height:35px;">💾 Salvar Nome & Ícone</button>
+                </div>
               </div>
-              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px;">
-                <button class="btn-save-inline" style="background:#ffd700;color:#000;border:none;padding:7px 16px;border-radius:5px;font-weight:bold;cursor:pointer;font-size:12px;">💾 Salvar Alterações</button>
-                <button class="btn-cancel-inline" style="background:#333;color:#fff;border:none;padding:7px 14px;border-radius:5px;cursor:pointer;font-size:12px;">✕ Cancelar</button>
+
+              <!-- 2. UPLOAD DIRETO NESTE MENU -->
+              <div style="background:#161616;padding:14px;border-radius:6px;border:1px solid #2a2a2a;">
+                <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">📸 Adicionar Novas Fotos Diretamente em "${item.nome}"</div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div>
+                    <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Selecionar Fotos do Computador *</label>
+                    <input type="file" class="inp-files-inline" accept="image/*" multiple style="width:100%;color:#fff;padding:6px;background:#111;border:1px solid #444;border-radius:6px;font-size:12px;box-sizing:border-box;">
+                  </div>
+                  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:200px;">
+                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Título (Ex: Sala de TV Integrada)</label>
+                      <input type="text" class="inp-tit-inline" placeholder="Título opcional das fotos" style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
+                    </div>
+                    <div style="flex:2;min-width:240px;">
+                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Descrição Ultra Premium</label>
+                      <input type="text" class="inp-desc-inline" placeholder="Ex: ampla sala com lareira..." style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
+                    </div>
+                  </div>
+                  <button class="btn-upload-inline" style="background:#ffd700;color:#000;border:none;padding:10px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:12px;margin-top:4px;">🚀 Enviar Fotos para ${item.nome}</button>
+                </div>
+              </div>
+
+              <!-- 3. LISTA DE FOTOS EXISTENTES -->
+              <div>
+                <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">🖼️ Fotos Atuais neste Ambiente (${fotosMenu ? fotosMenu.length : 0})</div>
+                <div class="box-fotos-atuais-inline" style="max-height:220px;overflow-y:auto;padding-right:4px;">
+                  ${htmlFotosAtuais}
+                </div>
               </div>
             `;
 
@@ -536,11 +591,8 @@
             inputFocadoParaIcone = inpEdit;
             inpEdit.addEventListener('focus', () => { inputFocadoParaIcone = inpEdit; });
 
-            editBox.querySelector('.btn-cancel-inline').onclick = () => {
-              carregarListaCategorias();
-            };
-
-            editBox.querySelector('.btn-save-inline').onclick = async () => {
+            // Salvar Metadados (Nome/Ícone/Hierarquia)
+            editBox.querySelector('.btn-save-meta').onclick = async () => {
               const novoNome = inpEdit.value.trim();
               const novoPai = editBox.querySelector('.sel-edit-parent').value || null;
               if (!novoNome) return alert('O nome do menu não pode ficar vazio!');
@@ -549,17 +601,71 @@
               if (updErr) {
                 alert('Erro ao atualizar menu: ' + updErr.message);
               } else {
+                alert('Nome e ícone atualizados com sucesso!');
                 await carregarListaCategorias();
                 await atualizarSelects();
                 await sincronizarVitrineUniversal(client, novoNome);
               }
             };
 
+            // Enviar Fotos Diretamente para este Menu
+            editBox.querySelector('.btn-upload-inline').onclick = async () => {
+              const btnUp = editBox.querySelector('.btn-upload-inline');
+              const files = editBox.querySelector('.inp-files-inline').files;
+              const tit = editBox.querySelector('.inp-tit-inline').value.trim();
+              const desc = editBox.querySelector('.inp-desc-inline').value.trim();
+
+              if (!files || files.length === 0) return alert('Por favor, selecione ao menos uma foto para enviar!');
+
+              btnUp.disabled = true;
+              try {
+                for (let i = 0; i < files.length; i++) {
+                  btnUp.innerText = `A enviar foto ${i + 1} de${files.length}...`;
+                  const file = files[i];
+                  const fName = Date.now() + '_' + i + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                  const { error: upErr } = await client.storage.from('chacara-media').upload(fName, file);
+                  if (upErr) throw upErr;
+                  const url = client.storage.from('chacara-media').getPublicUrl(fName).data.publicUrl;
+                  await client.from('conteudos').insert([{
+                    titulo: tit ? (files.length > 1 ? `${tit} (${i + 1})` : tit) : `${item.nome} (${i + 1})`,
+                    descricao: desc || 'Ambiente exclusivo Chácara Profitter.',
+                    categoria_id: item.id,
+                    url: url,
+                    categoria: 'geral'
+                  }]);
+                }
+                alert(`Fotos adicionadas com sucesso em "${item.nome}"!`);
+                await carregarListaCategorias();
+                await sincronizarVitrineUniversal(client, item.nome);
+              } catch (err) {
+                alert('Erro ao enviar fotos: ' + err.message);
+              } finally {
+                btnUp.disabled = false;
+                btnUp.innerText = `🚀 Enviar Fotos para ${item.nome}`;
+              }
+            };
+
+            // Remover Fotos Existentes do Menu
+            editBox.querySelectorAll('.del-foto-inline').forEach(bDel => {
+              bDel.onclick = async () => {
+                const midiaId = bDel.getAttribute('data-midiaid');
+                if (confirm('Deseja remover esta foto do ambiente?')) {
+                  await client.from('conteudos').delete().eq('id', midiaId);
+                  await carregarListaCategorias();
+                  await sincronizarVitrineUniversal(client, item.nome);
+                }
+              };
+            });
+
+            editBox.querySelector('.btn-cancel-inline').onclick = () => {
+              carregarListaCategorias();
+            };
+
             divItem.replaceWith(editBox);
             inpEdit.focus();
           };
 
-          // Botão Excluir
+          // Botão Excluir Menu
           divItem.querySelector('.btn-action-del').onclick = async () => {
             if (confirm(`Deseja realmente excluir o menu "${item.nome}"? As fotos associadas continuarão seguras no banco de dados.`)) {
               const { error: delErr } = await client.from('categorias').delete().eq('id', item.id);
