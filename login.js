@@ -6,9 +6,20 @@
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
+  // Coleção Completa de Ícones Especializados Chácara Profitter
   const GALERIA_ICONES = [
-    '🛋️', '📺', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿',
-    '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
+    // Varanda, Descanso & Quartos
+    '🌴', '🛖', '🛋️', '🛏️', '🧘',
+    // Banheiros, Duchas, Sauna & Spa
+    '🚿', '🛁', '🧖', '♨️', '💦', '🧼',
+    // Churrasqueira, Fogo & Gastronomia
+    '🥩', '🍖', '🍢', '🔥', '🍽️', '🍕', '🥘', '☕', '🍷', '🥂', '🍻', '🍹',
+    // Lago, Pesca, Clube & Lazer
+    '🛶', '🚣', '🎣', '🦆', '🐟', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐',
+    // Área Externa, Iluminação & Noite
+    '🌳', '🏡', '🏞️', '🌄', '🌅', '☀️', '🌙', '✨', '💡', '🏮', '🌺',
+    // Estrutura, Mídia & Eventos
+    '🚗', '📶', '📺', '🎬', '🎵', '🎉', '🛎️', '⭐'
   ];
 
   let inputFocadoParaIcone = null;
@@ -134,6 +145,20 @@
     .btn-action-del:hover {
       background: #dc2626;
       color: #fff;
+    }
+    .palette-btn-emoji {
+      background: #1f1f1f;
+      border: 1px solid #3a3a3a;
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .palette-btn-emoji:hover {
+      background: #333;
+      transform: scale(1.15);
+      border-color: #ffd700;
     }
   `;
   document.head.appendChild(css);
@@ -301,7 +326,7 @@
     }
   }
 
-  // 4. Painel Administrativo com Gestão Integrada por Ambiente
+  // 4. Painel Administrativo com Paleta de Ícones Expandida
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -344,11 +369,11 @@
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">3. Título do Ambiente</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Sala de Estar e Lareira" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="inp-titulo" placeholder="Ex: Área da Sauna & Duchas" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Descrição Ultra Premium</label>
-              <textarea id="inp-desc" rows="3" placeholder="Ex: ampla sala com pé-direito duplo..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
+              <textarea id="inp-desc" rows="3" placeholder="Ex: sauna úmida envidraçada integrada à ducha..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
             </div>
             <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar no Menu</button>
           </form>
@@ -364,18 +389,18 @@
 
       <!-- ABA 2: GESTAO COMPLETA DE MENUS -->
       <div id="secao-categorias" style="display:block;max-width:1150px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones & Fotos</h3>
-        <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Clique em <b>✏️ Editar</b> em qualquer menu (como a Sala) para renomear, trocar ícone, <b>subir novas fotos diretamente nela</b> ou gerenciar as fotos existentes.</p>
+        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Galeria Completa de Ícones</h3>
+        <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Selecione qualquer ícone abaixo para aplicar no novo menu ou clique em <b>✏️ Editar</b> no menu desejado para trocar o ícone e subir novas fotos.</p>
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone da Galeria:</label>
-            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:10px;border-radius:6px;border:1px solid #333;"></div>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone Especializado da Chácara:</label>
+            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:7px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:160px;overflow-y:auto;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🛋️ LIVING & SALA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🛖 VARANDA COM REDE" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -404,11 +429,12 @@
     GALERIA_ICONES.forEach(emoji => {
       const btnEmoji = document.createElement('button');
       btnEmoji.type = 'button';
+      btnEmoji.className = 'palette-btn-emoji';
       btnEmoji.innerText = emoji;
-      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:6px 11px;border-radius:6px;cursor:pointer;';
+      btnEmoji.title = `Aplicar ícone ${emoji}`;
       btnEmoji.onclick = () => {
-        iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
-        btnEmoji.style.border = '2px solid #ffd700';
+        iconeContainer.querySelectorAll('button').forEach(b => b.style.borderColor = '#3a3a3a');
+        btnEmoji.style.borderColor = '#ffd700';
 
         const alvo = (inputFocadoParaIcone && document.body.contains(inputFocadoParaIcone)) ? inputFocadoParaIcone : inputNomeMenu;
         const textoSemEmoji = alvo.value.replace(/^[^\w\s\u00C0-\u017F]+\s*/, '');
@@ -501,12 +527,10 @@
             </div>
           `;
 
-          // Botão Editar Completo (Abre Centro de Gestão do Ambiente)
           divItem.querySelector('.btn-action-edit').onclick = async () => {
             const editBox = document.createElement('div');
             editBox.style.cssText = 'background:#0f0f0f;border:1px solid #ffd700;padding:16px;border-radius:8px;margin-top:10px;display:flex;flex-direction:column;gap:16px;box-shadow:0 8px 30px rgba(0,0,0,0.85);';
             
-            // Busca fotos que já pertencem a este menu
             const { data: fotosMenu } = await client.from('conteudos').select('*').eq('categoria_id', item.id).order('created_at', { ascending: false });
 
             const optionsPais = pais
@@ -543,6 +567,7 @@
                 <div style="flex:1;min-width:220px;">
                   <label style="display:block;font-size:11px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Nome com Ícone do Menu:</label>
                   <input type="text" class="inp-edit-name" value="${item.nome.replace(/"/g, '&quot;')}" style="width:100%;padding:8px;background:#111;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                  <span style="font-size:10px;color:#888;">(Clique em qualquer ícone na paleta superior para trocar o emoji)</span>
                 </div>
                 <div style="width:240px;">
                   <label style="display:block;font-size:11px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Hierarquia:</label>
@@ -566,12 +591,12 @@
                   </div>
                   <div style="display:flex;gap:10px;flex-wrap:wrap;">
                     <div style="flex:1;min-width:200px;">
-                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Título (Ex: Sala de TV Integrada)</label>
+                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Título do Ambiente</label>
                       <input type="text" class="inp-tit-inline" placeholder="Título opcional das fotos" style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
                     </div>
                     <div style="flex:2;min-width:240px;">
                       <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Descrição Ultra Premium</label>
-                      <input type="text" class="inp-desc-inline" placeholder="Ex: ampla sala com lareira..." style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
+                      <input type="text" class="inp-desc-inline" placeholder="Especificações de alto padrão..." style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
                     </div>
                   </div>
                   <button class="btn-upload-inline" style="background:#ffd700;color:#000;border:none;padding:10px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:12px;margin-top:4px;">🚀 Enviar Fotos para ${item.nome}</button>
@@ -591,7 +616,6 @@
             inputFocadoParaIcone = inpEdit;
             inpEdit.addEventListener('focus', () => { inputFocadoParaIcone = inpEdit; });
 
-            // Salvar Metadados (Nome/Ícone/Hierarquia)
             editBox.querySelector('.btn-save-meta').onclick = async () => {
               const novoNome = inpEdit.value.trim();
               const novoPai = editBox.querySelector('.sel-edit-parent').value || null;
@@ -608,7 +632,6 @@
               }
             };
 
-            // Enviar Fotos Diretamente para este Menu
             editBox.querySelector('.btn-upload-inline').onclick = async () => {
               const btnUp = editBox.querySelector('.btn-upload-inline');
               const files = editBox.querySelector('.inp-files-inline').files;
@@ -645,7 +668,6 @@
               }
             };
 
-            // Remover Fotos Existentes do Menu
             editBox.querySelectorAll('.del-foto-inline').forEach(bDel => {
               bDel.onclick = async () => {
                 const midiaId = bDel.getAttribute('data-midiaid');
@@ -665,7 +687,6 @@
             inpEdit.focus();
           };
 
-          // Botão Excluir Menu
           divItem.querySelector('.btn-action-del').onclick = async () => {
             if (confirm(`Deseja realmente excluir o menu "${item.nome}"? As fotos associadas continuarão seguras no banco de dados.`)) {
               const { error: delErr } = await client.from('categorias').delete().eq('id', item.id);
