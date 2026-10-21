@@ -14,7 +14,7 @@
     '🛏️ SUÍTES & QUARTOS',
     '🎉 SALÃO DE FESTAS',
     '🍷 LIVING & LAREIRA',
-    '☕ COZINHA & BAR',
+    '🍽️ COZINHA',
     '🚿 BANHEIROS & VARANDA',
     '🎬 VÍDEOS OFICIAIS'
   ];
@@ -23,6 +23,121 @@
     '🛋️', '📺', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', 
     '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
   ];
+
+  // Injetar Estilos Globais Ultra Premium para Fotos e Descrições
+  const estiloPremium = document.createElement('style');
+  estiloPremium.innerHTML = `
+    .card-foto-quantum {
+      background: #0f0f0f;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-foto-quantum:hover {
+      border-color: #ffd700;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(255, 215, 0, 0.18);
+    }
+    .img-container-quantum {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      cursor: pointer;
+      background: #050505;
+    }
+    .img-container-quantum img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .card-foto-quantum:hover .img-container-quantum img {
+      transform: scale(1.04);
+    }
+    .badge-categoria-quantum {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(8px);
+      color: #ffd700;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .placa-descricao-quantum {
+      padding: 14px 16px;
+      background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .titulo-foto-quantum {
+      margin: 0 0 6px 0;
+      color: #ffd700;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .texto-descricao-quantum {
+      margin: 0;
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 400;
+      background: rgba(255, 215, 0, 0.04);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 3px solid #ffd700;
+    }
+  `;
+  document.head.appendChild(estiloPremium);
+
+  // Lightbox Modal Cinema Ultra Premium
+  window.abrirModalCinema = function(url, titulo, desc, cat) {
+    let modal = document.getElementById('modal-cinema-quantum');
+    if (modal) modal.remove();
+
+    modal = document.createElement('div');
+    modal.id = 'modal-cinema-quantum';
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.94);backdrop-filter:blur(14px);z-index:9999999999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
+    
+    modal.innerHTML = `
+      <div style="position:relative;max-width:1000px;width:100%;max-height:85vh;display:flex;flex-direction:column;align-items:center;">
+        <button id="fechar-cinema" style="position:absolute;top:-45px;right:0;background:none;border:none;color:#ffd700;font-size:32px;cursor:pointer;font-weight:bold;line-height:1;">&times;</button>
+        <img src="${url}" style="max-width:100%;max-height:65vh;border-radius:12px;border:2px solid rgba(212,175,55,0.4);object-fit:contain;box-shadow:0 0 50px rgba(0,0,0,0.9);">
+        
+        <div style="width:100%;margin-top:14px;background:#111;border:1px solid #ffd700;padding:16px 20px;border-radius:10px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,0.8);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px;">
+            <h3 style="margin:0;color:#ffd700;font-size:18px;letter-spacing:1px;">✦ ${titulo}</h3>
+            <span style="background:#222;color:#ffd700;border:1px solid rgba(212,175,55,0.4);font-size:11px;padding:3px 10px;border-radius:15px;font-weight:bold;">${cat}</span>
+          </div>
+          <p style="margin:0;color:#f1f5f9;font-size:14px;line-height:1.6;border-left:3px solid #ffd700;padding-left:12px;">${desc || 'Ambiente exclusivo Chácara Profitter.'}</p>
+        </div>
+      </div>
+    `;
+
+    modal.onclick = (e) => {
+      if (e.target.id === 'modal-cinema-quantum' || e.target.id === 'fechar-cinema') modal.remove();
+    };
+
+    document.body.appendChild(modal);
+  };
 
   function dispararLoginOAuth() {
     const urlOAuth = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + window.location.pathname)}`;
@@ -43,6 +158,52 @@
     } catch(err) {
       console.warn('Erro ao sincronizar menus:', err);
     }
+  }
+
+  // Renderizador Público da Galeria Ultra Premium no Site
+  async function renderizarGaleriaPublica(client) {
+    let container = document.getElementById('galeria-publica-quantum');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'galeria-publica-quantum';
+      container.style.cssText = 'max-width:1300px;margin:40px auto;padding:0 20px;';
+      
+      const secaoAlvo = document.querySelector('section#albuns, #menu-albuns, #galeria, main') || document.body;
+      secaoAlvo.appendChild(container);
+    }
+
+    const { data: fotos } = await client.from('conteudos').select('*, categorias(nome)').order('created_at', { ascending: false });
+    if (!fotos || fotos.length === 0) return;
+
+    let html = `
+      <div style="text-align:center;margin-bottom:30px;">
+        <span style="color:#ffd700;letter-spacing:3px;font-size:12px;font-weight:bold;text-transform:uppercase;">✦ Exclusividade & Detalhes ✦</span>
+        <h2 style="color:#fff;font-size:28px;margin:6px 0 0 0;letter-spacing:1px;font-family:serif;">GALERIA CINEMATOGRÁFICA</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:24px;">
+    `;
+
+    fotos.forEach(item => {
+      const catNome = item.categorias ? item.categorias.nome : 'Chácara Profitter';
+      const descLimpa = item.descricao ? item.descricao.replace(/"/g, '&quot;') : 'Ambiente exclusivo Chácara Profitter.';
+      const tituloLimpo = (item.titulo || 'Espaço Exclusivo').replace(/"/g, '&quot;');
+
+      html += `
+        <div class="card-foto-quantum">
+          <div class="img-container-quantum" onclick="window.abrirModalCinema('${item.url}', '${tituloLimpo}', '${descLimpa}', '${catNome}')">
+            <img src="${item.url}" alt="${tituloLimpo}" loading="lazy">
+            <span class="badge-categoria-quantum">${catNome}</span>
+          </div>
+          <div class="placa-descricao-quantum">
+            <h4 class="titulo-foto-quantum"><span>✦</span> ${item.titulo || 'Espaço Exclusivo'}</h4>
+            <p class="texto-descricao-quantum">${descLimpa}</p>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML = html;
   }
 
   async function injetarPainelCompleto(client, email) {
@@ -66,7 +227,7 @@
         </div>
         <div>
           <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar</button>
-          <button id="q-sair" style="background:#d9534f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
+          <button id="q-sair" style="background:#c9302c;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
         </div>
       </div>
 
@@ -91,15 +252,19 @@
               <input type="file" id="inp-files" accept="image/*,video/*" multiple required style="width:100%;color:#fff;padding:8px;background:#1e1e1e;border:1px solid #444;border-radius:6px;cursor:pointer;font-size:12px;">
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Título Opcional</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Vista da Piscina" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">3. Título do Ambiente</label>
+              <input type="text" id="inp-titulo" placeholder="Ex: Cozinha Americana Completa" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
             </div>
-            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar no Menu Selecionado</button>
+            <div>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Descrição Ultra Premium</label>
+              <textarea id="inp-desc" rows="3" placeholder="Ex: ampla cozinha americana com ilha, duas geladeiras, dois microondas..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;resize:vertical;"></textarea>
+            </div>
+            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar com Descrição</button>
           </form>
         </div>
 
-        <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;display:flex;flex-direction:column;max-height:500px;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;flex-shrink:0;">Mídias Cadastradas</h3>
+        <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;display:flex;flex-direction:column;max-height:560px;">
+          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;flex-shrink:0;">Mídias Cadastradas com Descrição</h3>
           <div id="lista-midias" style="overflow-y:auto;flex-grow:1;padding-right:4px;">
             <p style="color:#888;text-align:center;margin-top:30px;">A carregar...</p>
           </div>
@@ -117,7 +282,7 @@
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu ou Submenu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🛋️ SALA DE ESTAR" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -176,6 +341,7 @@
     document.getElementById('q-fechar').onclick = () => { 
       p.remove(); 
       criarBotaoLogin();
+      renderizarGaleriaPublica(client);
     };
 
     document.getElementById('q-sair').onclick = async () => {
@@ -255,6 +421,7 @@
             await client.from('categorias').delete().eq('id', idAlvo);
             await carregarListaCategorias();
             await atualizarSelects();
+            renderizarGaleriaPublica(client);
           }
         };
       });
@@ -264,7 +431,7 @@
       const cont = document.getElementById('lista-midias');
       if (!cont) return;
 
-      const { data } = await client.from('conteudos').select('*, categorias(nome)');
+      const { data } = await client.from('conteudos').select('*, categorias(nome)').order('created_at', { ascending: false });
       if (!data || data.length === 0) {
         cont.innerHTML = '<p style="color:#888;text-align:center;margin-top:20px;">Nenhuma foto cadastrada ainda.</p>';
         return;
@@ -272,19 +439,23 @@
       cont.innerHTML = '';
       data.forEach(item => {
         const div = document.createElement('div');
-        div.style.cssText = 'background:#1c1c1c;border:1px solid #2e2e2e;padding:8px;border-radius:8px;margin-bottom:6px;display:flex;gap:10px;align-items:center;';
+        div.style.cssText = 'background:#1a1a1a;border:1px solid #333;padding:12px;border-radius:8px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;';
         div.innerHTML = `
-          <img src="${item.url}" style="width:45px;height:45px;object-fit:cover;border-radius:6px;background:#000;">
+          <img src="${item.url}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;background:#000;border:1px solid rgba(212,175,55,0.4);flex-shrink:0;">
           <div style="flex-grow:1;overflow:hidden;">
-            <h4 style="margin:0 0 2px 0;color:#ffd700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.titulo || 'Foto'}</h4>
-            <span style="background:#2a2a2a;color:#ffd700;font-size:10px;padding:2px 5px;border-radius:3px;">${item.categorias ? item.categorias.nome : 'Geral'}</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <h4 style="margin:0;color:#ffd700;font-size:14px;">${item.titulo || 'Foto'}</h4>
+              <span style="background:#262626;color:#ffd700;font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid rgba(212,175,55,0.3);">${item.categorias ? item.categorias.nome : 'Geral'}</span>
+            </div>
+            <p style="margin:0;color:#e2e8f0;font-size:12px;line-height:1.4;background:#111;padding:6px 8px;border-radius:4px;border-left:2px solid #ffd700;">${item.descricao || 'Sem descrição cadastrada.'}</p>
           </div>
-          <button class="del-m" data-id="${item.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir</button>
+          <button class="del-m" data-id="${item.id}" style="background:#d9534f;color:#fff;border:none;padding:6px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;margin-left:6px;flex-shrink:0;">Excluir</button>
         `;
         div.querySelector('.del-m').onclick = async () => {
           if (confirm('Deseja excluir esta foto?')) {
             await client.from('conteudos').delete().eq('id', item.id);
-            carregarListaMidias();
+            await carregarListaMidias();
+            renderizarGaleriaPublica(client);
           }
         };
         cont.appendChild(div);
@@ -310,6 +481,7 @@
       e.preventDefault();
       const btn = document.getElementById('btn-pub');
       const tituloInput = document.getElementById('inp-titulo').value.trim();
+      const descInput = document.getElementById('inp-desc').value.trim();
       const categoria_id = document.getElementById('sel-cat').value;
       const files = document.getElementById('inp-files').files;
 
@@ -325,23 +497,24 @@
           if (upErr) throw new Error(upErr.message);
 
           const url = client.storage.from('chacara-media').getPublicUrl(fileName).data.publicUrl;
-          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) : 'Foto da Chácara';
+          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) : 'Ambiente Chácara Profitter';
 
-          await client.from('conteudos').insert([{ titulo, categoria_id, url, categoria: 'geral' }]);
+          await client.from('conteudos').insert([{ titulo, descricao: descInput, categoria_id, url, categoria: 'geral' }]);
         }
         alert('Upload concluído com sucesso!');
         document.getElementById('inp-files').value = '';
         document.getElementById('inp-titulo').value = '';
-        carregarListaMidias();
+        document.getElementById('inp-desc').value = '';
+        await carregarListaMidias();
+        renderizarGaleriaPublica(client);
       } catch (err) {
         alert('Erro: ' + err.message);
       } finally {
-        btn.innerText = '🚀 Publicar no Menu Selecionado';
+        btn.innerText = '🚀 Publicar com Descrição';
         btn.disabled = false;
       }
     };
 
-    // Inicialização direta e imediata das 3 estruturas
     await atualizarSelects();
     await carregarListaCategorias();
     await carregarListaMidias();
@@ -371,6 +544,7 @@
     window.supabaseClient = client;
     
     criarBotaoLogin();
+    renderizarGaleriaPublica(client);
 
     const { data: { session } } = await client.auth.getSession();
     if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
