@@ -6,19 +6,19 @@
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
-  // Coleção Completa de Ícones Especializados Chácara Profitter
+  // Paleta Completa Especializada da Chácara Profitter (+50 Ícones)
   const GALERIA_ICONES = [
     // Varanda, Descanso & Quartos
-    '🌴', '🛖', '🛋️', '🛏️', '🧘',
+    '🛖', '🌴', '🛏️', '🛋️', '🪑', '🧘',
     // Banheiros, Duchas, Sauna & Spa
-    '🚿', '🛁', '🧖', '♨️', '💦', '🧼',
+    '🚿', '🧖', '🛁', '♨️', '💦', '🧼', '🪞',
     // Churrasqueira, Fogo & Gastronomia
     '🥩', '🍖', '🍢', '🔥', '🍽️', '🍕', '🥘', '☕', '🍷', '🥂', '🍻', '🍹',
-    // Lago, Pesca, Clube & Lazer
-    '🛶', '🚣', '🎣', '🦆', '🐟', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐',
-    // Área Externa, Iluminação & Noite
-    '🌳', '🏡', '🏞️', '🌄', '🌅', '☀️', '🌙', '✨', '💡', '🏮', '🌺',
-    // Estrutura, Mídia & Eventos
+    // Lago, Pesca, Clube & Lazer Náutico
+    '🛶', '🚣', '🎣', '🐟', '🦆', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐', '🏃', '🚴',
+    // Iluminação, Noite & Área Externa
+    '✨', '💡', '🏮', '🌙', '🌅', '☀️', '🌳', '🏡', '🏞️', '🌺', '🌿',
+    // Estrutura, Mídia & Serviços
     '🚗', '📶', '📺', '🎬', '🎵', '🎉', '🛎️', '⭐'
   ];
 
@@ -34,7 +34,7 @@
       .toLowerCase();
   }
 
-  // 1. Estilos da Vitrine e Painel Ultra Premium
+  // Estilos da Vitrine e Painel Ultra Premium
   const css = document.createElement('style');
   css.textContent = `
     #quantum-universal-grid {
@@ -147,23 +147,23 @@
       color: #fff;
     }
     .palette-btn-emoji {
-      background: #1f1f1f;
-      border: 1px solid #3a3a3a;
-      font-size: 18px;
-      padding: 6px 10px;
+      background: #1c1c1c;
+      border: 1px solid #383838;
+      font-size: 20px;
+      padding: 6px 11px;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .palette-btn-emoji:hover {
-      background: #333;
-      transform: scale(1.15);
+      background: #2a2a2a;
+      transform: scale(1.18);
       border-color: #ffd700;
     }
   `;
   document.head.appendChild(css);
 
-  // 2. Lightbox Cinema
+  // Lightbox Cinema
   window.abrirModalCinema = function(url, tit, desc, badge) {
     let m = document.getElementById('modal-cinema-quantum');
     if (m) m.remove();
@@ -187,7 +187,7 @@
     document.body.appendChild(m);
   };
 
-  // 3. Sincronização Dinâmica da Vitrine
+  // Sincronização Dinâmica da Vitrine
   async function sincronizarVitrineUniversal(client, menuParaAtivar) {
     try {
       const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
@@ -326,7 +326,7 @@
     }
   }
 
-  // 4. Painel Administrativo com Paleta de Ícones Expandida
+  // Painel Administrativo com Central Completa de Ambientes e Paleta Expandida
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -394,8 +394,8 @@
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone Especializado da Chácara:</label>
-            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:7px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:160px;overflow-y:auto;"></div>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone Especializado da Chácara (+50 Opções):</label>
+            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:170px;overflow-y:auto;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
@@ -433,7 +433,7 @@
       btnEmoji.innerText = emoji;
       btnEmoji.title = `Aplicar ícone ${emoji}`;
       btnEmoji.onclick = () => {
-        iconeContainer.querySelectorAll('button').forEach(b => b.style.borderColor = '#3a3a3a');
+        iconeContainer.querySelectorAll('button').forEach(b => b.style.borderColor = '#383838');
         btnEmoji.style.borderColor = '#ffd700';
 
         const alvo = (inputFocadoParaIcone && document.body.contains(inputFocadoParaIcone)) ? inputFocadoParaIcone : inputNomeMenu;
