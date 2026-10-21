@@ -34,10 +34,14 @@
   window.abrirPainelAdmin = dispararLoginOAuth;
 
   async function sincronizarMenus(client) {
-    const { data: existentes } = await client.from('categorias').select('*');
-    if (!existentes || existentes.length === 0) {
-      const payload = MENUS_ORIGINAIS_SITE.map(nome => ({ nome: nome, pai_id: null }));
-      await client.from('categorias').insert(payload);
+    try {
+      const { data: existentes } = await client.from('categorias').select('*');
+      if (!existentes || existentes.length === 0) {
+        const payload = MENUS_ORIGINAIS_SITE.map(nome => ({ nome: nome, pai_id: null }));
+        await client.from('categorias').insert(payload);
+      }
+    } catch(err) {
+      console.warn('Erro ao sincronizar menus:', err);
     }
   }
 
@@ -62,7 +66,7 @@
         </div>
         <div>
           <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar</button>
-          <button id="q-sair" style="background:#c9302c;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
+          <button id="q-sair" style="background:#d9534f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
         </div>
       </div>
 
@@ -124,7 +128,7 @@
             <button type="submit" style="background:#ffd700;color:#000;border:none;padding:9px 20px;border-radius:6px;font-weight:bold;cursor:pointer;height:38px;font-size:13px;">+ Criar Menu com Ícone</button>
           </div>
         </form>
-        <div id="lista-cats" style="max-height:380px;overflow-y:auto;">
+        <div id="lista-cats" style="max-height:420px;overflow-y:auto;">
           <p style="color:#888;text-align:center;">A carregar menus...</p>
         </div>
       </div>
@@ -143,7 +147,7 @@
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         btnEmoji.style.border = '2px solid #ffd700';
-        const textoAtual = inputNomeMenu.value.replace(/^[^\w\s]+\s*/, '');
+        const textoAtual = inputNomeMenu.value.replace(/^[^\w\s\u00C0-\u017F]+\s*/, '');
         inputNomeMenu.value = emoji + ' ' + textoAtual.trim();
       };
       iconeContainer.appendChild(btnEmoji);
@@ -156,6 +160,7 @@
       document.getElementById('tab-conteudos-btn').style.color = '#000';
       document.getElementById('tab-categorias-btn').style.background = '#222';
       document.getElementById('tab-categorias-btn').style.color = '#ccc';
+      carregarListaMidias();
     };
 
     document.getElementById('tab-categorias-btn').onclick = () => {
@@ -179,14 +184,18 @@
     };
 
     async function atualizarSelects() {
-      const { data: cats } = await client.from('categorias').select('*').order('created_at', { ascending: true });
-      if (!cats) return;
       const selCat = document.getElementById('sel-cat');
       const selPai = document.getElementById('new-cat-parent');
+      if (!selCat || !selPai) return;
+
+      const { data: cats } = await client.from('categorias').select('*');
+      if (!cats) return;
+
       selCat.innerHTML = '<option value="">-- Escolha o Menu --</option>';
       selPai.innerHTML = '<option value="">Menu Principal</option>';
 
-      cats.filter(c => !c.pai_id).forEach(parent => {
+      const principais = cats.filter(c => !c.pai_id);
+      principais.forEach(parent => {
         selCat.innerHTML += `<option value="${parent.id}" style="font-weight:bold;color:#ffd700;">${parent.nome}</option>`;
         selPai.innerHTML += `<option value="${parent.id}">Dentro de: ${parent.nome}</option>`;
         cats.filter(s => s.pai_id === parent.id).forEach(sub => {
@@ -195,9 +204,67 @@
       });
     }
 
+    async function carregarListaCategorias() {
+      const cont = document.getElementById('lista-cats');
+      if (!cont) return;
+
+      let { data: cats, error } = await client.from('categorias').select('*');
+      if (error || !cats || cats.length === 0) {
+        await sincronizarMenus(client);
+        const res = await client.from('categorias').select('*');
+        cats = res.data || [];
+      }
+
+      if (!cats || cats.length === 0) {
+        cont.innerHTML = '<p style="color:#888;text-align:center;padding:15px;">Nenhum menu cadastrado ainda.</p>';
+        return;
+      }
+
+      cont.innerHTML = '';
+      const principais = cats.filter(c => !c.pai_id);
+      principais.forEach(p => {
+        const submenus = cats.filter(s => s.pai_id === p.id);
+        let subHtml = '';
+        submenus.forEach(sub => {
+          subHtml += `
+            <div style="background:#141414;border:1px solid #2a2a2a;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;margin-left:20px;">
+              <span style="color:#ccc;font-size:13px;">\u21B3 ${sub.nome}</span>
+              <button class="del-c" data-id="${sub.id}" style="background:#d9534f;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir Submenu</button>
+            </div>
+          `;
+        });
+
+        const div = document.createElement('div');
+        div.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:10px 12px;border-radius:8px;margin-bottom:8px;';
+        div.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b style="color:#ffd700;font-size:14px;">${p.nome}</b>
+            <button class="del-c" data-id="${p.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir Menu</button>
+          </div>
+          ${subHtml}
+        `;
+        cont.appendChild(div);
+      });
+
+      cont.querySelectorAll('.del-c').forEach(btn => {
+        btn.onclick = async () => {
+          const idAlvo = btn.getAttribute('data-id');
+          if (confirm('Deseja excluir este menu/submenu?')) {
+            btn.disabled = true;
+            btn.innerText = 'Excluindo...';
+            await client.from('categorias').delete().eq('id', idAlvo);
+            await carregarListaCategorias();
+            await atualizarSelects();
+          }
+        };
+      });
+    }
+
     async function carregarListaMidias() {
       const cont = document.getElementById('lista-midias');
-      const { data } = await client.from('conteudos').select('*, categorias(nome)').order('created_at', { ascending: false });
+      if (!cont) return;
+
+      const { data } = await client.from('conteudos').select('*, categorias(nome)');
       if (!data || data.length === 0) {
         cont.innerHTML = '<p style="color:#888;text-align:center;margin-top:20px;">Nenhuma foto cadastrada ainda.</p>';
         return;
@@ -220,49 +287,6 @@
             carregarListaMidias();
           }
         };
-        cont.appendChild(div);
-      });
-    }
-
-    async function carregarListaCategorias() {
-      const cont = document.getElementById('lista-cats');
-      const { data: cats } = await client.from('categorias').select('*').order('created_at', { ascending: true });
-      if (!cats || cats.length === 0) {
-        cont.innerHTML = '<p style="color:#888;text-align:center;">Nenhum menu encontrado.</p>';
-        return;
-      }
-      cont.innerHTML = '';
-      cats.filter(c => !c.pai_id).forEach(p => {
-        const submenus = cats.filter(s => s.pai_id === p.id);
-        let subHtml = '';
-        submenus.forEach(sub => {
-          subHtml += `
-            <div style="background:#141414;border:1px solid #2a2a2a;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;margin-left:20px;">
-              <span style="color:#ccc;font-size:13px;">\u21B3 ${sub.nome}</span>
-              <button class="del-c" data-id="${sub.id}" style="background:#d9534f;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir Submenu</button>
-            </div>
-          `;
-        });
-
-        const div = document.createElement('div');
-        div.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:10px 12px;border-radius:8px;margin-bottom:8px;';
-        div.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <b style="color:#ffd700;font-size:14px;">${p.nome}</b>
-            <button class="del-c" data-id="${p.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir Menu</button>
-          </div>
-          ${subHtml}
-        `;
-        div.querySelectorAll('.del-c').forEach(btn => {
-          btn.onclick = async () => {
-            const idAlvo = btn.getAttribute('data-id');
-            if (confirm('Deseja excluir este menu/submenu?')) {
-              await client.from('categorias').delete().eq('id', idAlvo);
-              carregarListaCategorias();
-              atualizarSelects();
-            }
-          };
-        });
         cont.appendChild(div);
       });
     }
@@ -317,6 +341,7 @@
       }
     };
 
+    // Inicialização direta e imediata das 3 estruturas
     await atualizarSelects();
     await carregarListaCategorias();
     await carregarListaMidias();
