@@ -11,6 +11,8 @@
     '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
   ];
 
+  let inputFocadoParaIcone = null;
+
   function normalizar(t) {
     return String(t || '')
       .normalize('NFD')
@@ -21,7 +23,7 @@
       .toLowerCase();
   }
 
-  // 1. Estilos da Galeria Dinâmica
+  // 1. Estilos da Galeria Dinâmica e Modais
   const css = document.createElement('style');
   css.textContent = `
     #quantum-universal-grid {
@@ -103,6 +105,36 @@
       border-radius: 6px;
       border-left: 3px solid #ffd700;
     }
+    .btn-action-edit {
+      background: #1e3a8a;
+      color: #93c5fd;
+      border: 1px solid #3b82f6;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .btn-action-edit:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-action-del {
+      background: #7f1d1d;
+      color: #fca5a5;
+      border: 1px solid #ef4444;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .btn-action-del:hover {
+      background: #dc2626;
+      color: #fff;
+    }
   `;
   document.head.appendChild(css);
 
@@ -130,7 +162,7 @@
     document.body.appendChild(m);
   };
 
-  // 3. Motor de Sincronização Universal (Banco -> Vitrine)
+  // 3. Motor de Sincronização da Vitrine Pública
   async function sincronizarVitrineUniversal(client, menuParaAtivar) {
     try {
       const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
@@ -144,7 +176,6 @@
       let barra = btnRef.parentElement;
       if (barra.tagName === 'LI' && barra.parentElement) barra = barra.parentElement;
 
-      // Injeta container universal se ainda não existir
       let grid = document.getElementById('quantum-universal-grid');
       if (!grid) {
         grid = document.createElement('div');
@@ -152,7 +183,6 @@
         barra.insertAdjacentElement('afterend', grid);
       }
 
-      // Sincroniza botões da barra com as categorias do Supabase
       if (categorias && categorias.length > 0) {
         categorias.filter(c => !c.pai_id).forEach(cat => {
           const normCat = normalizar(cat.nome);
@@ -168,7 +198,6 @@
             btnExistente.dataset.catId = cat.id;
             btnExistente.dataset.catNome = cat.nome;
           } else {
-            // Cria novo botão na barra para categorias novas criadas no Admin
             const novoBtn = btnRef.cloneNode(true);
             novoBtn.innerHTML = cat.nome;
             novoBtn.dataset.catId = cat.id;
@@ -191,7 +220,6 @@
         const textoBtn = btn.innerText.trim();
         const normBtn = normalizar(textoBtn);
 
-        // Busca fotos no Supabase associadas a este menu
         const fotos = (conteudos || []).filter(item => {
           if (catId && String(item.categoria_id) === String(catId)) return true;
           if (item.categorias && String(item.categorias.id) === String(catId)) return true;
@@ -236,7 +264,6 @@
             `;
           }).join('');
         } else {
-          // Menu sem fotos no Supabase: volta à exibição padrão do site
           grid.style.display = 'none';
           outrosElementos.forEach(el => el.style.display = '');
           botoesBarra.forEach(b => {
@@ -265,20 +292,16 @@
         }
       });
 
-      // Ativação inicial
       if (menuParaAtivar) {
         const btnAlvo = botoesBarra.find(b => normalizar(b.innerText).includes(normalizar(menuParaAtivar)));
         if (btnAlvo) ativarMenu(btnAlvo);
-      } else {
-        const btnCozinha = botoesBarra.find(b => /COZINHA/i.test(b.innerText));
-        if (btnCozinha) ativarMenu(btnCozinha);
       }
     } catch(err) {
       console.warn('Erro CMS Vitrine:', err);
     }
   }
 
-  // 4. Painel Administrativo de Gestão Total
+  // 4. Painel Administrativo Quântico com Edição e Renomeação Total
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -300,12 +323,12 @@
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
-        <button id="tab-categorias-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
+        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
+        <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
       </div>
 
       <!-- ABA 1: MIDIAS -->
-      <div id="secao-conteudos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
+      <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
           <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Enviar Ficheiros em Lote</h3>
           <form id="form-up" style="display:flex;flex-direction:column;gap:12px;">
@@ -340,28 +363,31 @@
       </div>
 
       <!-- ABA 2: MENUS -->
-      <div id="secao-categorias" style="display:none;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
+      <div id="secao-categorias" style="display:block;max-width:1100px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
         <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones</h3>
-        <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;background:#1a1a1a;padding:16px;border-radius:8px;">
+        <p style="color:#aaa;font-size:12px;margin:0 0 14px 0;">Clique em <b>✏️ Editar</b> em qualquer item abaixo para renomear, trocar ícone ou alterar o nível de submenu.</p>
+        
+        <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Selecione um Ícone da Galeria:</label>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone da Galeria:</label>
             <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:10px;border-radius:6px;border:1px solid #333;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Menu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
-              <select id="new-cat-parent" style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
-                <option value="">Menu Principal</option>
+              <select id="new-cat-parent" style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                <option value="">Menu Principal da Vitrine</option>
               </select>
             </div>
             <button type="submit" style="background:#ffd700;color:#000;border:none;padding:9px 20px;border-radius:6px;font-weight:bold;cursor:pointer;height:38px;font-size:13px;">+ Criar Menu na Vitrine</button>
           </div>
         </form>
-        <div id="lista-cats" style="max-height:420px;overflow-y:auto;">
+
+        <div id="lista-cats" style="max-height:480px;overflow-y:auto;padding-right:5px;">
           <p style="color:#888;text-align:center;">A carregar menus...</p>
         </div>
       </div>
@@ -371,17 +397,23 @@
 
     const iconeContainer = document.getElementById('galeria-icones-container');
     const inputNomeMenu = document.getElementById('new-cat-name');
+    inputFocadoParaIcone = inputNomeMenu;
+
+    inputNomeMenu.addEventListener('focus', () => { inputFocadoParaIcone = inputNomeMenu; });
 
     GALERIA_ICONES.forEach(emoji => {
       const btnEmoji = document.createElement('button');
       btnEmoji.type = 'button';
       btnEmoji.innerText = emoji;
-      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:22px;padding:8px 12px;border-radius:6px;cursor:pointer;';
+      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:6px 11px;border-radius:6px;cursor:pointer;transition:transform 0.2s;';
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         btnEmoji.style.border = '2px solid #ffd700';
-        const textoAtual = inputNomeMenu.value.replace(/^[^\w\s\u00C0-\u017F]+\s*/, '');
-        inputNomeMenu.value = emoji + ' ' + textoAtual.trim();
+
+        const alvo = (inputFocadoParaIcone && document.body.contains(inputFocadoParaIcone)) ? inputFocadoParaIcone : inputNomeMenu;
+        const textoSemEmoji = alvo.value.replace(/^[^\w\s\u00C0-\u017F]+\s*/, '');
+        alvo.value = emoji + ' ' + textoSemEmoji.trim();
+        alvo.focus();
       };
       iconeContainer.appendChild(btnEmoji);
     });
@@ -436,40 +468,121 @@
     async function carregarListaCategorias() {
       const cont = document.getElementById('lista-cats');
       if (!cont) return;
-      let { data: cats } = await client.from('categorias').select('*');
-      if (!cats || cats.length === 0) { cont.innerHTML = '<p style="color:#888;text-align:center;">Nenhum menu cadastrado.</p>'; return; }
+      let { data: cats } = await client.from('categorias').select('*').order('created_at', { ascending: true });
+      if (!cats || cats.length === 0) {
+        cont.innerHTML = '<p style="color:#888;text-align:center;">Nenhum menu cadastrado.</p>';
+        return;
+      }
       cont.innerHTML = '';
-      cats.filter(c => !c.pai_id).forEach(pItem => {
+
+      const pais = cats.filter(c => !c.pai_id);
+
+      pais.forEach(pItem => {
         const submenus = cats.filter(s => s.pai_id === pItem.id);
-        let subHtml = '';
-        submenus.forEach(sub => {
-          subHtml += `
-            <div style="background:#141414;border:1px solid #2a2a2a;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;margin-left:20px;">
-              <span style="color:#ccc;font-size:13px;">↳ ${sub.nome}</span>
-              <button class="del-c" data-id="${sub.id}" style="background:#d9534f;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir</button>
+        const cardBox = document.createElement('div');
+        cardBox.style.cssText = 'background:#1a1a1a;border:1px solid #333;padding:12px 14px;border-radius:8px;margin-bottom:12px;';
+
+        function renderItemView(item, ehSubmenu) {
+          const divItem = document.createElement('div');
+          divItem.id = `cat-item-${item.id}`;
+          divItem.style.cssText = ehSubmenu 
+            ? 'background:#121212;border:1px solid #292929;padding:8px 12px;border-radius:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;margin-left:22px;flex-wrap:wrap;gap:8px;'
+            : 'display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;';
+
+          const rotulo = ehSubmenu 
+            ? `<div style="display:flex;align-items:center;gap:6px;"><span style="color:#888;">↳</span><span style="color:#e2e8f0;font-size:13px;font-weight:600;">${item.nome}</span><span style="background:#222;color:#aaa;font-size:10px;padding:1px 6px;border-radius:3px;border:1px solid #3a3a3a;">Submenu</span></div>`
+            : `<div style="display:flex;align-items:center;gap:8px;"><b style="color:#ffd700;font-size:14.5px;">${item.nome}</b><span style="background:#262626;color:#888;font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #3a3a3a;">Principal</span></div>`;
+
+          divItem.innerHTML = `
+            ${rotulo}
+            <div style="display:flex;gap:8px;">
+              <button class="btn-action-edit" data-id="${item.id}">✏️ Editar</button>
+              <button class="btn-action-del" data-id="${item.id}">🗑️ Excluir</button>
             </div>
           `;
+
+          // Botão Editar (Abre o formulário Inline)
+          divItem.querySelector('.btn-action-edit').onclick = () => {
+            const editBox = document.createElement('div');
+            editBox.style.cssText = 'background:#0f0f0f;border:1px solid #ffd700;padding:14px;border-radius:8px;margin-top:8px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 20px rgba(0,0,0,0.8);';
+            
+            const optionsPais = pais
+              .filter(p => p.id !== item.id)
+              .map(p => `<option value="${p.id}" ${item.pai_id === p.id ? 'selected' : ''}>Dentro de: ${p.nome}</option>`)
+              .join('');
+
+            editBox.innerHTML = `
+              <div style="font-size:12px;font-weight:bold;color:#ffd700;">✏️ Editando: ${item.nome}</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:220px;">
+                  <label style="display:block;font-size:11px;color:#ccc;margin-bottom:4px;">Nome com Ícone:</label>
+                  <input type="text" class="inp-edit-name" value="${item.nome.replace(/"/g, '&quot;')}" style="width:100%;padding:8px;background:#1c1c1c;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                </div>
+                <div style="width:240px;">
+                  <label style="display:block;font-size:11px;color:#ccc;margin-bottom:4px;">Hierarquia:</label>
+                  <select class="sel-edit-parent" style="width:100%;padding:8px;background:#1c1c1c;border:1px solid #555;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+                    <option value="" ${!item.pai_id ? 'selected' : ''}>Menu Principal da Vitrine</option>
+                    ${optionsPais}
+                  </select>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px;">
+                <button class="btn-save-inline" style="background:#ffd700;color:#000;border:none;padding:7px 16px;border-radius:5px;font-weight:bold;cursor:pointer;font-size:12px;">💾 Salvar Alterações</button>
+                <button class="btn-cancel-inline" style="background:#333;color:#fff;border:none;padding:7px 14px;border-radius:5px;cursor:pointer;font-size:12px;">✕ Cancelar</button>
+              </div>
+            `;
+
+            const inpEdit = editBox.querySelector('.inp-edit-name');
+            inputFocadoParaIcone = inpEdit;
+            inpEdit.addEventListener('focus', () => { inputFocadoParaIcone = inpEdit; });
+
+            editBox.querySelector('.btn-cancel-inline').onclick = () => {
+              carregarListaCategorias();
+            };
+
+            editBox.querySelector('.btn-save-inline').onclick = async () => {
+              const novoNome = inpEdit.value.trim();
+              const novoPai = editBox.querySelector('.sel-edit-parent').value || null;
+              if (!novoNome) return alert('O nome do menu não pode ficar vazio!');
+
+              const { error: updErr } = await client.from('categorias').update({ nome: novoNome, pai_id: novoPai }).eq('id', item.id);
+              if (updErr) {
+                alert('Erro ao atualizar menu: ' + updErr.message);
+              } else {
+                await carregarListaCategorias();
+                await atualizarSelects();
+                await sincronizarVitrineUniversal(client, novoNome);
+              }
+            };
+
+            divItem.replaceWith(editBox);
+            inpEdit.focus();
+          };
+
+          // Botão Excluir
+          divItem.querySelector('.btn-action-del').onclick = async () => {
+            if (confirm(`Deseja realmente excluir o menu "${item.nome}"? As fotos associadas continuarão seguras no banco de dados.`)) {
+              const { error: delErr } = await client.from('categorias').delete().eq('id', item.id);
+              if (delErr) {
+                alert('Erro ao excluir: ' + delErr.message);
+              } else {
+                await carregarListaCategorias();
+                await atualizarSelects();
+                await sincronizarVitrineUniversal(client);
+              }
+            }
+          };
+
+          return divItem;
+        }
+
+        cardBox.appendChild(renderItemView(pItem, false));
+
+        submenus.forEach(sub => {
+          cardBox.appendChild(renderItemView(sub, true));
         });
-        const div = document.createElement('div');
-        div.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:10px 12px;border-radius:8px;margin-bottom:8px;';
-        div.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <b style="color:#ffd700;font-size:14px;">${pItem.nome}</b>
-            <button class="del-c" data-id="${pItem.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir</button>
-          </div>
-          ${subHtml}
-        `;
-        cont.appendChild(div);
-      });
-      cont.querySelectorAll('.del-c').forEach(btn => {
-        btn.onclick = async () => {
-          if (confirm('Deseja excluir este menu?')) {
-            await client.from('categorias').delete().eq('id', btn.dataset.id);
-            await carregarListaCategorias();
-            await atualizarSelects();
-            sincronizarVitrineUniversal(client);
-          }
-        };
+
+        cont.appendChild(cardBox);
       });
     }
 
