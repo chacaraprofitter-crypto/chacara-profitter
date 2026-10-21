@@ -1,0 +1,24 @@
+﻿{
+  "projeto": "Chácara Profitter",
+  "data_backup": "2026-10-21",
+  "admin": "sidneyjer68@gmail.com",
+  "supabase_url": "https://coeqgbxxxwvlprdwrkqp.supabase.co",
+  "bucket": "chacara-media",
+  "menus_padrao": [
+    "🏊 PISCINA & ÁTRIO",
+    "🌳 CLUBE & LAGO",
+    "🥩 ESPAÇO GOURMET",
+    "🌙 NOITE & UV",
+    "🛏️ SUÍTES & QUARTOS",
+    "🎉 SALÃO DE FESTAS",
+    "🍷 LIVING & LAREIRA",
+    "☕ COZINHA & BAR",
+    "🚿 BANHEIROS & VARANDA",
+    "🎬 VÍDEOS OFICIAIS"
+  ],
+  "galeria_icones": [
+    "🛋️", "📺", "🛏️", "🍽️", "🏊", "🌳", "🥩", "🍷", "☕", "🚿",
+    "🎉", "🎬", "🎾", "⚽", "🚗", "🌿", "☀️", "🌙", "🔥", "⭐", "🛎️"
+  ],
+  "status": "Blindado"
+}
