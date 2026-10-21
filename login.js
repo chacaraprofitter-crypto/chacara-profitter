@@ -1,30 +1,60 @@
 ﻿(function() {
-  if (window.__chacaraQuantumLoaded) return;
-  window.__chacaraQuantumLoaded = true;
+  if (window.__chacaraQuantumV4) return;
+  window.__chacaraQuantumV4 = true;
 
   const SB_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
-  const GALERIA_ICONES = ['🛋️', '📺', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'];
+  const ICONE_PRATO = '\uD83C\uDF7D\uFE0F';
+  const NOME_COZINHA = ICONE_PRATO + ' COZINHA AMERICANA';
 
-  // Injeção de Estilos Ultra Premium
+  const GALERIA_ICONES = [
+    '\uD83D\uDECB\uFE0F', '\uD83D\uDCFA', '\uD83D\uDECF\uFE0F', '\uD83C\uDF7D\uFE0F',
+    '\uD83C\uDFCA', '\uD83C\uDF33', '\uD83E\uDD69', '\uD83C\uDF77', '\u2615', '\uD83D\uDEBF',
+    '\uD83C\uDF89', '\uD83C\uDFAC', '\uD83C\uDFBE', '\u26BD', '\uD83D\uDE97', '\uD83C\uDF3F',
+    '\u2600\uFE0F', '\uD83C\uDF19', '\uD83D\uDD25', '\u2B50', '\uD83D\uDECE\uFE0F'
+  ];
+
+  function normalizar(str) {
+    return String(str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  // 1. Estilos Ultra Premium para os Cards da Vitrine
   const estilo = document.createElement('style');
   estilo.innerHTML = `
+    #quantum-vitrine-cards {
+      width: 100%;
+      max-width: 1300px;
+      margin: 25px auto;
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 10px 0;
+      box-sizing: border-box;
+      grid-column: 1 / -1;
+    }
     .card-midia-quantum {
       background: #0d0d0d;
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
       transition: all 0.35s ease;
       display: flex;
       flex-direction: column;
+      text-align: left;
     }
     .card-midia-quantum:hover {
       border-color: #ffd700;
-      transform: translateY(-4px);
-      box-shadow: 0 14px 40px rgba(255, 215, 0, 0.22);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(255, 215, 0, 0.25);
     }
     .img-box-quantum {
       position: relative;
@@ -45,43 +75,45 @@
     }
     .badge-cat-quantum {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.85);
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.88);
       color: #ffd700;
-      border: 1px solid rgba(212, 175, 55, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.65);
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .info-box-quantum {
-      padding: 16px;
+      padding: 18px;
       background: linear-gradient(180deg, #161616 0%, #0a0a0a 100%);
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
       flex-grow: 1;
     }
     .titulo-foto-quantum {
-      margin: 0 0 8px 0;
+      margin: 0 0 10px 0;
       color: #ffd700;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
+      letter-spacing: 0.4px;
     }
     .desc-foto-quantum {
       margin: 0;
       color: #f1f5f9;
-      font-size: 13px;
-      line-height: 1.5;
-      background: rgba(212, 175, 55, 0.05);
-      padding: 10px 12px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      background: rgba(212, 175, 55, 0.07);
+      padding: 10px 14px;
       border-radius: 6px;
       border-left: 3px solid #ffd700;
     }
   `;
   document.head.appendChild(estilo);
 
-  // Modal Cinema Lightbox
+  // 2. Modal Cinema Lightbox
   window.abrirModalCinema = function(url, titulo, desc, cat) {
     let m = document.getElementById('modal-cinema-quantum');
     if (m) m.remove();
@@ -94,7 +126,7 @@
         <img src="${url}" style="max-width:100%;max-height:65vh;border-radius:12px;border:2px solid rgba(212,175,55,0.5);object-fit:contain;box-shadow:0 0 50px rgba(0,0,0,0.95);">
         <div style="width:100%;margin-top:14px;background:#111;border:1px solid #ffd700;padding:16px 20px;border-radius:10px;box-sizing:border-box;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px;flex-wrap:wrap;">
-            <h3 style="margin:0;color:#ffd700;font-size:18px;">✦ ${titulo}</h3>
+            <h3 style="margin:0;color:#ffd700;font-size:18px;">\u2726 ${titulo}</h3>
             <span style="background:#222;color:#ffd700;border:1px solid rgba(212,175,55,0.4);font-size:11px;padding:3px 10px;border-radius:15px;font-weight:bold;">${cat}</span>
           </div>
           <p style="margin:0;color:#f1f5f9;font-size:14px;line-height:1.6;border-left:3px solid #ffd700;padding-left:12px;">${desc}</p>
@@ -105,101 +137,187 @@
     document.body.appendChild(m);
   };
 
-  // Carregar Menus e Fotos na Vitrine do Site
-  async function carregarVitrineDinamica(client) {
+  // 3. Conectar o Banco de Dados diretamente na Vitrine #galeria-premium
+  async function sincronizarVitrineNativa(client, forcarAbaCozinha) {
     try {
-      const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
-      const { data: conteudos } = await client.from('conteudos').select('*, categorias(*)').order('created_at', { ascending: false });
-
-      if (!categorias || categorias.length === 0) return;
-
-      let vitrine = document.getElementById('vitrine-dinamica-quantum');
-      if (!vitrine) {
-        vitrine = document.createElement('section');
-        vitrine.id = 'vitrine-dinamica-quantum';
-        vitrine.style.cssText = 'max-width:1300px;margin:40px auto 60px auto;padding:0 20px;font-family:system-ui,sans-serif;';
-        const alvo = document.querySelector('section#albuns, #galeria, #album-cozinha, main') || document.body;
-        alvo.parentNode.insertBefore(vitrine, alvo);
-      }
-
-      vitrine.innerHTML = `
-        <div style="text-align:center;margin-bottom:28px;">
-          <span style="color:#ffd700;letter-spacing:3px;font-size:12px;font-weight:bold;text-transform:uppercase;">✦ ÁLBUNS EXCLUSIVOS ✦</span>
-          <h2 style="color:#ffffff;font-size:30px;margin:6px 0 0 0;letter-spacing:1px;font-family:serif;">GALERIA DA CHÁCARA PROFITTER</h2>
-        </div>
-        <div id="abas-categorias-quantum" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:30px;"></div>
-        <div id="grade-fotos-quantum" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:24px;"></div>
-      `;
-
-      const abasBox = document.getElementById('abas-categorias-quantum');
-      const gradeBox = document.getElementById('grade-fotos-quantum');
-      const principais = categorias.filter(c => !c.pai_id);
-
-      function exibirAba(catId, catNome) {
-        abasBox.querySelectorAll('button').forEach(b => {
-          if (b.dataset.id === String(catId)) {
-            b.style.background = '#ffd700';
-            b.style.color = '#000';
-            b.style.borderColor = '#ffd700';
-          } else {
-            b.style.background = '#141414';
-            b.style.color = '#ffd700';
-            b.style.borderColor = 'rgba(212,175,55,0.4)';
+      // Corrige qualquer texto estático antigo ou "???" na página
+      document.querySelectorAll('button, a, span, h2, h3, h4').forEach(el => {
+        if (el.children.length === 0) {
+          const txt = el.innerText.trim();
+          if (/(\?+\s*COZINHA|COZINHA\s*&\s*BAR|☕\s*COZINHA)/i.test(txt)) {
+            el.innerText = NOME_COZINHA;
           }
-        });
-
-        const termo = catNome.replace(/^[^\w\s\u00C0-\u017F]+\s*/, '').toLowerCase();
-        const fotos = (conteudos || []).filter(m => {
-          if (m.categoria_id && String(m.categoria_id) === String(catId)) return true;
-          if (m.categorias && String(m.categorias.id) === String(catId)) return true;
-          if (m.categoria && m.categoria.toLowerCase().includes(termo)) return true;
-          if (m.titulo && m.titulo.toLowerCase().includes(termo)) return true;
-          return false;
-        });
-
-        if (fotos.length === 0) {
-          gradeBox.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;background:#111;border:1px dashed rgba(212,175,55,0.3);border-radius:12px;color:#ffd700;font-size:14px;">Nenhuma foto encontrada em <b>${catNome}</b>.</div>`;
-          return;
         }
-
-        let cardsHtml = '';
-        fotos.forEach(f => {
-          const tit = (f.titulo || catNome).replace(/"/g, '&quot;');
-          const desc = (f.descricao || 'Ambiente exclusivo Chácara Profitter.').replace(/"/g, '&quot;');
-          cardsHtml += `
-            <div class="card-midia-quantum">
-              <div class="img-box-quantum" onclick="window.abrirModalCinema('${f.url}', '${tit}', '${desc}', '${catNome}')">
-                <img src="${f.url}" alt="${tit}" loading="lazy">
-                <span class="badge-cat-quantum">${catNome}</span>
-              </div>
-              <div class="info-box-quantum">
-                <h4 class="titulo-foto-quantum">✦ ${tit}</h4>
-                <p class="desc-foto-quantum">${desc}</p>
-              </div>
-            </div>
-          `;
-        });
-        gradeBox.innerHTML = cardsHtml;
-      }
-
-      principais.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.dataset.id = cat.id;
-        btn.innerText = cat.nome;
-        btn.style.cssText = 'background:#141414;color:#ffd700;border:1px solid rgba(212,175,55,0.4);padding:9px 20px;border-radius:25px;font-size:13px;font-weight:bold;cursor:pointer;transition:0.3s;';
-        btn.onclick = () => exibirAba(cat.id, cat.nome);
-        abasBox.appendChild(btn);
       });
 
-      const catPadrao = principais.find(c => c.nome.toUpperCase().includes('COZINHA')) || principais[0];
-      if (catPadrao) exibirAba(catPadrao.id, catPadrao.nome);
+      const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
+      const { data: conteudos } = await client.from('conteudos').select('*, categorias(*)').order('created_at', { ascending: true });
 
+      // Localiza a seção #galeria-premium e a barra de botões da vitrine
+      const secGaleria = document.getElementById('galeria-premium') || document.querySelector('section[id*="galeria"], section[id*="album"]') || document.body;
+      const candidatos = Array.from(secGaleria.querySelectorAll('button, a[role="tab"], .tab-btn, .filter-btn'));
+      const btnRef = candidatos.find(b => /PISCINA|LAGO|GOURMET|NOITE|SU[IÍ]TES|SAL[AÃ]O|LIVING|COZINHA|BANHEIROS/i.test(b.innerText));
+
+      if (!btnRef) return;
+
+      let menuBar = btnRef.parentElement;
+      if (menuBar.tagName === 'LI' && menuBar.parentElement) {
+        menuBar = menuBar.parentElement;
+      }
+
+      // Garante que o botão da Cozinha na barra tenha o ícone e nome corretos
+      Array.from(menuBar.querySelectorAll('button, a')).forEach(b => {
+        if (/COZINHA/i.test(b.innerText)) {
+          b.innerText = NOME_COZINHA;
+        }
+      });
+
+      // Adiciona na barra da vitrine quaisquer novos menus criados no painel
+      if (categorias && categorias.length > 0) {
+        const principais = categorias.filter(c => !c.pai_id);
+        principais.forEach(cat => {
+          const nomeLimpo = cat.nome.replace(/^\?+\s*/, ICONE_PRATO + ' ');
+          const normCat = normalizar(nomeLimpo);
+          const palChave = normCat.split(' ')[0];
+
+          const existente = Array.from(menuBar.querySelectorAll('button, a')).find(b => {
+            const nb = normalizar(b.innerText);
+            return nb === normCat || (palChave.length > 3 && nb.includes(palChave));
+          });
+
+          if (existente) {
+            if (/COZINHA/i.test(nomeLimpo)) existente.innerText = NOME_COZINHA;
+            existente.dataset.sbCatId = cat.id;
+            existente.dataset.sbCatNome = nomeLimpo;
+          } else {
+            const novoBtn = btnRef.cloneNode(true);
+            novoBtn.removeAttribute('onclick');
+            novoBtn.innerText = nomeLimpo;
+            novoBtn.dataset.sbCatId = cat.id;
+            novoBtn.dataset.sbCatNome = nomeLimpo;
+            menuBar.appendChild(novoBtn);
+          }
+        });
+      }
+
+      // Cria o container de exibição dos cards do Supabase logo abaixo da barra de menus
+      let boxQuantum = document.getElementById('quantum-vitrine-cards');
+      if (!boxQuantum) {
+        boxQuantum = document.createElement('div');
+        boxQuantum.id = 'quantum-vitrine-cards';
+        menuBar.insertAdjacentElement('afterend', boxQuantum);
+      }
+
+      // Identifica os elementos originais de fotos da seção para alternar sem destruir nada
+      const elementosIrmaos = Array.from(secGaleria.children).filter(el =>
+        el !== menuBar &&
+        el !== boxQuantum &&
+        !el.contains(menuBar) &&
+        !/H1|H2|HEADER/i.test(el.tagName) &&
+        !el.querySelector('h2')
+      );
+
+      function filtrarFotosSupabase(textoBotao, catId) {
+        const normBtn = normalizar(textoBotao);
+        const ehCozinha = normBtn.includes('cozinha');
+
+        return (conteudos || []).filter(m => {
+          if (catId && String(m.categoria_id) === String(catId)) return true;
+          const normCatBanco = m.categorias ? normalizar(m.categorias.nome) : '';
+          const normTit = normalizar(m.titulo);
+          if (ehCozinha && (normCatBanco.includes('cozinha') || normTit.includes('cozinha'))) return true;
+          if (normCatBanco && normCatBanco === normBtn) return true;
+          return false;
+        }).sort((a, b) => String(a.titulo || '').localeCompare(String(b.titulo || ''), undefined, { numeric: true }));
+      }
+
+      function renderizarAbaVitrine(btnClicado) {
+        const textoBtn = btnClicado.innerText.trim();
+        const catId = btnClicado.dataset.sbCatId || null;
+        const fotos = filtrarFotosSupabase(textoBtn, catId);
+
+        if (fotos.length > 0) {
+          // Destaca visualmente o botão ativo
+          Array.from(menuBar.querySelectorAll('button, a')).forEach(b => {
+            if (b === btnClicado) {
+              b.classList.add('active', 'ativo');
+              b.style.background = '#ffd700';
+              b.style.color = '#000';
+              b.style.borderColor = '#ffd700';
+            } else {
+              b.classList.remove('active', 'ativo');
+              b.style.background = '';
+              b.style.color = '';
+              b.style.borderColor = '';
+            }
+          });
+
+          // Oculta temporariamente os grids estáticos para exibir os cards do Supabase
+          elementosIrmaos.forEach(el => {
+            el.dataset.ocultoQuantum = '1';
+            el.style.display = 'none';
+          });
+
+          let htmlCards = '';
+          fotos.forEach((f, idx) => {
+            const tit = (f.titulo || `${textoBtn} (${idx + 1})`).replace(/"/g, '&quot;');
+            const desc = (f.descricao || 'Ambiente exclusivo Chácara Profitter.').replace(/"/g, '&quot;');
+            const badge = (/COZINHA/i.test(textoBtn) ? NOME_COZINHA : textoBtn).replace(/"/g, '&quot;');
+
+            htmlCards += `
+              <div class="card-midia-quantum">
+                <div class="img-box-quantum" onclick="window.abrirModalCinema('${f.url}', '${tit}', '${desc}', '${badge}')">
+                  <img src="${f.url}" alt="${tit}" loading="lazy">
+                  <span class="badge-cat-quantum">${badge}</span>
+                </div>
+                <div class="info-box-quantum">
+                  <h4 class="titulo-foto-quantum">\u2726 ${tit}</h4>
+                  <p class="desc-foto-quantum">${desc}</p>
+                </div>
+              </div>
+            `;
+          });
+
+          boxQuantum.innerHTML = htmlCards;
+          boxQuantum.style.display = 'grid';
+        } else {
+          // Restaura o funcionamento nativo para os outros menus originais
+          Array.from(menuBar.querySelectorAll('button, a')).forEach(b => {
+            b.style.background = '';
+            b.style.color = '';
+            b.style.borderColor = '';
+          });
+          boxQuantum.style.display = 'none';
+          elementosIrmaos.forEach(el => {
+            if (el.dataset.ocultoQuantum === '1') {
+              el.style.display = '';
+              delete el.dataset.ocultoQuantum;
+            }
+          });
+        }
+      }
+
+      // Vincula o clique em todos os botões da barra da vitrine
+      Array.from(menuBar.querySelectorAll('button, a')).forEach(btn => {
+        if (!btn.dataset.quantumBound) {
+          btn.dataset.quantumBound = '1';
+          btn.addEventListener('click', () => {
+            setTimeout(() => renderizarAbaVitrine(btn), 15);
+          });
+        }
+      });
+
+      // Se solicitado ou se o botão da cozinha existir com fotos cadastradas, exibe na vitrine
+      const btnCozinha = Array.from(menuBar.querySelectorAll('button, a')).find(b => /COZINHA/i.test(b.innerText));
+      if (btnCozinha && (forcarAbaCozinha || btnCozinha.classList.contains('active') || btnCozinha.classList.contains('ativo'))) {
+        renderizarAbaVitrine(btnCozinha);
+      }
     } catch (e) {
       console.warn('Erro ao sincronizar vitrine:', e);
     }
   }
 
-  // Painel Administrativo de Gestão Total
+  // 4. Painel Mestre Quântico Completo
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -211,21 +329,20 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO TOTAL</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">\u26A1 PAINEL MESTRE QUÂNTICO | GESTÃO TOTAL</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
-          <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar</button>
+          <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar e Ver Vitrine</button>
           <button id="q-sair" style="background:#c9302c;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
         </div>
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
-        <button id="tab-categorias-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
+        <button id="tab-conteudos-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">\uD83D\uDCF8 Inserir / Excluir Fotos e Vídeos</button>
+        <button id="tab-categorias-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">\uD83D\uDCC2 Gerenciar Menus e Submenus</button>
       </div>
 
-      <!-- ABA 1: FOTOS -->
       <div id="secao-conteudos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
           <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Enviar Ficheiros em Lote</h3>
@@ -248,7 +365,7 @@
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Descrição Ultra Premium</label>
               <textarea id="inp-desc" rows="3" placeholder="Ex: ampla cozinha americana com ilha..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
             </div>
-            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar no Menu</button>
+            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">\uD83D\uDE80 Publicar no Menu</button>
           </form>
         </div>
 
@@ -260,7 +377,6 @@
         </div>
       </div>
 
-      <!-- ABA 2: MENUS -->
       <div id="secao-categorias" style="display:none;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
         <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones</h3>
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;background:#1a1a1a;padding:16px;border-radius:8px;">
@@ -271,7 +387,7 @@
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Menu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="new-cat-name" placeholder="Ex: \uD83C\uDF7D\uFE0F COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -327,8 +443,17 @@
       carregarListaCategorias();
     };
 
-    document.getElementById('q-fechar').onclick = () => { p.style.display = 'none'; carregarVitrineDinamica(client); };
-    document.getElementById('q-sair').onclick = async () => { await client.auth.signOut(); window.location.href = window.location.pathname; };
+    document.getElementById('q-fechar').onclick = async () => {
+      p.style.display = 'none';
+      await sincronizarVitrineNativa(client, true);
+      const sec = document.getElementById('galeria-premium');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    document.getElementById('q-sair').onclick = async () => {
+      await client.auth.signOut();
+      window.location.href = window.location.pathname;
+    };
 
     async function atualizarSelects() {
       const selCat = document.getElementById('sel-cat');
@@ -342,7 +467,7 @@
         selCat.innerHTML += `<option value="${parent.id}" style="font-weight:bold;color:#ffd700;">${parent.nome}</option>`;
         selPai.innerHTML += `<option value="${parent.id}">Dentro de: ${parent.nome}</option>`;
         cats.filter(s => s.pai_id === parent.id).forEach(sub => {
-          selCat.innerHTML += `<option value="${sub.id}">&nbsp;&nbsp;&nbsp;&nbsp;↳ ${sub.nome}</option>`;
+          selCat.innerHTML += `<option value="${sub.id}">&nbsp;&nbsp;&nbsp;&nbsp;\u21B3 ${sub.nome}</option>`;
         });
       });
     }
@@ -359,7 +484,7 @@
         submenus.forEach(sub => {
           subHtml += `
             <div style="background:#141414;border:1px solid #2a2a2a;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;margin-left:20px;">
-              <span style="color:#ccc;font-size:13px;">↳ ${sub.nome}</span>
+              <span style="color:#ccc;font-size:13px;">\u21B3 ${sub.nome}</span>
               <button class="del-c" data-id="${sub.id}" style="background:#d9534f;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir</button>
             </div>
           `;
@@ -381,7 +506,7 @@
             await client.from('categorias').delete().eq('id', btn.dataset.id);
             await carregarListaCategorias();
             await atualizarSelects();
-            carregarVitrineDinamica(client);
+            await sincronizarVitrineNativa(client, true);
           }
         };
       });
@@ -411,7 +536,7 @@
           if (confirm('Deseja excluir esta foto?')) {
             await client.from('conteudos').delete().eq('id', item.id);
             await carregarListaMidias();
-            carregarVitrineDinamica(client);
+            await sincronizarVitrineNativa(client, true);
           }
         };
         cont.appendChild(div);
@@ -429,7 +554,7 @@
         document.getElementById('new-cat-name').value = '';
         await carregarListaCategorias();
         await atualizarSelects();
-        carregarVitrineDinamica(client);
+        await sincronizarVitrineNativa(client, false);
       }
     };
 
@@ -445,7 +570,7 @@
       try {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
-          btn.innerText = `A enviar ${i + 1} de ${files.length}...`;
+          btn.innerText = `A enviar ${i + 1} de${files.length}...`;
           const fName = Date.now() + '_' + i + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
           const { error: upErr } = await client.storage.from('chacara-media').upload(fName, file);
           if (upErr) throw upErr;
@@ -463,11 +588,11 @@
         document.getElementById('inp-titulo').value = '';
         document.getElementById('inp-desc').value = '';
         await carregarListaMidias();
-        carregarVitrineDinamica(client);
+        await sincronizarVitrineNativa(client, true);
       } catch (err) {
         alert('Erro ao enviar: ' + err.message);
       } finally {
-        btn.innerText = '🚀 Publicar no Menu';
+        btn.innerText = '\uD83D\uDE80 Publicar no Menu';
         btn.disabled = false;
       }
     };
@@ -477,14 +602,13 @@
     await carregarListaMidias();
   }
 
-  // Botão Flutuante de Acesso
   function criarBotaoLogin(client) {
     let b = document.getElementById('quantum-btn-trigger');
     if (!b) {
       b = document.createElement('button');
       b.id = 'quantum-btn-trigger';
-      b.innerHTML = '⚡ ABRIR PAINEL QUÂNTICO';
-      b.style.cssText = 'position:fixed;bottom:25px;right:25px;background:#ffd700;color:#000;border:3px solid #000;padding:16px 28px;border-radius:35px;z-index:999999999;cursor:pointer;font-weight:bold;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,0.9);';
+      b.innerHTML = '\u26A1 ABRIR PAINEL QUÂNTICO';
+      b.style.cssText = 'position:fixed;bottom:25px;right:25px;background:#ffd700;color:#000;border:3px solid #000;padding:16px 28px;border-radius:35px;z-index:999999998;cursor:pointer;font-weight:bold;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,0.9);';
       b.onclick = async (e) => {
         e.preventDefault();
         const { data: { session } } = await client.auth.getSession();
@@ -498,7 +622,6 @@
     }
   }
 
-  // Inicialização do Supabase SDK
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
   s.onload = async () => {
@@ -506,13 +629,14 @@
     window.supabaseClient = client;
 
     criarBotaoLogin(client);
-    carregarVitrineDinamica(client);
+    await sincronizarVitrineNativa(client, true);
 
-    const { data: { session } } = await client.auth.getSession();
-    if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-      injetarPainelCompleto(client, session.user.email);
+    if (window.location.hash.includes('access_token')) {
+      const { data: { session } } = await client.auth.getSession();
+      if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        injetarPainelCompleto(client, session.user.email);
+      }
     }
   };
   document.head.appendChild(s);
-
 })();
