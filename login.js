@@ -14,7 +14,7 @@
     '🛏️ SUÍTES & QUARTOS',
     '🎉 SALÃO DE FESTAS',
     '🍷 LIVING & LAREIRA',
-    '🍽️ COZINHA',
+    '🍽️🍽️ COZINHA AMERICANA',
     '🚿 BANHEIROS & VARANDA',
     '🎬 VÍDEOS OFICIAIS'
   ];
@@ -282,7 +282,7 @@
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu ou Submenu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️ COZINHA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🍽️🍽️ COZINHA AMERICANA" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
