@@ -1,0 +1,119 @@
+﻿[
+    {
+        "id":  "e7c76e9e-d1e4-4807-bd56-9e4d110d58f7",
+        "titulo":  "COZINHA AMERICANA (1)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600201132_0_cozinha__3_.jpeg",
+        "created_at":  "2026-10-21T16:30:02.802166+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "3d0bff55-f74b-4745-9d2c-e72e7c5d878c",
+        "titulo":  "COZINHA AMERICANA (2)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600202445_1_cozinha__4_.jpeg",
+        "created_at":  "2026-10-21T16:30:03.484951+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "6c70bc18-3021-48f1-8742-86eb61f05b3a",
+        "titulo":  "COZINHA AMERICANA (3)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600203125_2_cozinha.jpeg",
+        "created_at":  "2026-10-21T16:30:04.452335+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "4df3636c-bbbd-4529-85d9-1cc6d4a8e664",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (1)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618383850_0_barzinho.jpeg",
+        "created_at":  "2026-10-21T21:33:06.059696+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "86b63c7d-cdfc-427d-b8f1-da37262e99da",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (2)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618385518_1_cafe.jpeg",
+        "created_at":  "2026-10-21T21:33:07.022567+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "b1b23cbb-11a0-4f37-a3cd-5920532c4774",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (3)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618386468_2_Lareira.jpeg",
+        "created_at":  "2026-10-21T21:33:07.798935+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "5a4f7903-8533-4ae0-a467-ad2035e20564",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (4)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618387283_3_lavabo_2.jpeg",
+        "created_at":  "2026-10-21T21:33:08.691397+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "01cef649-d70c-4918-9d7d-bbc903073d8f",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (5)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618388146_4_lavabo_3.jpeg",
+        "created_at":  "2026-10-21T21:33:09.755609+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "8a61063c-c417-45fc-8c6b-c2f9a0111e84",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (6)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618389205_5_lavabo.jpeg",
+        "created_at":  "2026-10-21T21:33:10.657651+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "52069fec-2084-4b9c-a021-f0f244d6a496",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (7)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618390105_6_Lavabo3.jpeg",
+        "created_at":  "2026-10-21T21:33:11.644946+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "4a2b0f8d-f996-406f-b6fc-c06e9913514e",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (8)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618391088_7_Sala_aconchegante_com_teto_branco.png",
+        "created_at":  "2026-10-21T21:33:13.221499+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "e995fc9a-8cee-4ae0-a236-18a6916c16dc",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (9)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618392665_8_sala_de_jantar.jpeg",
+        "created_at":  "2026-10-21T21:33:13.995242+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "691df1d3-5ac3-43da-b0cf-e5f30eee20bc",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (10)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618393438_9_Sala_tradicional_com_teto_branco.png",
+        "created_at":  "2026-10-21T21:33:15.582347+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    }
+]
