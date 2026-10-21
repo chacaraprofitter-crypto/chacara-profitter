@@ -7,7 +7,6 @@
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
   const REDIRECT_URL = 'https://chacaraprofitter-crypto.github.io/chacara-profitter/';
 
-  // Menus originais que ja existem no site Menu de Albuns & Ambientes
   const MENUS_ORIGINAIS_SITE = [
     '\uD83C\uDFCA PISCINA & \u00C1TRIO',
     '\uD83C\uDF33 CLUBE & LAGO',
@@ -40,24 +39,73 @@
     document.head.appendChild(script);
   }
 
-  async function entrarComGoogle() {
+  // Se ja estiver logado como Admin, abre o painel na hora; se nao, chama o OAuth do Google
+  async function acionarAcessoAdmin() {
     carregarSDK(async () => {
       try {
+        const { data: { session } } = await window.supabaseClient.auth.getSession();
+        if (session && session.user) {
+          if (session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            const painelExistente = document.getElementById('ultra-admin-dashboard');
+            if (painelExistente) {
+              painelExistente.style.display = 'flex';
+            } else {
+              await renderizarPainelAdmin(session.user.email);
+            }
+            return;
+          } else {
+            alert('Acesso restrito ao administrador (' + ADMIN_EMAIL + '). Voce esta conectado como: ' + session.user.email);
+            await window.supabaseClient.auth.signOut();
+          }
+        }
+
         const { error } = await window.supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: { redirectTo: REDIRECT_URL }
         });
         if (error) throw error;
       } catch (err) {
-        alert('Erro ao conectar com o Google: ' + err.message);
+        alert('Erro ao abrir login do Google: ' + err.message);
       }
     });
   }
 
-  window.entrarComGoogle = entrarComGoogle;
-  window.loginWithGoogle = entrarComGoogle;
+  window.entrarComGoogle = acionarAcessoAdmin;
+  window.loginWithGoogle = acionarAcessoAdmin;
+  window.abrirPainelAdmin = acionarAcessoAdmin;
 
-  // Garante que todos os menus originais do site ja existam no banco para o Admin usar
+  // Vincula diretamente todos os botoes "Login Google" do topo do site
+  function vincularBotoesTopoSite() {
+    const elementos = document.querySelectorAll('button, a, [role="button"], div, span');
+    elementos.forEach(el => {
+      if (el.children.length > 2) return;
+      const txt = (el.innerText || el.textContent || '').trim().toLowerCase();
+      if (txt === 'login google' || txt === 'login' || txt === 'entrar' || txt.includes('login google')) {
+        el.style.cursor = 'pointer';
+        el.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          acionarAcessoAdmin();
+        };
+      }
+    });
+  }
+
+  function garantirBotaoFlutuante() {
+    let btn = document.getElementById('btn-flutuante-admin-master');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'btn-flutuante-admin-master';
+      btn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#ffd700,#e5b842);color:#000;border:2px solid #fff;padding:12px 22px;border-radius:30px;z-index:999998;cursor:pointer;font-weight:bold;font-family:sans-serif;font-size:14px;box-shadow:0 4px 25px rgba(0,0,0,0.85);';
+      btn.onclick = (e) => {
+        e.preventDefault();
+        acionarAcessoAdmin();
+      };
+      document.body.appendChild(btn);
+    }
+    btn.innerHTML = isAdminLogado ? '\u2699\uFE0F Abrir Painel Admin' : '\uD83D\uDD10 Login Admin VIP';
+  }
+
   async function sincronizarMenusOriginaisDoSite() {
     if (!window.supabaseClient) return;
     const { data: existentes, error } = await window.supabaseClient
@@ -71,7 +119,6 @@
       const payload = MENUS_ORIGINAIS_SITE.map(nome => ({ nome: nome, pai_id: null }));
       await window.supabaseClient.from('categorias').insert(payload);
 
-      // Se houver fotos estaticas no HTML dentro da galeria, importa para o banco tambem
       const galeriaSec = document.getElementById('galeria-premium');
       if (galeriaSec) {
         const imgs = Array.from(galeriaSec.querySelectorAll('img'));
@@ -97,7 +144,6 @@
     }
   }
 
-  // Conecta os botoes reais da secao "Menu de Albuns & Ambientes" (#galeria-premium) ao Supabase
   async function atualizarGaleriaNoSite() {
     if (!window.supabaseClient) return;
 
@@ -117,7 +163,6 @@
 
     const listaMidias = midias || [];
 
-    // Localiza a secao Menu de Albuns & Ambientes no site
     let galeriaSection = document.getElementById('galeria-premium');
     if (!galeriaSection) {
       const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
@@ -126,7 +171,6 @@
     }
     if (!galeriaSection) return;
 
-    // Localiza o container original dos botoes de categorias para substitui-lo pela versao dinamica
     let wrapperDinamico = document.getElementById('chacara-albuns-dinamico');
     if (!wrapperDinamico) {
       const todosBotoes = Array.from(galeriaSection.querySelectorAll('button, a, div, span'));
@@ -141,7 +185,6 @@
 
       if (btnTodos && btnTodos.parentElement) {
         const containerOriginalBotoes = btnTodos.parentElement;
-        // Esconde os botoes estaticos antigos e coloca os botoes dinamicos sincronizados no mesmo lugar
         containerOriginalBotoes.style.display = 'none';
         containerOriginalBotoes.parentNode.insertBefore(wrapperDinamico, containerOriginalBotoes.nextSibling);
       } else {
@@ -164,7 +207,6 @@
         htmlBotoes += `<button class="btn-album-site" data-id="${p.id}" style="${ativo ? estiloAtivo : estiloInativo}">${p.nome}${qtdFotos > 0 ? ' (' + qtdFotos + ')' : ''}</button>`;
       });
 
-      // Verifica se a categoria clicada possui Submenus
       let catPaiSelecionada = principais.find(p => p.id === filtroSiteAtivo);
       if (!catPaiSelecionada) {
         const subSel = listaCategorias.find(s => s.id === filtroSiteAtivo);
@@ -189,7 +231,6 @@
         }
       }
 
-      // Filtra as fotos e videos para exibir
       let midiasExibidas = listaMidias;
       if (filtroSiteAtivo !== 'todas') {
         const idsSub = listaCategorias.filter(s => s.pai_id === filtroSiteAtivo).map(s => s.id);
@@ -283,26 +324,10 @@
     desenharMenuEGaleria();
   }
 
-  function criarBotaoFlutuanteLogin() {
-    if (document.getElementById('btn-flutuante-login-vip') || document.getElementById('btn-reabrir-admin')) return;
-    const btn = document.createElement('button');
-    btn.id = 'btn-flutuante-login-vip';
-    btn.innerHTML = '\uD83D\uDD10 Login Admin VIP';
-    btn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#1a1a1a,#000);color:#ffd700;border:2px solid #ffd700;padding:12px 22px;border-radius:30px;z-index:999998;cursor:pointer;font-weight:bold;font-family:sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,0.7);';
-    btn.onclick = (e) => {
-      e.preventDefault();
-      btn.innerHTML = '\u23F3 Conectando...';
-      entrarComGoogle();
-    };
-    document.body.appendChild(btn);
-  }
-
   async function renderizarPainelAdmin(userEmail) {
     isAdminLogado = true;
-    const btnLogin = document.getElementById('btn-flutuante-login-vip');
-    if (btnLogin) btnLogin.remove();
+    garantirBotaoFlutuante();
 
-    // Garante que os 10 menus do site ja estejam criados no Supabase
     await sincronizarMenusOriginaisDoSite();
     await atualizarGaleriaNoSite();
 
@@ -325,13 +350,11 @@
         </div>
       </div>
 
-      <!-- Abas -->
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
         <button id="tab-btn-conteudos" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">\uD83D\uDCF8 Inserir / Excluir Fotos e V\u00EDdeos nos Menus</button>
         <button id="tab-btn-categorias" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">\uD83D\uDCC2 Gerenciar Menus do Site e Submenus (Criar / Excluir / Renomear)</button>
       </div>
 
-      <!-- ABA 1: UPLOAD E FOTOS -->
       <div id="tab-conteudos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:25px;max-width:1400px;margin:0 auto;width:100%;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
           <h3 id="titulo-form-admin" style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:10px;font-size:16px;">Inserir Fotos ou V\u00EDdeos nos Menus do Site</h3>
@@ -378,12 +401,11 @@
         </div>
       </div>
 
-      <!-- ABA 2: MENUS E SUBCATEGORIAS DO SITE -->
       <div id="tab-categorias" style="display:none;max-width:1050px;margin:0 auto;width:100%;background:#141414;padding:25px;border-radius:12px;border:1px solid #282828;">
         <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
           <div>
             <h3 style="color:#ffd700;margin:0;">Menus do Site ("Menu de \u00C1lbuns & Ambientes") e Submenus</h3>
-            <p style="color:#aaa;font-size:12px;margin:4px 0 0 0;">Aqui est\u00E3o todos os menus que aparecem no seu site. Voc\u00EA pode criar novos menus, adicionar submenus dentro deles, renomear ou excluir qualquer um.</p>
+            <p style="color:#aaa;font-size:12px;margin:4px 0 0 0;">Estes s\u00E3o os menus ativos no seu site. Voc\u00EA pode inserir fotos neles, criar submenus, renomear, excluir ou criar novos.</p>
           </div>
           <button id="btn-restaurar-menus-site" style="background:#28a745;color:#fff;border:none;padding:9px 15px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;">\u26A1 Restaurar Menus Originais do Site</button>
         </div>
@@ -433,18 +455,11 @@
     document.getElementById('btn-fechar-painel').onclick = () => {
       painel.style.display = 'none';
       atualizarGaleriaNoSite();
-      let flotBtn = document.getElementById('btn-reabrir-admin');
-      if (!flotBtn) {
-        flotBtn = document.createElement('button');
-        flotBtn.id = 'btn-reabrir-admin';
-        flotBtn.innerText = '\u2699\uFE0F Abrir Painel Admin';
-        flotBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#ffd700;color:#000;border:none;padding:12px 22px;border-radius:30px;z-index:999998;cursor:pointer;font-weight:bold;box-shadow:0 4px 20px rgba(0,0,0,0.7);';
-        flotBtn.onclick = () => { painel.style.display = 'flex'; };
-        document.body.appendChild(flotBtn);
-      }
+      garantirBotaoFlutuante();
     };
 
     document.getElementById('btn-sair-admin').onclick = async () => {
+      isAdminLogado = false;
       await window.supabaseClient.auth.signOut();
       window.location.href = REDIRECT_URL;
     };
@@ -452,7 +467,6 @@
     document.getElementById('btn-atualizar-lista').onclick = carregarConteudosAdmin;
     document.getElementById('filtro-admin-midias').onchange = carregarConteudosAdmin;
 
-    // Botao para restaurar qualquer menu original caso tenha sido excluido
     document.getElementById('btn-restaurar-menus-site').onclick = async () => {
       const { data: atuais } = await window.supabaseClient.from('categorias').select('*');
       const nomesAtuais = (atuais || []).map(c => c.nome.toUpperCase());
@@ -666,7 +680,6 @@
       container.appendChild(card);
     });
 
-    // Atalho direto para ir para a aba de upload com o Menu ja selecionado
     container.querySelectorAll('.btn-atalho-up').forEach(btn => {
       btn.onclick = () => {
         const id = btn.getAttribute('data-id');
@@ -812,11 +825,15 @@
   }
 
   function iniciarSistema() {
-    criarBotaoFlutuanteLogin();
+    garantirBotaoFlutuante();
+    vincularBotoesTopoSite();
+    setTimeout(vincularBotoesTopoSite, 1500);
 
     carregarSDK(async () => {
       const { data: { session } } = await window.supabaseClient.auth.getSession();
       if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        isAdminLogado = true;
+        garantirBotaoFlutuante();
         await renderizarPainelAdmin(session.user.email);
       } else {
         await atualizarGaleriaNoSite();
@@ -824,6 +841,8 @@
 
       window.supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+          isAdminLogado = true;
+          garantirBotaoFlutuante();
           await renderizarPainelAdmin(session.user.email);
         }
       });
@@ -832,14 +851,15 @@
     document.addEventListener('click', (e) => {
       const el = e.target.closest('button, a, [role="button"]');
       if (!el) return;
-      if (el.id && (el.id.includes('admin') || el.id.includes('album') || el.id.includes('painel'))) return;
-      if (el.className && el.className.includes('btn-album-site')) return;
-      const txt = (el.innerText || el.textContent || '').toLowerCase();
+      if (el.closest('#ultra-admin-dashboard') || el.closest('#chacara-albuns-dinamico')) return;
+      if (el.id === 'btn-flutuante-admin-master') return;
+
+      const txt = (el.innerText || el.textContent || '').trim().toLowerCase();
       const onclickAttr = (el.getAttribute('onclick') || '').toLowerCase();
-      if (txt.includes('login google') || txt.includes('login admin') || onclickAttr.includes('login') || onclickAttr.includes('google')) {
+      if (txt.includes('login') || txt.includes('google') || txt.includes('admin') || onclickAttr.includes('login') || onclickAttr.includes('google')) {
         e.preventDefault();
         e.stopPropagation();
-        entrarComGoogle();
+        acionarAcessoAdmin();
       }
     }, true);
   }
