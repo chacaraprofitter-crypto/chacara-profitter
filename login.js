@@ -1,6 +1,6 @@
 ﻿(function() {
-  if (window.__chacaraQuantumLoaded) return;
-  window.__chacaraQuantumLoaded = true;
+  if (window.__chacaraQuantumLocked) return;
+  window.__chacaraQuantumLocked = true;
 
   const SUPABASE_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
@@ -17,6 +17,11 @@
     '\u2615 COZINHA & BAR',
     '\uD83D\uDEBF BANHEIROS & VARANDA',
     '\uD83C\uDFAC V\u00CDDEOS OFICIAIS'
+  ];
+
+  const GALERIA_ICONES = [
+    '🛋️', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', '🎉',
+    '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
   ];
 
   async function sincronizarMenus(client) {
@@ -40,8 +45,8 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | CHÁCARA PROFITTER</h2>
-          <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Validado: <b style="color:#ffd700;">${email}</b></p>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | BLINDADO</h2>
+          <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
           <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar</button>
@@ -87,19 +92,25 @@
 
       <!-- ABA 2 -->
       <div id="secao-categorias" style="display:none;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus e Submenus</h3>
-        <form id="form-cat" style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end;background:#1a1a1a;padding:14px;border-radius:8px;">
-          <div style="flex:1;min-width:220px;">
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu</label>
-            <input type="text" id="new-cat-name" placeholder="Ex: Quadra de Ténis" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus e Submenus com Ícones</h3>
+        <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;background:#1a1a1a;padding:16px;border-radius:8px;">
+          <div>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">Selecione um Ícone da Galeria (Opcional):</label>
+            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:10px;border-radius:6px;border:1px solid #333;"></div>
           </div>
-          <div style="width:260px;">
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
-            <select id="new-cat-parent" style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
-              <option value="">Menu Principal</option>
-            </select>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+            <div style="flex:1;min-width:220px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu ou Submenu</label>
+              <input type="text" id="new-cat-name" placeholder="Ex: SALA DE ESTAR" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+            </div>
+            <div style="width:260px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
+              <select id="new-cat-parent" style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+                <option value="">Menu Principal</option>
+              </select>
+            </div>
+            <button type="submit" style="background:#ffd700;color:#000;border:none;padding:9px 20px;border-radius:6px;font-weight:bold;cursor:pointer;height:38px;font-size:13px;">+ Criar Menu com Ícone</button>
           </div>
-          <button type="submit" style="background:#ffd700;color:#000;border:none;padding:9px 20px;border-radius:6px;font-weight:bold;cursor:pointer;height:38px;font-size:13px;">+ Criar</button>
         </form>
         <div id="lista-cats" style="max-height:380px;overflow-y:auto;">
           <p style="color:#888;text-align:center;">A carregar menus...</p>
@@ -109,7 +120,23 @@
 
     document.body.appendChild(p);
 
-    // Controle de Abas
+    const iconeContainer = document.getElementById('galeria-icones-container');
+    const inputNomeMenu = document.getElementById('new-cat-name');
+
+    GALERIA_ICONES.forEach(emoji => {
+      const btnEmoji = document.createElement('button');
+      btnEmoji.type = 'button';
+      btnEmoji.innerText = emoji;
+      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:18px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:0.2s;';
+      btnEmoji.onclick = () => {
+        iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
+        btnEmoji.style.border = '2px solid #ffd700';
+        const textoAtual = inputNomeMenu.value.replace(/^[^\w\s]+\s*/, '');
+        inputNomeMenu.value = emoji + ' ' + textoAtual.trim();
+      };
+      iconeContainer.appendChild(btnEmoji);
+    });
+
     document.getElementById('tab-conteudos-btn').onclick = () => {
       document.getElementById('secao-conteudos').style.display = 'grid';
       document.getElementById('secao-categorias').style.display = 'none';
@@ -138,10 +165,8 @@
     async function atualizarSelects() {
       const { data: cats } = await client.from('categorias').select('*').order('created_at', { ascending: true });
       if (!cats) return;
-      
       const selCat = document.getElementById('sel-cat');
       const selPai = document.getElementById('new-cat-parent');
-      
       selCat.innerHTML = '<option value="">-- Escolha o Menu --</option>';
       selPai.innerHTML = '<option value="">Menu Principal</option>';
 
@@ -215,6 +240,7 @@
       if (error) alert('Erro: ' + error.message);
       else {
         document.getElementById('new-cat-name').value = '';
+        iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         await carregarListaCategorias();
         await atualizarSelects();
       }
@@ -287,6 +313,19 @@
     if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
       injetarPainelCompleto(client, session.user.email);
     }
+
+    // Blindagem global para qualquer clique em botões de login/admin no site
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('button, a, [role="button"]');
+      if (!el || el.id === 'quantum-btn-trigger' || el.closest('#quantum-admin-root')) return;
+      const txt = (el.innerText || el.textContent || '').trim().toLowerCase();
+      if (txt.includes('login') || txt.includes('google') || txt.includes('admin') || txt.includes('entrar')) {
+        e.preventDefault();
+        e.stopPropagation();
+        const urlOAuth = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + window.location.pathname)}`;
+        window.location.href = urlOAuth;
+      }
+    }, true);
   };
   document.head.appendChild(s);
 
