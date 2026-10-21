@@ -19,7 +19,6 @@
     '\uD83C\uDFAC V\u00CDDEOS OFICIAIS'
   ];
 
-  // Adicionado o icone de Sala (🛋️ e 📺) em destaque na galeria
   const GALERIA_ICONES = [
     '🛋️', '📺', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', 
     '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
@@ -34,6 +33,9 @@
   }
 
   async function injetarPainelCompleto(client, email) {
+    let b = document.getElementById('quantum-btn-trigger');
+    if (b) b.style.display = 'none'; // Oculta o botao flutuante quando o painel abre
+
     let p = document.getElementById('quantum-admin-root');
     if (p) p.remove();
 
@@ -46,7 +48,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | COM ÍCONE DE SALA</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | CHÁCARA PROFITTER</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -102,7 +104,7 @@
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu ou Submenu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: SALA DE ESTAR" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🛋️ SALA DE ESTAR" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -128,7 +130,7 @@
       const btnEmoji = document.createElement('button');
       btnEmoji.type = 'button';
       btnEmoji.innerText = emoji;
-      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:8px 12px;border-radius:6px;cursor:pointer;transition:0.2s;';
+      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:22px;padding:8px 12px;border-radius:6px;cursor:pointer;transition:0.2s;';
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         btnEmoji.style.border = '2px solid #ffd700';
@@ -157,7 +159,11 @@
       carregarListaCategorias();
     };
 
-    document.getElementById('q-fechar').onclick = () => { p.remove(); };
+    document.getElementById('q-fechar').onclick = () => { 
+      p.remove(); 
+      criarBotaoLogin(); // Restaura o botao flutuante ao fechar o painel
+    };
+
     document.getElementById('q-sair').onclick = async () => {
       await client.auth.signOut();
       window.location.href = window.location.pathname;
@@ -299,6 +305,8 @@
         window.location.href = urlOAuth;
       };
       document.body.appendChild(b);
+    } else {
+      b.style.display = 'block';
     }
   }
 
