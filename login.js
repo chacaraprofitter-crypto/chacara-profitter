@@ -19,9 +19,10 @@
     '\uD83C\uDFAC V\u00CDDEOS OFICIAIS'
   ];
 
+  // Adicionado o icone de Sala (🛋️ e 📺) em destaque na galeria
   const GALERIA_ICONES = [
-    '🛋️', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', '🎉',
-    '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
+    '🛋️', '📺', '🛏️', '🍽️', '🏊', '🌳', '🥩', '🍷', '☕', '🚿', 
+    '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
   ];
 
   async function sincronizarMenus(client) {
@@ -45,7 +46,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | COM ÍCONES</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | COM ÍCONE DE SALA</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -265,7 +266,7 @@
           if (upErr) throw new Error(upErr.message);
 
           const url = client.storage.from('chacara-media').getPublicUrl(fileName).data.publicUrl;
-          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) além 'Foto da Chácara';
+          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) : 'Foto da Chácara';
 
           await client.from('conteudos').insert([{ titulo, categoria_id, url, categoria: 'geral' }]);
         }
