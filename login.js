@@ -24,6 +24,16 @@
     '🎉', '🎬', '🎾', '⚽', '🚗', '🌿', '☀️', '🌙', '🔥', '⭐', '🛎️'
   ];
 
+  function dispararLoginOAuth() {
+    const urlOAuth = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + window.location.pathname)}`;
+    window.location.href = urlOAuth;
+  }
+
+  // Expõe todas as variantes possíveis para evitar conflitos com botões nativos do site
+  window.loginWithGoogle = dispararLoginOAuth;
+  window.entrarComGoogle = dispararLoginOAuth;
+  window.abrirPainelAdmin = dispararLoginOAuth;
+
   async function sincronizarMenus(client) {
     const { data: existentes } = await client.from('categorias').select('*');
     if (!existentes || existentes.length === 0) {
@@ -34,7 +44,7 @@
 
   async function injetarPainelCompleto(client, email) {
     let b = document.getElementById('quantum-btn-trigger');
-    if (b) b.style.display = 'none'; // Oculta o botao flutuante quando o painel abre
+    if (b) b.style.display = 'none';
 
     let p = document.getElementById('quantum-admin-root');
     if (p) p.remove();
@@ -48,12 +58,12 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | CHÁCARA PROFITTER</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | BLINDADO</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
           <button id="q-fechar" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar</button>
-          <button id="q-sair" style="background:#d9534f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
+          <button id="q-sair" style="background:#c9302c;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:bold;">Sair</button>
         </div>
       </div>
 
@@ -161,7 +171,7 @@
 
     document.getElementById('q-fechar').onclick = () => { 
       p.remove(); 
-      criarBotaoLogin(); // Restaura o botao flutuante ao fechar o painel
+      criarBotaoLogin();
     };
 
     document.getElementById('q-sair').onclick = async () => {
@@ -301,8 +311,7 @@
       b.style.cssText = 'position:fixed;bottom:25px;right:25px;background:#ffd700;color:#000;border:3px solid #000;padding:16px 28px;border-radius:35px;z-index:999999999;cursor:pointer;font-weight:bold;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,0.9);';
       b.onclick = (e) => {
         e.preventDefault();
-        const urlOAuth = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + window.location.pathname)}`;
-        window.location.href = urlOAuth;
+        dispararLoginOAuth();
       };
       document.body.appendChild(b);
     } else {
@@ -322,6 +331,18 @@
     if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
       injetarPainelCompleto(client, session.user.email);
     }
+
+    // Intercepta qualquer clique em botoes de login ou google no site para forçar o OAuth direto
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('button, a, [role="button"]');
+      if (!el || el.id === 'quantum-btn-trigger' || el.closest('#quantum-admin-root')) return;
+      const txt = (el.innerText || el.textContent || '').trim().toLowerCase();
+      if (txt.includes('login') || txt.includes('google') || txt.includes('admin') || txt.includes('entrar')) {
+        e.preventDefault();
+        e.stopPropagation();
+        dispararLoginOAuth();
+      }
+    }, true);
   };
   document.head.appendChild(s);
 
