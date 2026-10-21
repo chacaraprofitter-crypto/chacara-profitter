@@ -1,6 +1,6 @@
 ﻿(function() {
-  if (window.__chacaraQuantumLocked) return;
-  window.__chacaraQuantumLocked = true;
+  if (window.__chacaraQuantumLoaded) return;
+  window.__chacaraQuantumLoaded = true;
 
   const SUPABASE_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
@@ -45,7 +45,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | BLINDADO</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | COM ÍCONES</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -55,12 +55,12 @@
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
-        <button id="tab-categorias-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
+        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir / Excluir Fotos e Vídeos</button>
+        <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus e Submenus</button>
       </div>
 
       <!-- ABA 1 -->
-      <div id="secao-conteudos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
+      <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
           <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Enviar Ficheiros em Lote</h3>
           <form id="form-up" style="display:flex;flex-direction:column;gap:12px;">
@@ -91,7 +91,7 @@
       </div>
 
       <!-- ABA 2 -->
-      <div id="secao-categorias" style="display:none;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
+      <div id="secao-categorias" style="display:block;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
         <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus e Submenus com Ícones</h3>
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;background:#1a1a1a;padding:16px;border-radius:8px;">
           <div>
@@ -127,7 +127,7 @@
       const btnEmoji = document.createElement('button');
       btnEmoji.type = 'button';
       btnEmoji.innerText = emoji;
-      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:18px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:0.2s;';
+      btnEmoji.style.cssText = 'background:#222;border:1px solid #444;font-size:20px;padding:8px 12px;border-radius:6px;cursor:pointer;transition:0.2s;';
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.border = '1px solid #444');
         btnEmoji.style.border = '2px solid #ffd700';
@@ -265,7 +265,7 @@
           if (upErr) throw new Error(upErr.message);
 
           const url = client.storage.from('chacara-media').getPublicUrl(fileName).data.publicUrl;
-          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) : 'Foto da Chácara';
+          const titulo = tituloInput ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput) além 'Foto da Chácara';
 
           await client.from('conteudos').insert([{ titulo, categoria_id, url, categoria: 'geral' }]);
         }
@@ -313,19 +313,6 @@
     if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
       injetarPainelCompleto(client, session.user.email);
     }
-
-    // Blindagem global para qualquer clique em botões de login/admin no site
-    document.addEventListener('click', (e) => {
-      const el = e.target.closest('button, a, [role="button"]');
-      if (!el || el.id === 'quantum-btn-trigger' || el.closest('#quantum-admin-root')) return;
-      const txt = (el.innerText || el.textContent || '').trim().toLowerCase();
-      if (txt.includes('login') || txt.includes('google') || txt.includes('admin') || txt.includes('entrar')) {
-        e.preventDefault();
-        e.stopPropagation();
-        const urlOAuth = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + window.location.pathname)}`;
-        window.location.href = urlOAuth;
-      }
-    }, true);
   };
   document.head.appendChild(s);
 
