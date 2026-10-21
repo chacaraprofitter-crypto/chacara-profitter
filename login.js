@@ -7,6 +7,23 @@
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
   const REDIRECT_URL = 'https://chacaraprofitter-crypto.github.io/chacara-profitter/';
 
+  // Menus originais que ja existem no site Menu de Albuns & Ambientes
+  const MENUS_ORIGINAIS_SITE = [
+    '\uD83C\uDFCA PISCINA & \u00C1TRIO',
+    '\uD83C\uDF33 CLUBE & LAGO',
+    '\uD83E\uDD69 ESPA\u00C7O GOURMET',
+    '\uD83D\uDD2E NOITE & UV',
+    '\uD83D\uDECF\uFE0F SU\u00CDTES & QUARTOS',
+    '\uD83C\uDF89 SAL\u00C3O DE FESTAS',
+    '\uD83C\uDF77 LIVING & LAREIRA',
+    '\u2615 COZINHA & BAR',
+    '\uD83D\uDEBF BANHEIROS & VARANDA',
+    '\uD83C\uDFAC V\u00CDDEOS OFICIAIS'
+  ];
+
+  let isAdminLogado = false;
+  let filtroSiteAtivo = 'todas';
+
   function carregarSDK(callback) {
     if (typeof window.supabase !== 'undefined') {
       if (!window.supabaseClient) {
@@ -40,23 +57,254 @@
   window.entrarComGoogle = entrarComGoogle;
   window.loginWithGoogle = entrarComGoogle;
 
+  // Garante que todos os menus originais do site ja existam no banco para o Admin usar
+  async function sincronizarMenusOriginaisDoSite() {
+    if (!window.supabaseClient) return;
+    const { data: existentes, error } = await window.supabaseClient
+      .from('categorias')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (error) return;
+
+    if (!existentes || existentes.length === 0) {
+      const payload = MENUS_ORIGINAIS_SITE.map(nome => ({ nome: nome, pai_id: null }));
+      await window.supabaseClient.from('categorias').insert(payload);
+
+      // Se houver fotos estaticas no HTML dentro da galeria, importa para o banco tambem
+      const galeriaSec = document.getElementById('galeria-premium');
+      if (galeriaSec) {
+        const imgs = Array.from(galeriaSec.querySelectorAll('img'));
+        const { data: novasCats } = await window.supabaseClient.from('categorias').select('*');
+        if (imgs.length > 0 && novasCats && novasCats.length > 0) {
+          const fotosParaImportar = [];
+          imgs.forEach((img, idx) => {
+            if (img.src && !img.src.includes('avatar') && !img.src.includes('logo')) {
+              fotosParaImportar.push({
+                titulo: img.alt || ('Foto da Ch\u00E1cara ' + (idx + 1)),
+                categoria_id: novasCats[0].id,
+                categoria: 'geral',
+                descricao: '',
+                url: img.src
+              });
+            }
+          });
+          if (fotosParaImportar.length > 0) {
+            await window.supabaseClient.from('conteudos').insert(fotosParaImportar);
+          }
+        }
+      }
+    }
+  }
+
+  // Conecta os botoes reais da secao "Menu de Albuns & Ambientes" (#galeria-premium) ao Supabase
+  async function atualizarGaleriaNoSite() {
+    if (!window.supabaseClient) return;
+
+    const { data: cats } = await window.supabaseClient
+      .from('categorias')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    const { data: midias } = await window.supabaseClient
+      .from('conteudos')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    const listaCategorias = (cats && cats.length > 0)
+      ? cats
+      : MENUS_ORIGINAIS_SITE.map((n, i) => ({ id: 'temp_' + i, nome: n, pai_id: null }));
+
+    const listaMidias = midias || [];
+
+    // Localiza a secao Menu de Albuns & Ambientes no site
+    let galeriaSection = document.getElementById('galeria-premium');
+    if (!galeriaSection) {
+      const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
+      const hMenu = headings.find(h => (h.innerText || '').includes('Menu de') || (h.innerText || '').includes('Ambientes'));
+      if (hMenu) galeriaSection = hMenu.closest('section, div');
+    }
+    if (!galeriaSection) return;
+
+    // Localiza o container original dos botoes de categorias para substitui-lo pela versao dinamica
+    let wrapperDinamico = document.getElementById('chacara-albuns-dinamico');
+    if (!wrapperDinamico) {
+      const todosBotoes = Array.from(galeriaSection.querySelectorAll('button, a, div, span'));
+      const btnTodos = todosBotoes.find(el => {
+        const txt = (el.innerText || '').trim().toUpperCase();
+        return (txt.includes('TODOS OS AMBIENTES') || txt.includes('PISCINA &')) && el.children.length <= 2;
+      });
+
+      wrapperDinamico = document.createElement('div');
+      wrapperDinamico.id = 'chacara-albuns-dinamico';
+      wrapperDinamico.style.cssText = 'width:100%;max-width:1300px;margin:20px auto 0 auto;padding:0 15px;box-sizing:border-box;';
+
+      if (btnTodos && btnTodos.parentElement) {
+        const containerOriginalBotoes = btnTodos.parentElement;
+        // Esconde os botoes estaticos antigos e coloca os botoes dinamicos sincronizados no mesmo lugar
+        containerOriginalBotoes.style.display = 'none';
+        containerOriginalBotoes.parentNode.insertBefore(wrapperDinamico, containerOriginalBotoes.nextSibling);
+      } else {
+        galeriaSection.appendChild(wrapperDinamico);
+      }
+    }
+
+    const principais = listaCategorias.filter(c => !c.pai_id);
+
+    function desenharMenuEGaleria() {
+      const estiloAtivo = 'background:linear-gradient(135deg,#e5b842,#c8961e);color:#000;border:1px solid #ffd700;padding:12px 22px;border-radius:30px;cursor:pointer;font-weight:bold;font-size:13px;letter-spacing:0.5px;box-shadow:0 0 25px rgba(229,184,66,0.45);transition:all 0.25s;';
+      const estiloInativo = 'background:#111622;color:#e2e8f0;border:1px solid #263042;padding:12px 22px;border-radius:30px;cursor:pointer;font-weight:600;font-size:13px;letter-spacing:0.5px;transition:all 0.25s;';
+
+      let htmlBotoes = `<button class="btn-album-site" data-id="todas" style="${filtroSiteAtivo === 'todas' ? estiloAtivo : estiloInativo}">\u2728 TODOS OS AMBIENTES (${listaMidias.length})</button>`;
+
+      principais.forEach(p => {
+        const qtdFilhos = listaCategorias.filter(s => s.pai_id === p.id).map(s => s.id);
+        const qtdFotos = listaMidias.filter(m => m.categoria_id === p.id || qtdFilhos.includes(m.categoria_id)).length;
+        const ativo = (filtroSiteAtivo === p.id);
+        htmlBotoes += `<button class="btn-album-site" data-id="${p.id}" style="${ativo ? estiloAtivo : estiloInativo}">${p.nome}${qtdFotos > 0 ? ' (' + qtdFotos + ')' : ''}</button>`;
+      });
+
+      // Verifica se a categoria clicada possui Submenus
+      let catPaiSelecionada = principais.find(p => p.id === filtroSiteAtivo);
+      if (!catPaiSelecionada) {
+        const subSel = listaCategorias.find(s => s.id === filtroSiteAtivo);
+        if (subSel && subSel.pai_id) {
+          catPaiSelecionada = principais.find(p => p.id === subSel.pai_id);
+        }
+      }
+
+      let htmlSubmenus = '';
+      if (catPaiSelecionada) {
+        const submenus = listaCategorias.filter(s => s.pai_id === catPaiSelecionada.id);
+        if (submenus.length > 0) {
+          htmlSubmenus = '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,215,0,0.2);">';
+          const paiAtivo = (filtroSiteAtivo === catPaiSelecionada.id);
+          htmlSubmenus += `<button class="btn-album-site" data-id="${catPaiSelecionada.id}" style="background:${paiAtivo ? '#ffd700' : '#1a202c'};color:${paiAtivo ? '#000' : '#ffd700'};border:1px solid #ffd700;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:bold;">Ver Tudo em ${catPaiSelecionada.nome}</button>`;
+          submenus.forEach(s => {
+            const subAtivo = (filtroSiteAtivo === s.id);
+            const qtdSub = listaMidias.filter(m => m.categoria_id === s.id).length;
+            htmlSubmenus += `<button class="btn-album-site" data-id="${s.id}" style="background:${subAtivo ? '#ffd700' : '#1a202c'};color:${subAtivo ? '#000' : '#fff'};border:1px solid ${subAtivo ? '#ffd700' : '#3a465e'};padding:8px 16px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:bold;">\u21B3 ${s.nome}${qtdSub > 0 ? ' (' + qtdSub + ')' : ''}</button>`;
+          });
+          htmlSubmenus += '</div>';
+        }
+      }
+
+      // Filtra as fotos e videos para exibir
+      let midiasExibidas = listaMidias;
+      if (filtroSiteAtivo !== 'todas') {
+        const idsSub = listaCategorias.filter(s => s.pai_id === filtroSiteAtivo).map(s => s.id);
+        midiasExibidas = listaMidias.filter(m => m.categoria_id === filtroSiteAtivo || idsSub.includes(m.categoria_id));
+      }
+
+      let htmlGrid = '';
+      if (midiasExibidas.length === 0) {
+        const nomeMenuAtual = filtroSiteAtivo === 'todas'
+          ? 'Todos os Ambientes'
+          : ((listaCategorias.find(c => c.id === filtroSiteAtivo) || {}).nome || 'este ambiente');
+
+        htmlGrid = `
+          <div style="grid-column:1/-1;text-align:center;padding:45px 20px;background:rgba(17,22,34,0.6);border:1px dashed #2e3b52;border-radius:16px;margin-top:10px;">
+            <p style="color:#94a3b8;font-size:15px;margin:0 0 12px 0;">Nenhuma foto ou v\u00EDdeo cadastrado em <b style="color:#ffd700;">${nomeMenuAtual}</b> ainda.</p>${isAdminLogado ? `<button id="btn-atalho-upload-site" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:25px;font-weight:bold;cursor:pointer;font-size:13px;">+ Adicionar Fotos em ${nomeMenuAtual}</button>` : ''}
+          </div>
+        `;
+      } else {
+        midiasExibidas.forEach(item => {
+          const isVideo = item.url && item.url.match(/\.(mp4|mov|webm|ogg)$/i);
+          const catObj = listaCategorias.find(c => c.id === item.categoria_id);
+          const nomeCat = catObj ? catObj.nome : 'Galeria';
+
+          const midiaTag = isVideo
+            ? `<video src="${item.url}" controls style="width:100%;height:260px;object-fit:cover;display:block;background:#000;"></video>`
+            : `<img src="${item.url}" loading="lazy" onclick="window.open('${item.url}','_blank')" style="width:100%;height:260px;object-fit:cover;display:block;cursor:pointer;transition:transform 0.35s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">`;
+
+          const btnExcluirDireto = isAdminLogado
+            ? `<button class="btn-del-midia-site" data-id="${item.id}" data-titulo="${item.titulo || ''}" style="position:absolute;top:10px;right:10px;background:#d9534f;color:#fff;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:bold;box-shadow:0 2px 10px rgba(0,0,0,0.7);">\uD83D\uDDD1\uFE0F Excluir</button>`
+            : '';
+
+          htmlGrid += `
+            <div style="background:#0f1420;border:1px solid #232d3f;border-radius:14px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.5);">
+              <div style="overflow:hidden;position:relative;">
+                ${midiaTag}
+                <span style="position:absolute;top:10px;left:10px;background:rgba(10,14,23,0.85);color:#ffd700;padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid rgba(255,215,0,0.4);font-weight:600;">${nomeCat}</span>${btnExcluirDireto}
+              </div>
+              <div style="padding:14px 16px;">
+                <h4 style="margin:0 0 4px 0;color:#f8fafc;font-size:15px;">${item.titulo \vert{}\vert{} nomeCat}</h4>${item.descricao ? `<p style="margin:0;color:#94a3b8;font-size:13px;line-height:1.4;">${item.descricao}</p>` : ''}
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      wrapperDinamico.innerHTML = `
+        <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:10px;">
+          ${htmlBotoes}
+        </div>
+        ${htmlSubmenus}
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;margin-top:30px;">
+          ${htmlGrid}
+        </div>
+      `;
+
+      wrapperDinamico.querySelectorAll('.btn-album-site').forEach(btn => {
+        btn.onclick = () => {
+          filtroSiteAtivo = btn.getAttribute('data-id');
+          desenharMenuEGaleria();
+        };
+      });
+
+      const btnAtalho = document.getElementById('btn-atalho-upload-site');
+      if (btnAtalho) {
+        btnAtalho.onclick = () => {
+          const painel = document.getElementById('ultra-admin-dashboard');
+          if (painel) {
+            painel.style.display = 'flex';
+            document.getElementById('tab-btn-conteudos').click();
+            if (filtroSiteAtivo !== 'todas') {
+              document.getElementById('admin-categoria-select').value = filtroSiteAtivo;
+            }
+          }
+        };
+      }
+
+      wrapperDinamico.querySelectorAll('.btn-del-midia-site').forEach(btn => {
+        btn.onclick = async (e) => {
+          e.stopPropagation();
+          const id = btn.getAttribute('data-id');
+          const tit = btn.getAttribute('data-titulo');
+          if (confirm('Deseja excluir esta foto/v\u00EDdeo (' + tit + ')?')) {
+            await window.supabaseClient.from('conteudos').delete().eq('id', id);
+            atualizarGaleriaNoSite();
+            carregarConteudosAdmin();
+          }
+        };
+      });
+    }
+
+    desenharMenuEGaleria();
+  }
+
   function criarBotaoFlutuanteLogin() {
-    if (document.getElementById('btn-flutuante-login-vip')) return;
+    if (document.getElementById('btn-flutuante-login-vip') || document.getElementById('btn-reabrir-admin')) return;
     const btn = document.createElement('button');
     btn.id = 'btn-flutuante-login-vip';
-    btn.innerHTML = '🔐 Login Admin VIP';
+    btn.innerHTML = '\uD83D\uDD10 Login Admin VIP';
     btn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#1a1a1a,#000);color:#ffd700;border:2px solid #ffd700;padding:12px 22px;border-radius:30px;z-index:999998;cursor:pointer;font-weight:bold;font-family:sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,0.7);';
     btn.onclick = (e) => {
       e.preventDefault();
-      btn.innerHTML = '⏳ Conectando...';
+      btn.innerHTML = '\u23F3 Conectando...';
       entrarComGoogle();
     };
     document.body.appendChild(btn);
   }
 
   async function renderizarPainelAdmin(userEmail) {
+    isAdminLogado = true;
     const btnLogin = document.getElementById('btn-flutuante-login-vip');
     if (btnLogin) btnLogin.remove();
+
+    // Garante que os 10 menus do site ja estejam criados no Supabase
+    await sincronizarMenusOriginaisDoSite();
+    await atualizarGaleriaNoSite();
 
     let painel = document.getElementById('ultra-admin-dashboard');
     if (painel) painel.remove();
@@ -68,8 +316,8 @@
     painel.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:15px;margin-bottom:20px;flex-wrap:wrap;gap:15px;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:24px;letter-spacing:1px;">CHÁCARA PROFITTER | PAINEL MESTRE QUÂNTICO</h2>
-          <p style="margin:5px 0 0 0;color:#aaa;font-size:13px;">Controle Total | Admin: <b style="color:#ffd700;">${userEmail}</b></p>
+          <h2 style="margin:0;color:#ffd700;font-size:24px;letter-spacing:1px;">CH\u00C1CARA PROFITTER | PAINEL MESTRE QU\u00C2NTICO</h2>
+          <p style="margin:5px 0 0 0;color:#aaa;font-size:13px;">Sincronizado ao Menu de \u00C1lbuns & Ambientes do Site | Admin: <b style="color:#ffd700;">${userEmail}</b></p>
         </div>
         <div>
           <button id="btn-fechar-painel" style="background:#222;color:#ffd700;border:1px solid #ffd700;padding:8px 16px;border-radius:6px;cursor:pointer;margin-right:10px;font-weight:bold;">Minimizar / Ver Site</button>
@@ -77,74 +325,86 @@
         </div>
       </div>
 
-      <!-- Abas de Navegação -->
-      <div style="display:flex;gap:10px;margin-bottom:20px;">
-        <button id="tab-btn-conteudos" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">📸 Gestão de Fotos e Vídeos</button>
-        <button id="tab-btn-categorias" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">📂 Gestão de Menus e Subcategorias</button>
+      <!-- Abas -->
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+        <button id="tab-btn-conteudos" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">\uD83D\uDCF8 Inserir / Excluir Fotos e V\u00EDdeos nos Menus</button>
+        <button id="tab-btn-categorias" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;">\uD83D\uDCC2 Gerenciar Menus do Site e Submenus (Criar / Excluir / Renomear)</button>
       </div>
 
-      <!-- ABA 1: CONTEÚDOS -->
+      <!-- ABA 1: UPLOAD E FOTOS -->
       <div id="tab-conteudos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:25px;max-width:1400px;margin:0 auto;width:100%;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-          <h3 id="titulo-form-admin" style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:10px;font-size:16px;">Novo Upload em Categoria/Submenu</h3>
+          <h3 id="titulo-form-admin" style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:10px;font-size:16px;">Inserir Fotos ou V\u00EDdeos nos Menus do Site</h3>
           <form id="form-upload-conteudo" style="display:flex;flex-direction:column;gap:12px;">
             <input type="hidden" id="admin-edit-id" value="">
             <div>
-              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Título da Mídia</label>
-              <input type="text" id="admin-titulo" placeholder="Ex: Vista da Piscina" required style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;">
-            </div>
-            <div>
-              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Selecione a Categoria / Submenu de Destino</label>
-              <select id="admin-categoria-select" required style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;">
-                <option value="">Carregando categorias...</option>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Escolha o Menu do Site ou Submenu *</label>
+              <select id="admin-categoria-select" required style="width:100%;padding:11px;background:#1e1e1e;border:1px solid #ffd700;color:#fff;border-radius:6px;box-sizing:border-box;font-size:14px;">
+                <option value="">Carregando menus do site...</option>
               </select>
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Descrição</label>
-              <textarea id="admin-descricao" rows="3" placeholder="Detalhes..." style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;resize:vertical;"></textarea>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. Selecionar Fotos ou V\u00EDdeos (Pode escolher v\u00E1rios de uma vez) *</label>
+              <input type="file" id="admin-arquivo" accept="image/*,video/*" multiple required style="width:100%;color:#fff;padding:10px;background:#1e1e1e;border:1px solid #444;border-radius:6px;box-sizing:border-box;cursor:pointer;">
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Arquivo (Foto ou Vídeo)</label>
-              <input type="file" id="admin-arquivo" accept="image/*,video/*" required style="width:100%;color:#aaa;padding:8px;background:#1e1e1e;border:1px solid #333;border-radius:6px;box-sizing:border-box;">
+              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">T\u00EDtulo (Opcional - se deixar vazio, usa o nome do Menu)</label>
+              <input type="text" id="admin-titulo" placeholder="Ex: Piscina Aquecida / Vista Noturna" style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Descri\u00E7\u00E3o (Opcional)</label>
+              <textarea id="admin-descricao" rows="2" placeholder="Detalhes opcionais..." style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;resize:vertical;"></textarea>
             </div>
             <div style="display:flex;gap:10px;">
-              <button type="submit" id="btn-enviar-midia" style="flex:1;background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;">Publicar na Nuvem</button>
-              <button type="button" id="btn-cancelar-edicao" style="display:none;background:#444;color:#fff;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;">Cancelar</button>
+              <button type="submit" id="btn-enviar-midia" style="flex:1;background:#ffd700;color:#000;border:none;padding:14px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:14px;">\uD83D\uDE80 Publicar no Menu Selecionado</button>
+              <button type="button" id="btn-cancelar-edicao" style="display:none;background:#444;color:#fff;border:none;padding:14px;border-radius:6px;font-weight:bold;cursor:pointer;">Cancelar</button>
             </div>
           </form>
         </div>
 
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:10px;font-size:16px;display:flex;justify-content:space-between;align-items:center;">
-            <span>Conteúdos Cadastrados</span>
-            <button id="btn-atualizar-lista" style="background:#222;color:#ffd700;border:1px solid #444;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:11px;">🔄 Atualizar</button>
-          </h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <h3 style="color:#ffd700;margin:0;font-size:16px;">Fotos e V\u00EDdeos nos Menus</h3>
+            <div style="display:flex;gap:8px;">
+              <select id="filtro-admin-midias" style="background:#1e1e1e;color:#fff;border:1px solid #444;padding:5px 10px;border-radius:4px;font-size:12px;">
+                <option value="todas">Todos os Menus</option>
+              </select>
+              <button id="btn-atualizar-lista" style="background:#222;color:#ffd700;border:1px solid #444;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:11px;">\uD83D\uDD04 Atualizar</button>
+            </div>
+          </div>
           <div id="lista-conteudos-admin" style="max-height:480px;overflow-y:auto;padding-right:5px;">
             <p style="color:#888;text-align:center;margin-top:30px;">Carregando...</p>
           </div>
         </div>
       </div>
 
-      <!-- ABA 2: GESTÃO DE CATEGORIAS E SUBCATEGORIAS -->
-      <div id="tab-categorias" style="display:none;max-width:1000px;margin:0 auto;width:100%;background:#141414;padding:25px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:10px;">Criar e Gerenciar Menus, Categorias e Subcategorias</h3>
-        <form id="form-criar-categoria" style="display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap;align-items:flex-end;">
-          <div style="flex:1;min-width:220px;">
-            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Nome da Categoria / Submenu</label>
-            <input type="text" id="cat-nome" placeholder="Ex: Área de Lazer / Churrasqueira" required style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;">
+      <!-- ABA 2: MENUS E SUBCATEGORIAS DO SITE -->
+      <div id="tab-categorias" style="display:none;max-width:1050px;margin:0 auto;width:100%;background:#141414;padding:25px;border-radius:12px;border:1px solid #282828;">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <div>
+            <h3 style="color:#ffd700;margin:0;">Menus do Site ("Menu de \u00C1lbuns & Ambientes") e Submenus</h3>
+            <p style="color:#aaa;font-size:12px;margin:4px 0 0 0;">Aqui est\u00E3o todos os menus que aparecem no seu site. Voc\u00EA pode criar novos menus, adicionar submenus dentro deles, renomear ou excluir qualquer um.</p>
           </div>
-          <div style="width:220px;">
-            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px;">Pertence a (Opcional p/ Submenu)</label>
-            <select id="cat-pai" style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;box-sizing:border-box;">
-              <option value="">Nenhuma (Categoria Principal)</option>
+          <button id="btn-restaurar-menus-site" style="background:#28a745;color:#fff;border:none;padding:9px 15px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;">\u26A1 Restaurar Menus Originais do Site</button>
+        </div>
+
+        <form id="form-criar-categoria" style="display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap;align-items:flex-end;background:#1a1a1a;padding:15px;border-radius:8px;border:1px solid #2e2e2e;">
+          <div style="flex:1;min-width:240px;">
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Nome do Novo Menu ou Submenu</label>
+            <input type="text" id="cat-nome" placeholder="Ex: \uD83C\uDFBE Quadra de T\u00EAnis / Piscina Aquecida..." required style="width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;box-sizing:border-box;">
+          </div>
+          <div style="width:280px;">
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. Onde vai entrar?</label>
+            <select id="cat-pai" style="width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;box-sizing:border-box;">
+              <option value="">Menu Principal (Bot\u00E3o no Site)</option>
             </select>
           </div>
-          <button type="submit" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;height:41px;">Adicionar ao Menu</button>
+          <button type="submit" style="background:#ffd700;color:#000;border:none;padding:10px 22px;border-radius:6px;font-weight:bold;cursor:pointer;height:41px;">+ Criar Menu / Submenu</button>
         </form>
 
-        <h4 style="color:#ccc;border-bottom:1px solid #222;padding-bottom:8px;">Estrutura Atual de Menus e Submenus</h4>
-        <div id="lista-categorias-admin" style="max-height:380px;overflow-y:auto;">
-          <p style="color:#888;text-align:center;">Carregando categorias...</p>
+        <h4 style="color:#ccc;border-bottom:1px solid #222;padding-bottom:8px;">Menus Ativos no Site Agora:</h4>
+        <div id="lista-categorias-admin" style="max-height:420px;overflow-y:auto;">
+          <p style="color:#888;text-align:center;">Carregando menus...</p>
         </div>
       </div>
     `;
@@ -172,11 +432,12 @@
 
     document.getElementById('btn-fechar-painel').onclick = () => {
       painel.style.display = 'none';
+      atualizarGaleriaNoSite();
       let flotBtn = document.getElementById('btn-reabrir-admin');
       if (!flotBtn) {
         flotBtn = document.createElement('button');
         flotBtn.id = 'btn-reabrir-admin';
-        flotBtn.innerText = '⚙️ Abrir Painel Admin';
+        flotBtn.innerText = '\u2699\uFE0F Abrir Painel Admin';
         flotBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#ffd700;color:#000;border:none;padding:12px 22px;border-radius:30px;z-index:999998;cursor:pointer;font-weight:bold;box-shadow:0 4px 20px rgba(0,0,0,0.7);';
         flotBtn.onclick = () => { painel.style.display = 'flex'; };
         document.body.appendChild(flotBtn);
@@ -189,23 +450,41 @@
     };
 
     document.getElementById('btn-atualizar-lista').onclick = carregarConteudosAdmin;
+    document.getElementById('filtro-admin-midias').onchange = carregarConteudosAdmin;
+
+    // Botao para restaurar qualquer menu original caso tenha sido excluido
+    document.getElementById('btn-restaurar-menus-site').onclick = async () => {
+      const { data: atuais } = await window.supabaseClient.from('categorias').select('*');
+      const nomesAtuais = (atuais || []).map(c => c.nome.toUpperCase());
+      const faltantes = MENUS_ORIGINAIS_SITE.filter(n => !nomesAtuais.includes(n.toUpperCase()));
+      if (faltantes.length === 0) {
+        alert('Todos os menus originais do site j\u00E1 est\u00E3o presentes na lista!');
+        return;
+      }
+      await window.supabaseClient.from('categorias').insert(faltantes.map(nome => ({ nome, pai_id: null })));
+      await carregarCategoriasAdmin();
+      await carregarSelectCategorias();
+      await atualizarGaleriaNoSite();
+      alert('Menus originais restaurados com sucesso!');
+    };
 
     document.getElementById('form-criar-categoria').onsubmit = async (e) => {
       e.preventDefault();
-      const nome = document.getElementById('cat-nome').value;
+      const nome = document.getElementById('cat-nome').value.trim();
       const paiId = document.getElementById('cat-pai').value || null;
+      if (!nome) return;
 
       const { error } = await window.supabaseClient
         .from('categorias')
         .insert([{ nome, pai_id: paiId }]);
 
       if (error) {
-        alert('Erro ao criar categoria: ' + error.message);
+        alert('Erro ao criar menu: ' + error.message);
       } else {
-        alert('Categoria/Submenu criado com sucesso!');
         document.getElementById('cat-nome').value = '';
-        carregarCategoriasAdmin();
-        carregarSelectCategorias();
+        await carregarCategoriasAdmin();
+        await carregarSelectCategorias();
+        await atualizarGaleriaNoSite();
       }
     };
 
@@ -214,8 +493,8 @@
       document.getElementById('form-upload-conteudo').reset();
       document.getElementById('admin-edit-id').value = '';
       document.getElementById('admin-arquivo').required = true;
-      document.getElementById('titulo-form-admin').innerText = 'Novo Upload em Categoria/Submenu';
-      document.getElementById('btn-enviar-midia').innerText = 'Publicar na Nuvem';
+      document.getElementById('titulo-form-admin').innerText = 'Inserir Fotos ou V\u00EDdeos nos Menus do Site';
+      document.getElementById('btn-enviar-midia').innerText = '\uD83D\uDE80 Publicar no Menu Selecionado';
       btnCancelar.style.display = 'none';
     };
 
@@ -223,97 +502,114 @@
       e.preventDefault();
       const btn = document.getElementById('btn-enviar-midia');
       const editId = document.getElementById('admin-edit-id').value;
-      const titulo = document.getElementById('admin-titulo').value;
-      const categoriaId = document.getElementById('admin-categoria-select').value;
-      const descricao = document.getElementById('admin-descricao').value;
+      const tituloInput = document.getElementById('admin-titulo').value.trim();
+      const selectEl = document.getElementById('admin-categoria-select');
+      const categoriaId = selectEl.value;
+      const nomeCategoriaLimpo = selectEl.options[selectEl.selectedIndex]
+        ? selectEl.options[selectEl.selectedIndex].text.replace(/[\u21B3\-\s]+/g, ' ').trim()
+        : 'Ch\u00E1cara Profitter';
+      const descricao = document.getElementById('admin-descricao').value.trim();
       const fileInput = document.getElementById('admin-arquivo');
-      const file = fileInput.files[0];
+      const files = fileInput.files;
 
-      if (!categoriaId) return alert('Selecione uma categoria ou submenu!');
+      if (!categoriaId) return alert('Escolha um Menu ou Submenu na lista!');
 
-      btn.innerText = 'Processando na nuvem...';
       btn.disabled = true;
 
       try {
-        let publicUrl = null;
-
-        if (file) {
-          const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-          const fileName = Date.now() + '_' + sanitizedName;
-          const { error: uploadError } = await window.supabaseClient.storage
-            .from('chacara-media')
-            .upload(fileName, file);
-
-          if (uploadError) throw new Error('Erro no Storage: ' + uploadError.message);
-
-          const urlData = window.supabaseClient.storage
-            .from('chacara-media')
-            .getPublicUrl(fileName);
-          publicUrl = urlData.data.publicUrl;
-        }
-
         if (editId) {
-          const updatePayload = { titulo, categoria_id: categoriaId, descricao };
+          btn.innerText = '\u23F3 Salvando altera\u00E7\u00F5es...';
+          let publicUrl = null;
+          if (files && files[0]) {
+            const file = files[0];
+            const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            const fileName = Date.now() + '_' + sanitizedName;
+            const { error: uploadError } = await window.supabaseClient.storage.from('chacara-media').upload(fileName, file);
+            if (uploadError) throw new Error('Erro no Storage: ' + uploadError.message);
+            publicUrl = window.supabaseClient.storage.from('chacara-media').getPublicUrl(fileName).data.publicUrl;
+          }
+          const updatePayload = { titulo: tituloInput || nomeCategoriaLimpo, categoria_id: categoriaId, descricao };
           if (publicUrl) updatePayload.url = publicUrl;
 
-          const { error: dbError } = await window.supabaseClient
-            .from('conteudos')
-            .update(updatePayload)
-            .eq('id', editId);
-
+          const { error: dbError } = await window.supabaseClient.from('conteudos').update(updatePayload).eq('id', editId);
           if (dbError) throw new Error('Erro ao atualizar: ' + dbError.message);
-          alert('Conteúdo atualizado com sucesso!');
+          alert('Conte\u00FAdo atualizado com sucesso!');
         } else {
-          if (!publicUrl) throw new Error('Selecione uma foto ou vídeo!');
-          const { error: dbError } = await window.supabaseClient
-            .from('conteudos')
-            .insert([{ titulo, categoria_id: categoriaId, descricao, url: publicUrl, categoria: 'geral' }]);
+          if (!files || files.length === 0) throw new Error('Selecione pelo menos 1 foto ou v\u00EDdeo!');
 
-          if (dbError) throw new Error('Erro no Banco de Dados: ' + dbError.message);
-          alert('Conteúdo publicado com sucesso!');
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            btn.innerText = `\u23F3 Enviando ${i + 1} de${files.length}...`;
+            const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            const fileName = Date.now() + '_' + i + '_' + sanitizedName;
+
+            const { error: uploadError } = await window.supabaseClient.storage
+              .from('chacara-media')
+              .upload(fileName, file);
+
+            if (uploadError) throw new Error('Erro ao enviar ' + file.name + ': ' + uploadError.message);
+
+            const publicUrl = window.supabaseClient.storage.from('chacara-media').getPublicUrl(fileName).data.publicUrl;
+            const tituloFinal = tituloInput
+              ? (files.length > 1 ? `${tituloInput} (${i + 1})` : tituloInput)
+              : nomeCategoriaLimpo;
+
+            const { error: dbError } = await window.supabaseClient
+              .from('conteudos')
+              .insert([{ titulo: tituloFinal, categoria_id: categoriaId, descricao, url: publicUrl, categoria: 'geral' }]);
+
+            if (dbError) throw new Error('Erro no Banco: ' + dbError.message);
+          }
+
+          alert(files.length + ' arquivo(s) inserido(s) com sucesso no menu!');
         }
 
+        const catMantida = categoriaId;
         btnCancelar.click();
-        carregarConteudosAdmin();
+        document.getElementById('admin-categoria-select').value = catMantida;
+        await carregarConteudosAdmin();
+        await atualizarGaleriaNoSite();
       } catch (err) {
         console.error(err);
-        alert('Atenção: ' + err.message);
+        alert('Aten\u00E7\u00E3o: ' + err.message);
       } finally {
-        btn.innerText = editId ? 'Salvar Alterações' : 'Publicar na Nuvem';
+        btn.innerText = editId ? 'Salvar Altera\u00E7\u00F5es' : '\uD83D\uDE80 Publicar no Menu Selecionado';
         btn.disabled = false;
       }
     };
 
-    carregarSelectCategorias();
-    carregarConteudosAdmin();
+    await carregarSelectCategorias();
+    await carregarConteudosAdmin();
+    await carregarCategoriasAdmin();
   }
 
   async function carregarSelectCategorias() {
     const select = document.getElementById('admin-categoria-select');
     const selectPai = document.getElementById('cat-pai');
+    const filtroMidias = document.getElementById('filtro-admin-midias');
     if (!select) return;
 
     const { data: cats, error } = await window.supabaseClient
       .from('categorias')
       .select('*')
-      .order('nome', { ascending: true });
+      .order('created_at', { ascending: true });
 
-    if (error || !cats) {
-      select.innerHTML = '<option value="">Erro ao carregar categorias</option>';
-      return;
-    }
+    if (error || !cats) return;
 
-    select.innerHTML = '<option value="">Selecione a Categoria / Submenu</option>';
-    if (selectPai) selectPai.innerHTML = '<option value="">Nenhuma (Categoria Principal)</option>';
+    select.innerHTML = '<option value="">-- Escolha o Menu do Site ou Submenu --</option>';
+    if (selectPai) selectPai.innerHTML = '<option value="">Menu Principal (Novo Bot\u00E3o no Site)</option>';
+    if (filtroMidias) filtroMidias.innerHTML = '<option value="todas">Todos os Menus do Site</option>';
 
     const principais = cats.filter(c => !c.pai_id);
     principais.forEach(p => {
-      select.innerHTML += `<option value="${p.id}" style="font-weight:bold;color:#ffd700;">📁 ${p.nome}</option>`;
-      if (selectPai) selectPai.innerHTML += `<option value="${p.id}">📁 ${p.nome}</option>`;
+      select.innerHTML += `<option value="${p.id}" style="font-weight:bold;color:#ffd700;">${p.nome}</option>`;
+      if (selectPai) selectPai.innerHTML += `<option value="${p.id}">Dentro de: ${p.nome} (Criar Submenu)</option>`;
+      if (filtroMidias) filtroMidias.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
 
       const submenus = cats.filter(s => s.pai_id === p.id);
       submenus.forEach(s => {
-        select.innerHTML += `<option value="${s.id}">&nbsp;&nbsp;&nbsp;&nbsp;📂 -- ${s.nome}</option>`;
+        select.innerHTML += `<option value="${s.id}">&nbsp;&nbsp;&nbsp;&nbsp;\u21B3 Submenu: ${s.nome}</option>`;
+        if (filtroMidias) filtroMidias.innerHTML += `<option value="${s.id}">&nbsp;&nbsp;&nbsp;&nbsp;\u21B3 ${s.nome}</option>`;
       });
     });
   }
@@ -321,7 +617,7 @@
   async function carregarCategoriasAdmin() {
     const container = document.getElementById('lista-categorias-admin');
     if (!container) return;
-    container.innerHTML = '<p style="color:#888;text-align:center;">Carregando...</p>';
+    container.innerHTML = '<p style="color:#888;text-align:center;">Carregando menus do site...</p>';
 
     const { data: cats, error } = await window.supabaseClient
       .from('categorias')
@@ -329,7 +625,7 @@
       .order('created_at', { ascending: true });
 
     if (error || !cats || cats.length === 0) {
-      container.innerHTML = '<p style="color:#888;text-align:center;">Nenhuma categoria criada ainda. Crie acima!</p>';
+      container.innerHTML = '<p style="color:#ffd700;text-align:center;">Nenhum menu encontrado.</p>';
       return;
     }
 
@@ -338,20 +634,29 @@
 
     principais.forEach(p => {
       const card = document.createElement('div');
-      card.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:12px;border-radius:8px;margin-bottom:10px;';
-      
-      let html = `<div style="display:flex;justify-content:space-between;align-items:center;">
-        <b style="color:#ffd700;font-size:15px;">📁 ${p.nome}</b>
-        <button class="btn-del-cat" data-id="${p.id}" style="background:#a94442;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:11px;">Excluir Categoria</button>
+      card.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:14px;border-radius:8px;margin-bottom:10px;';
+
+      let html = `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <b style="color:#ffd700;font-size:15px;">${p.nome}</b>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-atalho-up" data-id="${p.id}" style="background:#0275d8;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">\uD83D\uDCF8 Inserir Fotos Aqui</button>
+          <button class="btn-add-sub" data-id="${p.id}" data-nome="${p.nome}" style="background:#28a745;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">+ Criar Submenu</button>
+          <button class="btn-ren-cat" data-id="${p.id}" data-nome="${p.nome}" style="background:#f0ad4e;color:#000;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Renomear</button>
+          <button class="btn-del-cat" data-id="${p.id}" style="background:#d9534f;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir do Site</button>
+        </div>
       </div>`;
 
       const submenus = cats.filter(s => s.pai_id === p.id);
       if (submenus.length > 0) {
-        html += '<div style="margin-top:8px;padding-left:20px;border-left:2px solid #444;display:flex;flex-direction:column;gap:6px;">';
+        html += '<div style="margin-top:10px;padding-left:20px;border-left:2px solid #ffd700;display:flex;flex-direction:column;gap:6px;">';
         submenus.forEach(s => {
-          html += `<div style="display:flex;justify-content:space-between;align-items:center;background:#151515;padding:6px 10px;border-radius:4px;">
-            <span style="color:#ccc;font-size:13px;">↳ 📂 ${s.nome}</span>
-            <button class="btn-del-cat" data-id="${s.id}" style="background:#a94442;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;">Excluir Submenu</button>
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;background:#141414;padding:8px 12px;border-radius:6px;border:1px solid #282828;flex-wrap:wrap;gap:6px;">
+            <span style="color:#eee;font-size:13px;">\u21B3 Submenu: <b>${s.nome}</b></span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-atalho-up" data-id="${s.id}" style="background:#0275d8;color:#fff;border:none;padding:4px 9px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">\uD83D\uDCF8 Inserir Fotos</button>
+              <button class="btn-ren-cat" data-id="${s.id}" data-nome="${s.nome}" style="background:#f0ad4e;color:#000;border:none;padding:4px 9px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Renomear</button>
+              <button class="btn-del-cat" data-id="${s.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 9px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir Submenu</button>
+            </div>
           </div>`;
         });
         html += '</div>';
@@ -361,15 +666,61 @@
       container.appendChild(card);
     });
 
-    document.querySelectorAll('.btn-del-cat').forEach(btn => {
-      btn.onclick = async (e) => {
-        const id = e.target.getAttribute('data-id');
-        if (confirm('Deseja excluir esta categoria/submenu?')) {
+    // Atalho direto para ir para a aba de upload com o Menu ja selecionado
+    container.querySelectorAll('.btn-atalho-up').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.getAttribute('data-id');
+        document.getElementById('tab-btn-conteudos').click();
+        document.getElementById('admin-categoria-select').value = id;
+        document.getElementById('admin-arquivo').focus();
+      };
+    });
+
+    container.querySelectorAll('.btn-add-sub').forEach(btn => {
+      btn.onclick = async () => {
+        const paiId = btn.getAttribute('data-id');
+        const paiNome = btn.getAttribute('data-nome');
+        const subNome = prompt('Digite o nome do novo Submenu dentro de "' + paiNome + '":');
+        if (subNome && subNome.trim()) {
+          const { error } = await window.supabaseClient.from('categorias').insert([{ nome: subNome.trim(), pai_id: paiId }]);
+          if (error) alert('Erro: ' + error.message);
+          else {
+            await carregarCategoriasAdmin();
+            await carregarSelectCategorias();
+            await atualizarGaleriaNoSite();
+          }
+        }
+      };
+    });
+
+    container.querySelectorAll('.btn-ren-cat').forEach(btn => {
+      btn.onclick = async () => {
+        const id = btn.getAttribute('data-id');
+        const nomeAtual = btn.getAttribute('data-nome');
+        const novoNome = prompt('Digite o novo nome para o menu/submenu:', nomeAtual);
+        if (novoNome && novoNome.trim() && novoNome.trim() !== nomeAtual) {
+          const { error } = await window.supabaseClient.from('categorias').update({ nome: novoNome.trim() }).eq('id', id);
+          if (error) alert('Erro ao renomear: ' + error.message);
+          else {
+            await carregarCategoriasAdmin();
+            await carregarSelectCategorias();
+            await carregarConteudosAdmin();
+            await atualizarGaleriaNoSite();
+          }
+        }
+      };
+    });
+
+    container.querySelectorAll('.btn-del-cat').forEach(btn => {
+      btn.onclick = async () => {
+        const id = btn.getAttribute('data-id');
+        if (confirm('Deseja realmente excluir este menu/submenu do site?')) {
           const { error } = await window.supabaseClient.from('categorias').delete().eq('id', id);
           if (error) alert('Erro ao excluir: ' + error.message);
           else {
-            carregarCategoriasAdmin();
-            carregarSelectCategorias();
+            await carregarCategoriasAdmin();
+            await carregarSelectCategorias();
+            await atualizarGaleriaNoSite();
           }
         }
       };
@@ -378,22 +729,29 @@
 
   async function carregarConteudosAdmin() {
     const container = document.getElementById('lista-conteudos-admin');
+    const filtroMidias = document.getElementById('filtro-admin-midias');
     if (!container) return;
     container.innerHTML = '<p style="color:#888;text-align:center;">Sincronizando...</p>';
 
     try {
-      const { data, error } = await window.supabaseClient
+      let query = window.supabaseClient
         .from('conteudos')
         .select('*, categorias(nome)')
         .order('created_at', { ascending: false });
 
+      if (filtroMidias && filtroMidias.value && filtroMidias.value !== 'todas') {
+        query = query.eq('categoria_id', filtroMidias.value);
+      }
+
+      const { data, error } = await query;
+
       if (error) {
-        container.innerHTML = '<p style="color:#ff8888;text-align:center;">Erro ao carregar conteúdos.</p>';
+        container.innerHTML = '<p style="color:#ff8888;text-align:center;">Erro ao carregar conte\u00FAdos.</p>';
         return;
       }
 
       if (!data || data.length === 0) {
-        container.innerHTML = '<p style="color:#777;text-align:center;margin-top:30px;">Nenhum conteúdo cadastrado na nuvem.</p>';
+        container.innerHTML = '<p style="color:#777;text-align:center;margin-top:30px;">Nenhuma foto ou v\u00EDdeo neste menu ainda. Escolha o menu ao lado e envie suas fotos!</p>';
         return;
       }
 
@@ -409,13 +767,13 @@
           preview = `<img src="${item.url}" style="width:55px;height:55px;object-fit:cover;border-radius:6px;background:#000;">`;
         }
 
-        const nomeCat = item.categorias ? item.categorias.nome : 'Geral';
+        const nomeCat = item.categorias ? item.categorias.nome : 'Menu Geral';
 
         card.innerHTML = `
           ${preview}
           <div style="flex-grow:1;overflow:hidden;">
-            <h4 style="margin:0 0 2px 0;color:#ffd700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.titulo || 'Sem Título'}</h4>
-            <span style="background:#2a2a2a;color:#ffd700;font-size:10px;padding:2px 6px;border-radius:3px;">📁 ${nomeCat}</span>
+            <h4 style="margin:0 0 2px 0;color:#ffd700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.titulo || 'Sem T\u00EDtulo'}</h4>
+            <span style="background:#2a2a2a;color:#ffd700;font-size:10px;padding:2px 6px;border-radius:3px;">${nomeCat}</span>
             <p style="margin:2px 0 0 0;color:#999;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.descricao || ''}</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:4px;">
@@ -431,7 +789,7 @@
           document.getElementById('admin-descricao').value = item.descricao || '';
           document.getElementById('admin-arquivo').required = false;
           document.getElementById('titulo-form-admin').innerText = 'Editando: ' + item.titulo;
-          document.getElementById('btn-enviar-midia').innerText = 'Salvar Alterações';
+          document.getElementById('btn-enviar-midia').innerText = 'Salvar Altera\u00E7\u00F5es';
           document.getElementById('btn-cancelar-edicao').style.display = 'inline-block';
         };
 
@@ -439,7 +797,10 @@
           if (confirm('Deseja realmente excluir "' + item.titulo + '"?')) {
             const { error } = await window.supabaseClient.from('conteudos').delete().eq('id', item.id);
             if (error) alert('Erro ao excluir: ' + error.message);
-            else carregarConteudosAdmin();
+            else {
+              await carregarConteudosAdmin();
+              await atualizarGaleriaNoSite();
+            }
           }
         };
 
@@ -456,12 +817,14 @@
     carregarSDK(async () => {
       const { data: { session } } = await window.supabaseClient.auth.getSession();
       if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-        renderizarPainelAdmin(session.user.email);
+        await renderizarPainelAdmin(session.user.email);
+      } else {
+        await atualizarGaleriaNoSite();
       }
 
-      window.supabaseClient.auth.onAuthStateChange((event, session) => {
+      window.supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-          renderizarPainelAdmin(session.user.email);
+          await renderizarPainelAdmin(session.user.email);
         }
       });
     });
@@ -469,10 +832,11 @@
     document.addEventListener('click', (e) => {
       const el = e.target.closest('button, a, [role="button"]');
       if (!el) return;
-      if (el.id && el.id.includes('admin')) return;
+      if (el.id && (el.id.includes('admin') || el.id.includes('album') || el.id.includes('painel'))) return;
+      if (el.className && el.className.includes('btn-album-site')) return;
       const txt = (el.innerText || el.textContent || '').toLowerCase();
       const onclickAttr = (el.getAttribute('onclick') || '').toLowerCase();
-      if (txt.includes('google') || txt.includes('login') || txt.includes('entrar') || txt.includes('admin') || txt.includes('acessar') || onclickAttr.includes('login') || onclickAttr.includes('google')) {
+      if (txt.includes('login google') || txt.includes('login admin') || onclickAttr.includes('login') || onclickAttr.includes('google')) {
         e.preventDefault();
         e.stopPropagation();
         entrarComGoogle();
