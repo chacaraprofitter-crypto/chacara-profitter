@@ -7,16 +7,16 @@
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
   const MENUS_ORIGINAIS_SITE = [
-    '\uD83C\uDFCA PISCINA & \u00C1TRIO',
-    '\uD83C\uDF33 CLUBE & LAGO',
-    '\uD83E\uDD69 ESPA\u00C7O GOURMET',
-    '\uD83D\uDD2E NOITE & UV',
-    '\uD83D\uDECF\uFE0F SU\u00CDTES & QUARTOS',
-    '\uD83C\uDF89 SAL\u00C3O DE FESTAS',
-    '\uD83C\uDF77 LIVING & LAREIRA',
-    '\u2615 COZINHA & BAR',
-    '\uD83D\uDEBF BANHEIROS & VARANDA',
-    '\uD83C\uDFAC V\u00CDDEOS OFICIAIS'
+    '🏊 PISCINA & ÁTRIO',
+    '🌳 CLUBE & LAGO',
+    '🥩 ESPAÇO GOURMET',
+    '🌙 NOITE & UV',
+    '🛏️ SUÍTES & QUARTOS',
+    '🎉 SALÃO DE FESTAS',
+    '🍷 LIVING & LAREIRA',
+    '☕ COZINHA & BAR',
+    '🚿 BANHEIROS & VARANDA',
+    '🎬 VÍDEOS OFICIAIS'
   ];
 
   const GALERIA_ICONES = [
@@ -29,7 +29,6 @@
     window.location.href = urlOAuth;
   }
 
-  // Expõe todas as variantes possíveis para evitar conflitos com botões nativos do site
   window.loginWithGoogle = dispararLoginOAuth;
   window.entrarComGoogle = dispararLoginOAuth;
   window.abrirPainelAdmin = dispararLoginOAuth;
@@ -58,7 +57,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | BLINDADO</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO TOTAL</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -228,22 +227,42 @@
     async function carregarListaCategorias() {
       const cont = document.getElementById('lista-cats');
       const { data: cats } = await client.from('categorias').select('*').order('created_at', { ascending: true });
-      if (!cats) return;
+      if (!cats || cats.length === 0) {
+        cont.innerHTML = '<p style="color:#888;text-align:center;">Nenhum menu encontrado.</p>';
+        return;
+      }
       cont.innerHTML = '';
       cats.filter(c => !c.pai_id).forEach(p => {
+        const submenus = cats.filter(s => s.pai_id === p.id);
+        let subHtml = '';
+        submenus.forEach(sub => {
+          subHtml += `
+            <div style="background:#141414;border:1px solid #2a2a2a;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;margin-left:20px;">
+              <span style="color:#ccc;font-size:13px;">\u21B3 ${sub.nome}</span>
+              <button class="del-c" data-id="${sub.id}" style="background:#d9534f;color:#fff;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:bold;">Excluir Submenu</button>
+            </div>
+          `;
+        });
+
         const div = document.createElement('div');
-        div.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:10px 12px;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;';
+        div.style.cssText = 'background:#1c1c1c;border:1px solid #333;padding:10px 12px;border-radius:8px;margin-bottom:8px;';
         div.innerHTML = `
-          <b style="color:#ffd700;font-size:14px;">${p.nome}</b>
-          <button class="del-c" data-id="${p.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b style="color:#ffd700;font-size:14px;">${p.nome}</b>
+            <button class="del-c" data-id="${p.id}" style="background:#d9534f;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Excluir Menu</button>
+          </div>
+          ${subHtml}
         `;
-        div.querySelector('.del-c').onclick = async () => {
-          if (confirm('Excluir este menu?')) {
-            await client.from('categorias').delete().eq('id', p.id);
-            carregarListaCategorias();
-            atualizarSelects();
-          }
-        };
+        div.querySelectorAll('.del-c').forEach(btn => {
+          btn.onclick = async () => {
+            const idAlvo = btn.getAttribute('data-id');
+            if (confirm('Deseja excluir este menu/submenu?')) {
+              await client.from('categorias').delete().eq('id', idAlvo);
+              carregarListaCategorias();
+              atualizarSelects();
+            }
+          };
+        });
         cont.appendChild(div);
       });
     }
@@ -299,6 +318,7 @@
     };
 
     await atualizarSelects();
+    await carregarListaCategorias();
     await carregarListaMidias();
   }
 
@@ -332,7 +352,6 @@
       injetarPainelCompleto(client, session.user.email);
     }
 
-    // Intercepta qualquer clique em botoes de login ou google no site para forçar o OAuth direto
     document.addEventListener('click', (e) => {
       const el = e.target.closest('button, a, [role="button"]');
       if (!el || el.id === 'quantum-btn-trigger' || el.closest('#quantum-admin-root')) return;
