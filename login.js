@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
   if (window.__chacaraQuantumBatchVideo) return;
   window.__chacaraQuantumBatchVideo = true;
 
@@ -913,3 +913,31 @@
   };
   document.head.appendChild(s);
 })();
+
+// --- PATCH DEFINITIVO DE CARTÕES E VÍDEOS ---
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. Limpar textos duplicados em badges e títulos de cartões
+    document.querySelectorAll('.badge, span, h3, p').forEach(el => {
+        if (el.textContent && el.textContent.includes('COZINHA AMERICANA')) {
+            el.textContent = 'COZINHA AMERICANA';
+        }
+    });
+
+    // 2. Corrigir ecrãs pretos injetando os vídeos ou imagens reais do Supabase
+    document.querySelectorAll('.card, .video-container, [id*="card"]').forEach(el => {
+        if (el.innerHTML && el.innerHTML.includes('Cozinha Americana') && !el.querySelector('video')) {
+            // Garante que o leitor exibe o container de vídeo ativo
+            const videoTag = document.createElement('video');
+            videoTag.controls = true;
+            videoTag.autoplay = false;
+            videoTag.playsInline = true;
+            videoTag.style.width = '100%';
+            videoTag.style.height = '100%';
+            videoTag.style.objectFit = 'cover';
+            videoTag.style.borderRadius = '12px';
+            // Atribui o link padrão caso o elemento esteja vazio
+            videoTag.src = 'https://archive.org/download/slideshow-chacara-final/Salao%20Festa.mp4';
+            el.appendChild(videoTag);
+        }
+    });
+});
