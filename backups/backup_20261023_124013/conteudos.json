@@ -1,0 +1,650 @@
+﻿[
+    {
+        "id":  "e7c76e9e-d1e4-4807-bd56-9e4d110d58f7",
+        "titulo":  "COZINHA AMERICANA (1)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600201132_0_cozinha__3_.jpeg",
+        "created_at":  "2026-10-21T16:30:02.802166+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "3d0bff55-f74b-4745-9d2c-e72e7c5d878c",
+        "titulo":  "COZINHA AMERICANA (2)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600202445_1_cozinha__4_.jpeg",
+        "created_at":  "2026-10-21T16:30:03.484951+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "6c70bc18-3021-48f1-8742-86eb61f05b3a",
+        "titulo":  "COZINHA AMERICANA (3)",
+        "categoria":  "geral",
+        "descricao":  "ampla cozinha americana com ilha, duas geladeiras, dois microondas, forno e todos os utencilios que necessitar",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792600203125_2_cozinha.jpeg",
+        "created_at":  "2026-10-21T16:30:04.452335+00:00",
+        "categoria_id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd"
+    },
+    {
+        "id":  "4df3636c-bbbd-4529-85d9-1cc6d4a8e664",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (1)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618383850_0_barzinho.jpeg",
+        "created_at":  "2026-10-21T21:33:06.059696+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "86b63c7d-cdfc-427d-b8f1-da37262e99da",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (2)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618385518_1_cafe.jpeg",
+        "created_at":  "2026-10-21T21:33:07.022567+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "b1b23cbb-11a0-4f37-a3cd-5920532c4774",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (3)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618386468_2_Lareira.jpeg",
+        "created_at":  "2026-10-21T21:33:07.798935+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "5a4f7903-8533-4ae0-a467-ad2035e20564",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (4)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618387283_3_lavabo_2.jpeg",
+        "created_at":  "2026-10-21T21:33:08.691397+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "01cef649-d70c-4918-9d7d-bbc903073d8f",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (5)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618388146_4_lavabo_3.jpeg",
+        "created_at":  "2026-10-21T21:33:09.755609+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "8a61063c-c417-45fc-8c6b-c2f9a0111e84",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (6)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618389205_5_lavabo.jpeg",
+        "created_at":  "2026-10-21T21:33:10.657651+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "52069fec-2084-4b9c-a021-f0f244d6a496",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (7)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618390105_6_Lavabo3.jpeg",
+        "created_at":  "2026-10-21T21:33:11.644946+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "4a2b0f8d-f996-406f-b6fc-c06e9913514e",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (8)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618391088_7_Sala_aconchegante_com_teto_branco.png",
+        "created_at":  "2026-10-21T21:33:13.221499+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "e995fc9a-8cee-4ae0-a236-18a6916c16dc",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (9)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618392665_8_sala_de_jantar.jpeg",
+        "created_at":  "2026-10-21T21:33:13.995242+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "691df1d3-5ac3-43da-b0cf-e5f30eee20bc",
+        "titulo":  "SALA COM 120 MTS - 5 AMBIENTES (10)",
+        "categoria":  "geral",
+        "descricao":  "Sala Estar com 120 mts , 5 ambientes , dois sofas retrateis , Lareira, Barzinho, Sala Jantar , Espaço Café e cantinho de Orações",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792618393438_9_Sala_tradicional_com_teto_branco.png",
+        "created_at":  "2026-10-21T21:33:15.582347+00:00",
+        "categoria_id":  "6b548fec-803e-4789-849a-35e39d7b3317"
+    },
+    {
+        "id":  "f84e57e4-0136-4940-ae54-9ee266f26948",
+        "titulo":  "VARANDA SUSPENSA COM REDES (1)",
+        "categoria":  "geral",
+        "descricao":  "A casa é totalmente avarandada , com redes para relaxar, de frente a um dos lagos , com muita natureza!",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792651201889_0_varanda__2_.jpeg",
+        "created_at":  "2026-10-22T06:40:05.429022+00:00",
+        "categoria_id":  "2aa837bb-95e1-4e12-ad71-e089ad595320"
+    },
+    {
+        "id":  "b97e96e2-c894-43f9-81ed-923d6d9116ce",
+        "titulo":  "VARANDA SUSPENSA COM REDES (2)",
+        "categoria":  "geral",
+        "descricao":  "A casa é totalmente avarandada , com redes para relaxar, de frente a um dos lagos , com muita natureza!",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792651204658_1_varanda.jpeg",
+        "created_at":  "2026-10-22T06:40:07.27521+00:00",
+        "categoria_id":  "2aa837bb-95e1-4e12-ad71-e089ad595320"
+    },
+    {
+        "id":  "2cd70127-1060-40e9-8d9f-887ac934a740",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (1)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652094934_0_banheito_chusq.jpeg",
+        "created_at":  "2026-10-22T06:54:57.225121+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "8c7aa99e-ae2c-4694-8f51-51b976533d1f",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (2)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652096444_1_churrasqueira__2_.jpeg",
+        "created_at":  "2026-10-22T06:54:58.242796+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "85dfa5e1-2c37-45cf-b81a-dffe0c8df63b",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (3)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652097464_2_churrasqueira__3_.jpeg",
+        "created_at":  "2026-10-22T06:54:59.038954+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "72cc7ba9-6fd8-401b-a930-006c9792c38d",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (4)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652098262_3_churrasqueira__4_.jpeg",
+        "created_at":  "2026-10-22T06:55:00.075753+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "e7fffd25-c8d6-44d3-a9a9-1f0faffa6638",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (5)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652099297_4_churrasqueira__5_.jpeg",
+        "created_at":  "2026-10-22T06:55:00.882406+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "ef658758-dfdb-48a2-8706-5643784ede8d",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (6)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652100090_5_churrasqueira__6_.jpeg",
+        "created_at":  "2026-10-22T06:55:01.900976+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "bdd76d70-1c67-40a0-9d3f-f661d0e8969e",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (7)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652101114_6_churrasqueira__7_.jpeg",
+        "created_at":  "2026-10-22T06:55:02.738522+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "3b1e6b3c-b05a-4a54-ab8d-0115b4a3f1cb",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (8)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652101947_7_churrasqueira_grill.jpeg",
+        "created_at":  "2026-10-22T06:55:03.578584+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "60b6e084-9278-4fad-9854-63b75fcffd45",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (9)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652102786_8_churrasqueira.jpeg",
+        "created_at":  "2026-10-22T06:55:04.28786+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "516d2f69-80b9-4983-9fe8-3e779114708c",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (10)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652103497_9_defumador_a_lenha.jpeg",
+        "created_at":  "2026-10-22T06:55:06.594604+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "ba1daaa0-0618-4f9d-ba87-2c768b20eef5",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (11)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652105803_10_fogao_lenha__2_.jpeg",
+        "created_at":  "2026-10-22T06:55:07.302731+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "5ac70509-6e44-4dc1-ac9b-a57bf679d416",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (12)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652106511_11_fogao_lenha.jpeg",
+        "created_at":  "2026-10-22T06:55:07.989039+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "d6808d2d-6b4c-49e5-aca9-2f1054f12a09",
+        "titulo":  "Area Churrasqueira- Espaço Goumert (13)",
+        "categoria":  "geral",
+        "descricao":  "Area Goumet, com Forno a lenha, churrasqueira, defumador a Lenha , Fogão a Lenha e banheiro exclusivo",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792652107208_12_forno_a_lenha.jpeg",
+        "created_at":  "2026-10-22T06:55:08.724319+00:00",
+        "categoria_id":  "61b936a9-48cf-425c-b071-948f12c7c62b"
+    },
+    {
+        "id":  "84e4b163-b052-4f03-ad42-4985e1cbce2b",
+        "titulo":  "AREA PISCINA (1)",
+        "categoria":  "geral",
+        "descricao":  "Duas Piscinas loclizadas no centro da casa , onde todos os quartos dão as Piscinas , ficando ao lado da Area Goumet , duchas e sauna",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753175539_0_piscina_2.png",
+        "created_at":  "2026-10-23T10:59:40.229221+00:00",
+        "categoria_id":  "f66a9642-9f5b-44ab-9d0c-d6993554208d"
+    },
+    {
+        "id":  "4b5059f2-a065-4ee6-ba6f-d14b383efb6b",
+        "titulo":  "AREA PISCINA (2)",
+        "categoria":  "geral",
+        "descricao":  "Duas Piscinas loclizadas no centro da casa , onde todos os quartos dão as Piscinas , ficando ao lado da Area Goumet , duchas e sauna",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753179857_1_piscina_1.png",
+        "created_at":  "2026-10-23T10:59:43.812638+00:00",
+        "categoria_id":  "f66a9642-9f5b-44ab-9d0c-d6993554208d"
+    },
+    {
+        "id":  "9b816f29-e372-4b74-8793-46cc15d78851",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (1)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753661113_0_WhatsApp_Image_2023-11-22_at_19.27.14__1_.jpeg",
+        "created_at":  "2026-10-23T11:07:42.968203+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "5ab77cd4-a75c-460b-a74c-c2686228409b",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (2)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753662581_1_WhatsApp_Image_2023-11-22_at_19.27.14__2_.jpeg",
+        "created_at":  "2026-10-23T11:07:44.200781+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "7775b148-b2ea-4a92-8d16-83e3e3650913",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (3)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753663802_2_WhatsApp_Image_2023-11-22_at_19.27.14.jpeg",
+        "created_at":  "2026-10-23T11:07:45.579364+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "6a7c2d23-85aa-4a58-badc-5d1bcebdbfd5",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (4)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753665182_3_WhatsApp_Image_2023-11-22_at_19.27.16__1_.jpeg",
+        "created_at":  "2026-10-23T11:07:47.020876+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "0463e7fd-a651-4c07-be27-dbef54db2329",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (5)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753666633_4_WhatsApp_Image_2023-11-22_at_19.27.16__2_.jpeg",
+        "created_at":  "2026-10-23T11:07:48.0248+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "ec5b2d33-fa0e-499d-8920-3da98f54021c",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (6)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753667625_5_WhatsApp_Image_2023-11-22_at_19.27.16.jpeg",
+        "created_at":  "2026-10-23T11:07:49.057815+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "b27fda5b-60f1-42ea-aede-badb753692ed",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (7)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753668658_6_WhatsApp_Image_2023-11-24_at_19.06.30.jpeg",
+        "created_at":  "2026-10-23T11:07:50.405219+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "64c7b0b8-f70c-42bf-9b84-ea3e20b4b438",
+        "titulo":  "ILUMINAÇÃO UV E AREA EXTERNA (9)",
+        "categoria":  "geral",
+        "descricao":  "Iluminação especial UV na piscina e area externa (Verde)",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792753671111_8_WhatsApp_Image_2023-11-24_at_19.06.31.jpeg",
+        "created_at":  "2026-10-23T11:07:53.437392+00:00",
+        "categoria_id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf"
+    },
+    {
+        "id":  "d9cb85df-7b3a-46f0-b51f-7d2c56bdc137",
+        "titulo":  "AREA DUCHAS E SAUNA (1)",
+        "categoria":  "geral",
+        "descricao":  "AREA DUCHAS E SAUNA , AO LADO DAS PISCINAS",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755328712_0_duchas_1.jpeg",
+        "created_at":  "2026-10-23T11:35:31.445413+00:00",
+        "categoria_id":  "cfe60c94-053b-46f1-b5e6-8c4fd9847f4e"
+    },
+    {
+        "id":  "d7c8246a-9536-4508-bd41-6fdcbcc39df0",
+        "titulo":  "AREA DUCHAS E SAUNA (2)",
+        "categoria":  "geral",
+        "descricao":  "AREA DUCHAS E SAUNA , AO LADO DAS PISCINAS",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755331038_1_duchas_2.jpeg",
+        "created_at":  "2026-10-23T11:35:32.513366+00:00",
+        "categoria_id":  "cfe60c94-053b-46f1-b5e6-8c4fd9847f4e"
+    },
+    {
+        "id":  "83b377af-67da-4aab-8177-834f67cfb8b6",
+        "titulo":  "SUITES E QURTOS (1)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES , E DOIS QUARTOS , TODOS COM PORTAS BALCÕES COM ACESSE A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755624218_0_quarto_1__2_.jpeg",
+        "created_at":  "2026-10-23T11:40:25.870103+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "9c16973a-7633-4c15-8bfd-a202d65c7671",
+        "titulo":  "SUITES E QURTOS (2)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES , E DOIS QUARTOS , TODOS COM PORTAS BALCÕES COM ACESSE A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755625449_1_quarto_1__3_.jpeg",
+        "created_at":  "2026-10-23T11:40:26.828874+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "b7072a0b-68df-4bf6-be25-69475d87c5b7",
+        "titulo":  "SUITES E QURTOS (4)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES , E DOIS QUARTOS , TODOS COM PORTAS BALCÕES COM ACESSE A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755627492_3_quarto_1__5_.jpeg",
+        "created_at":  "2026-10-23T11:40:28.774039+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "9ec5526d-8dd1-4292-90a5-01daa96136e9",
+        "titulo":  "SUITES E QURTOS (5)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES , E DOIS QUARTOS , TODOS COM PORTAS BALCÕES COM ACESSE A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755628354_4_quarto_1_2.jpeg",
+        "created_at":  "2026-10-23T11:40:29.778227+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "82a1ea2a-184e-473f-b231-fda7fe464d32",
+        "titulo":  "SUITES E QURTOS (6)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES , E DOIS QUARTOS , TODOS COM PORTAS BALCÕES COM ACESSE A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755629354_5_quarto_1.jpeg",
+        "created_at":  "2026-10-23T11:40:30.640302+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "a6636014-09d3-497d-a91f-2e2ff5053b77",
+        "titulo":  "SÚITES \u0026 QUARTOS (1)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755847491_0_banheiro_suite.jpg",
+        "created_at":  "2026-10-23T11:44:09.605572+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "c8942774-f511-45bb-9993-c7016ac48419",
+        "titulo":  "SÚITES \u0026 QUARTOS (3)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755850575_2_quarto_meio.jpg",
+        "created_at":  "2026-10-23T11:44:12.037708+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "49bd5e6e-28bf-4ee7-a507-bfec0b5e3d46",
+        "titulo":  "SÚITES \u0026 QUARTOS (4)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755851622_3_quarto_rosa_1_.jpg",
+        "created_at":  "2026-10-23T11:44:12.947252+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "f42c4168-9e26-484d-8597-0773f82c8924",
+        "titulo":  "SÚITES \u0026 QUARTOS (5)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755852522_4_quarto_rosa.jpg",
+        "created_at":  "2026-10-23T11:44:14.026335+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "d381686b-a534-4819-82be-0503a0c288cc",
+        "titulo":  "SÚITES \u0026 QUARTOS (6)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755853599_5_suite_rosa_1_.jpg",
+        "created_at":  "2026-10-23T11:44:14.980044+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "166f6d2d-ef23-4a68-a4ed-904d93cb1c56",
+        "titulo":  "SÚITES \u0026 QUARTOS (7)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755854580_6_suite_rosa_2_.jpg",
+        "created_at":  "2026-10-23T11:44:16.888208+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "6ee57d16-f3ef-4f89-a005-0e146ac4d69d",
+        "titulo":  "SÚITES \u0026 QUARTOS (8)",
+        "categoria":  "geral",
+        "descricao":  "DUAS SUITES E DOIS AMPLOS QUARTOS TODOS COM ACESSO A PISCINA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792755856461_7_suite_rosa.jpg",
+        "created_at":  "2026-10-23T11:44:18.210652+00:00",
+        "categoria_id":  "d582f1f4-cac3-492e-abad-3821bd3ba642"
+    },
+    {
+        "id":  "d669db03-908b-4a2c-8085-c25466c04e78",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (1)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757354548_0_clube_1_aero.jpg",
+        "created_at":  "2026-10-23T12:09:17.500573+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "5f249f4f-5569-4a96-a6aa-9956f1606e83",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (2)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757357069_1_Clube_de_Campo__8_.JPG",
+        "created_at":  "2026-10-23T12:09:19.222795+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "ebbac260-6e56-4021-847f-cf479e076c6e",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (3)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757358803_2_lago_1.jpg",
+        "created_at":  "2026-10-23T12:09:19.770441+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "3012d0b7-de7e-424c-8a7e-4ecf420fbef6",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (4)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757359336_3_lago_principal.jpg",
+        "created_at":  "2026-10-23T12:09:20.52478+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "8ae94003-4306-4ae9-a0ef-7790bd6537e9",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (5)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757360080_4_lago.jpg",
+        "created_at":  "2026-10-23T12:09:21.870016+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "81f2c02d-f72b-4ccb-a75d-3b32128055b4",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (6)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757361429_5_lago1.jpg",
+        "created_at":  "2026-10-23T12:09:23.092254+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "cfc42053-ae06-4dec-bca3-68b6e0709b8b",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (7)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757362659_6_lago2.jpg",
+        "created_at":  "2026-10-23T12:09:24.141065+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "77aaa8b2-a053-4b16-8f9d-0020c6e16735",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (8)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757363696_7_parque_aquatico.jpg",
+        "created_at":  "2026-10-23T12:09:24.971143+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "44b20393-436a-4033-a0a3-8b65becde345",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (9)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757364537_8_parque_aquatico1.jpg",
+        "created_at":  "2026-10-23T12:09:26.039297+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "2c8b5aac-263d-46c3-b085-4cf8c1f436e4",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (10)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757365596_9_parque_aquatico2.jpg",
+        "created_at":  "2026-10-23T12:09:26.869488+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "6a41c863-a3ea-4782-9a58-ff170b7f9abd",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (11)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757366445_10_parque_aquatico3.jpg",
+        "created_at":  "2026-10-23T12:09:28.925785+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "16ecf979-d204-4abe-a466-b91faceba291",
+        "titulo":  "CLUBE DE CAMPO FAZENDA (12)",
+        "categoria":  "geral",
+        "descricao":  "a Chacara fica dentro de um maravilhoso Clube de Campo Fazenda. A chacara fica localizada 150 mts da portaria. O clube Possui tres lagos , sendo que a chacara fica em frente ao primeiro lago O Clube possue varia opções de diversão, quan quadras oficiais, Quadras de areia , parquinhos para as crianças, Campo de Futebo,, Salao de festas e Jogos, Capela, Pedalinhos, Hipica e ate mesmo um lindo parque aquatico",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757368481_11_parque_aquatico4.jpg",
+        "created_at":  "2026-10-23T12:09:29.916361+00:00",
+        "categoria_id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca"
+    },
+    {
+        "id":  "61aee84f-2e36-435e-83b3-cd2e939437b8",
+        "titulo":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA (1)",
+        "categoria":  "geral",
+        "descricao":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757760824_0_WhatsApp_Image_2024-03-31_at_16.06.48__1_.jpeg",
+        "created_at":  "2026-10-23T12:16:03.014835+00:00",
+        "categoria_id":  "cc5dd920-d84d-4b18-8dd9-d2f20c7ffe9f"
+    },
+    {
+        "id":  "b2b737bc-8e83-4998-8a0c-479d45c45825",
+        "titulo":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA (2)",
+        "categoria":  "geral",
+        "descricao":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757762580_1_WhatsApp_Image_2024-03-31_at_16.06.48__2_.jpeg",
+        "created_at":  "2026-10-23T12:16:04.219039+00:00",
+        "categoria_id":  "cc5dd920-d84d-4b18-8dd9-d2f20c7ffe9f"
+    },
+    {
+        "id":  "14321ffb-ce57-4882-a57b-f2ed2e771221",
+        "titulo":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA (3)",
+        "categoria":  "geral",
+        "descricao":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757763769_2_WhatsApp_Image_2024-03-31_at_16.06.48__3_.jpeg",
+        "created_at":  "2026-10-23T12:16:06.199207+00:00",
+        "categoria_id":  "cc5dd920-d84d-4b18-8dd9-d2f20c7ffe9f"
+    },
+    {
+        "id":  "a1b8835c-08dc-4962-a352-336210bdebde",
+        "titulo":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA (4)",
+        "categoria":  "geral",
+        "descricao":  "ÁREA EXTERNA DA CHACARA COM FONTE , MUITOS COQUEIROS, ILUMINAÇÃO ESPECIAL , LAREIRA EXTERNA",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792757765760_3_WhatsApp_Image_2024-03-31_at_16.06.48.jpeg",
+        "created_at":  "2026-10-23T12:16:07.418264+00:00",
+        "categoria_id":  "cc5dd920-d84d-4b18-8dd9-d2f20c7ffe9f"
+    },
+    {
+        "id":  "f904d4f0-dece-4983-b32c-d97ffa28b5f3",
+        "titulo":  "SALÃO DE FESTAS (1)",
+        "categoria":  "geral",
+        "descricao":  "SALÃO DE FESTAS , COM PALCO , AREA GOURMET , SOM E ILUMINAÇÃO",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792758026840_0_WhatsApp_Image_2023-10-29_at_18.45.07__1_.jpeg",
+        "created_at":  "2026-10-23T12:20:31.305888+00:00",
+        "categoria_id":  "533badb5-6636-431f-a44c-69160dcaab43"
+    },
+    {
+        "id":  "7162aec7-f892-4c45-975d-ba129bbb6ebd",
+        "titulo":  "SALÃO DE FESTAS (2)",
+        "categoria":  "geral",
+        "descricao":  "SALÃO DE FESTAS , COM PALCO , AREA GOURMET , SOM E ILUMINAÇÃO",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792758030856_1_WhatsApp_Image_2023-10-29_at_18.45.07.jpeg",
+        "created_at":  "2026-10-23T12:20:34.962056+00:00",
+        "categoria_id":  "533badb5-6636-431f-a44c-69160dcaab43"
+    },
+    {
+        "id":  "8527341c-80c7-4c6c-9178-3c9a4640b091",
+        "titulo":  "LAREIRAS INTERNAS E EXTERNA",
+        "categoria":  "geral",
+        "descricao":  "A Chácara possue duas lareira uma interna e outra externa",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792758471481_0_lareira_extena.jpg",
+        "created_at":  "2026-10-23T12:27:55.31947+00:00",
+        "categoria_id":  "fdd0a7d7-4f59-429f-8e6e-17c7628f6ed2"
+    },
+    {
+        "id":  "6684d1f3-ea95-4935-9515-0c0571eca994",
+        "titulo":  "LAREIRA INTERNA E EXTERNA",
+        "categoria":  "geral",
+        "descricao":  "Lareira interna",
+        "url":  "https://coeqgbxxxwvlprdwrkqp.supabase.co/storage/v1/object/public/chacara-media/1792758598257_0_Lareira.jpeg",
+        "created_at":  "2026-10-23T12:30:00.259847+00:00",
+        "categoria_id":  "fdd0a7d7-4f59-429f-8e6e-17c7628f6ed2"
+    }
+]

@@ -1,0 +1,107 @@
+﻿[
+    {
+        "id":  "f66a9642-9f5b-44ab-9d0c-d6993554208d",
+        "nome":  "🏊 PISCINA \u0026 ÁTRIO",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "a9a7822a-6e7b-4430-96b9-e1fe6b172aca",
+        "nome":  "🌳 CLUBE \u0026 LAGO",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "61b936a9-48cf-425c-b071-948f12c7c62b",
+        "nome":  "🥩 ESPAÇO GOURMET",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "d1e8c2b1-8632-42d9-b91b-9f1476ad3daf",
+        "nome":  "🔮 NOITE \u0026 UV",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "533badb5-6636-431f-a44c-69160dcaab43",
+        "nome":  "🎉 SALÃO DE FESTAS",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "fdd0a7d7-4f59-429f-8e6e-17c7628f6ed2",
+        "nome":  "🍷 LIVING \u0026 LAREIRA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "1becfd76-4ee6-476d-8ff8-dba97c8ee441",
+        "nome":  "🚿 BANHEIROS \u0026 VARANDA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "fdc2c0eb-e24f-42fd-87fa-fce6fb00a04d",
+        "nome":  "🎬 VÍDEOS OFICIAIS",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T10:43:01.189743+00:00"
+    },
+    {
+        "id":  "6b548fec-803e-4789-849a-35e39d7b3317",
+        "nome":  "📺 SALA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T11:09:17.523815+00:00"
+    },
+    {
+        "id":  "8a8201fd-4f1a-495f-9bde-98233b57b6dd",
+        "nome":  "🍽️ COZINHA AMERICANA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T16:27:51.404618+00:00"
+    },
+    {
+        "id":  "2aa837bb-95e1-4e12-ad71-e089ad595320",
+        "nome":  "🌅 VARANDA SUSPENSA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-21T22:31:38.734388+00:00"
+    },
+    {
+        "id":  "cfe60c94-053b-46f1-b5e6-8c4fd9847f4e",
+        "nome":  "🚿 DUCHAS  - SAUNA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-23T11:34:09.058765+00:00"
+    },
+    {
+        "id":  "d582f1f4-cac3-492e-abad-3821bd3ba642",
+        "nome":  "🛏️ SUÍTES \u0026 QUARTOS",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-23T11:37:39.760084+00:00"
+    },
+    {
+        "id":  "cc5dd920-d84d-4b18-8dd9-d2f20c7ffe9f",
+        "nome":  "🌴 ÁREA EXTERNA CHACARA",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-23T12:14:04.451499+00:00"
+    },
+    {
+        "id":  "b105e70c-0cf6-4f55-9756-7a2ce228cdd6",
+        "nome":  "🎬 VIDEOS",
+        "tipo":  "categoria",
+        "pai_id":  null,
+        "created_at":  "2026-10-23T15:00:51.41334+00:00"
+    }
+]
