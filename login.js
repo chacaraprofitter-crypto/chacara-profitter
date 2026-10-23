@@ -1,26 +1,18 @@
 ﻿(function() {
-  if (window.__chacaraQuantumMultimediaMaster) return;
-  window.__chacaraQuantumMultimediaMaster = true;
+  if (window.__chacaraQuantumBatchVideo) return;
+  window.__chacaraQuantumBatchVideo = true;
 
   const SB_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
-  // Super Galeria Mestra de Ícones (Vídeos em Destaque + Todos os Ambientes)
   const GALERIA_ICONES = [
-    // 🎬 Vídeos, Cinema & Multimédia (Destaque Principal)
     '🎬', '🎥', '📺', '📹', '📼', '▶️', '📸', '🎵', '🎶', '🎤', '🍿',
-    // 🧖 Sauna, Duchas, Spa & Banheiros
     '🧖', '🚿', '♨️', '💦', '🛁', '🧼', '🪞',
-    // 🛖 Varanda, Descanso, Redes & Quartos
     '🛖', '🌴', '🛏️', '🛋️', '🪑', '🧘',
-    // 🥩 Churrasqueira, Fogo & Gastronomia
     '🥩', '🍖', '🍢', '🔥', '🍽️', '🍕', '🥘', '☕', '🍷', '🥂', '🍻', '🍹',
-    // 🛶 Lago, Pesca, Clube & Lazer
-    '🛶', '🚣', '🎣', '🐟', '🦆', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐', '🏃', '🚴',
-    // ✨ Iluminação, Noite & Área Externa
+    '🛶', '🚣', '🎣', '🐟', '🦆', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐',
     '✨', '💡', '🏮', '🌙', '🌅', '☀️', '🌳', '🏡', '🏞️', '🌺', '🌿',
-    // 🚗 Estrutura & Eventos
     '🚗', '📶', '🎉', '🛎️', '⭐'
   ];
 
@@ -49,7 +41,7 @@
     return url;
   }
 
-  // Estilos da Vitrine Multimídia e Painel Admin
+  // Estilos Quânticos
   const css = document.createElement('style');
   css.textContent = `
     #quantum-universal-grid {
@@ -150,26 +142,6 @@
       border-radius: 6px;
       border-left: 3px solid #ffd700;
     }
-    .btn-action-edit {
-      background: #1e3a8a;
-      color: #93c5fd;
-      border: 1px solid #3b82f6;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-    }
-    .btn-action-del {
-      background: #7f1d1d;
-      color: #fca5a5;
-      border: 1px solid #ef4444;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-    }
     .palette-btn-emoji {
       background: #1c1c1c;
       border: 1px solid #383838;
@@ -187,7 +159,7 @@
   `;
   document.head.appendChild(css);
 
-  // Lightbox Cinema Multimídia
+  // Lightbox Cinema
   window.abrirModalCinema = function(url, tit, desc, badge) {
     let m = document.getElementById('modal-cinema-quantum');
     if (m) m.remove();
@@ -322,7 +294,7 @@
 
           grid.innerHTML = fotos.map((f, i) => {
             const tit = f.titulo || `${textoBtn} (${i + 1})`;
-            const desc = f.descricao || 'Vídeo oficial Chácara Profitter.';
+            const desc = f.descricao || tit; // Auto-descrição baseada no título
             const badge = textoBtn;
             const embed = extrairEmbedYoutube(f.url);
             const ehVid = embed.includes('youtube.com/embed') || embed.includes('player.vimeo.com') || /\.(mp4|webm|mov)$/i.test(f.url);
@@ -391,7 +363,7 @@
     }
   }
 
-  // Painel Administrativo com Super Galeria Completa e Ícones de Vídeo
+  // Painel Administrativo com Importação em Lote de Vídeos & Auto-Descrição
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -403,7 +375,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO MULTIMÍDIA TOTAL</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO EM LOTE DE VÍDEOS</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -413,38 +385,33 @@
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir Mídias (Fotos & Vídeos)</button>
+        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir Mídias / Lote de Vídeos</button>
         <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus & Ambientes</button>
       </div>
 
-      <!-- ABA 1: UPLOAD -->
+      <!-- ABA 1: UPLOAD & IMPORTACAO EM LOTE -->
       <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Adicionar Fotos ou Links de Vídeo</h3>
+          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Adicionar Vídeo ou Importação em Massa</h3>
           <form id="form-up" style="display:flex;flex-direction:column;gap:12px;">
             <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Escolha o Menu ou Destino *</label>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Escolha o Menu (Ex: VÍDEOS OFICIAIS) *</label>
               <select id="sel-cat" required style="width:100%;padding:10px;background:#1e1e1e;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:13px;">
                 <option value="">A carregar menus...</option>
               </select>
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. Enviar Ficheiro (Foto/Vídeo)</label>
-              <input type="file" id="inp-files" accept="image/*,video/*" style="width:100%;color:#fff;padding:8px;background:#1e1e1e;border:1px solid #444;border-radius:6px;cursor:pointer;font-size:12px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. ⚡ IMPORTAÇÃO EM LOTE DE VÍDEOS (Vários Links)</label>
+              <textarea id="inp-batch-links" rows="4" placeholder="Cole vários links do YouTube (um por linha). Ex:&#10;https://youtu.be/abc123xyz&#10;https://youtu.be/def456uvw" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #ffd700;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;font-family:monospace;"></textarea>
+              <span style="font-size:11px;color:#888;">* A descrição de cada vídeo será preenchida automaticamente com base no nome/título gerado.</span>
             </div>
-            <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">OU 3. Cole o Link do YouTube / Vimeo</label>
-              <input type="text" id="inp-yt-link" placeholder="Ex: https://www.youtube.com/watch?v=..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+            <div style="border-top:1px solid #222;padding-top:10px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">OU Inserção Individual (Link Único)</label>
+              <input type="text" id="inp-yt-link" placeholder="https://www.youtube.com/watch?v=..." style="width:100%;padding:8px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;margin-bottom:6px;">
+              <input type="text" id="inp-titulo" placeholder="Título do vídeo (Opcional - se vazio usa o padrão)" style="width:100%;padding:8px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;margin-bottom:6px;">
+              <textarea id="inp-desc" rows="2" placeholder="Descrição (Opcional - se vazio usa o título automaticamente)" style="width:100%;padding:8px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;"></textarea>
             </div>
-            <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Título</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Tour Virtual Completo" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
-            </div>
-            <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">5. Descrição Ultra Premium</label>
-              <textarea id="inp-desc" rows="3" placeholder="Descrição detalhada..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
-            </div>
-            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar Mídia / Vídeo</button>
+            <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Processar e Publicar Vídeos</button>
           </form>
         </div>
 
@@ -463,7 +430,7 @@
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone (Vídeos, Sauna, Duchas, Varanda, etc.):</label>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone:</label>
             <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:220px;overflow-y:auto;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
@@ -612,10 +579,10 @@
               fotosMenu.forEach(f => {
                 htmlFotosAtuais += `
                   <div style="background:#161616;border:1px solid #333;border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;">
-                    <img src="${f.url}" style="width:55px;height:45px;object-fit:cover;border-radius:4px;border:1px solid #ffd700;" onerror="this.src='https://via.placeholder.com/55x45?text=Video'">
+                    <div style="width:55px;height:45px;background:#000;border-radius:4px;border:1px solid #ffd700;display:flex;align-items:center;justify-content:center;color:#ffd700;font-size:18px;">▶</div>
                     <div style="flex-grow:1;overflow:hidden;">
-                      <div style="color:#ffd700;font-size:13px;font-weight:bold;">${f.titulo || 'Mídia sem título'}</div>
-                      <div style="color:#aaa;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.descricao || 'Sem descrição'}</div>
+                      <div style="color:#ffd700;font-size:13px;font-weight:bold;">${f.titulo || 'Mídia'}</div>
+                      <div style="color:#aaa;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.descricao || f.titulo}</div>
                     </div>
                     <button class="del-foto-inline" data-midiaid="${f.id}" style="background:#7f1d1d;color:#fca5a5;border:1px solid #ef4444;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;">Remover</button>
                   </div>
@@ -654,17 +621,13 @@
                 <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">📸 Adicionar Mídia ou Vídeo em "${item.nome}"</div>
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div>
-                    <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Link do YouTube / Vimeo (Opcional)</label>
+                    <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Link do YouTube / Vimeo</label>
                     <input type="text" class="inp-yt-inline" placeholder="https://www.youtube.com/watch?v=..." style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
                   </div>
                   <div style="display:flex;gap:10px;flex-wrap:wrap;">
                     <div style="flex:1;min-width:200px;">
-                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Título</label>
-                      <input type="text" class="inp-tit-inline" placeholder="Título da mídia" style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
-                    </div>
-                    <div style="flex:2;min-width:240px;">
-                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Descrição</label>
-                      <input type="text" class="inp-desc-inline" placeholder="Descrição de alto padrão..." style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
+                      <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Título (Se vazio, assume padrão)</label>
+                      <input type="text" class="inp-tit-inline" placeholder="Título do vídeo" style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:6px;font-size:12px;box-sizing:border-box;">
                     </div>
                   </div>
                   <button class="btn-upload-inline" style="background:#ffd700;color:#000;border:none;padding:10px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:12px;margin-top:4px;">🚀 Adicionar ao Ambiente</button>
@@ -703,16 +666,17 @@
             editBox.querySelector('.btn-upload-inline').onclick = async () => {
               const btnUp = editBox.querySelector('.btn-upload-inline');
               const ytLink = editBox.querySelector('.inp-yt-inline').value.trim();
-              const tit = editBox.querySelector('.inp-tit-inline').value.trim();
-              const desc = editBox.querySelector('.inp-desc-inline').value.trim();
+              let tit = editBox.querySelector('.inp-tit-inline').value.trim();
 
-              if (!ytLink) return alert('Por favor, insira o link do vídeo do YouTube!');
+              if (!ytLink) return alert('Por favor, insira o link do vídeo!');
+              if (!tit) tit = `${item.nome} Vídeo Exclusivo`;
+              const desc = tit; // Auto-descrição baseada no título
 
               btnUp.disabled = true;
               try {
                 await client.from('conteudos').insert([{
-                  titulo: tit || `${item.nome} Vídeo`,
-                  descricao: desc || 'Vídeo oficial exclusivo.',
+                  titulo: tit,
+                  descricao: desc,
                   categoria_id: item.id,
                   url: ytLink,
                   categoria: 'video'
@@ -775,13 +739,13 @@
         const div = document.createElement('div');
         div.style.cssText = 'background:#1a1a1a;border:1px solid #333;padding:12px;border-radius:8px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;';
         div.innerHTML = `
-          <div style="width:70px;height:70px;background:#000;border-radius:6px;border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;color:#ffd700;font-size:20px;flex-shrink:0;">${item.url && item.url.includes('youtube') ? '▶' : '🖼️'}</div>
+          <div style="width:70px;height:70px;background:#000;border-radius:6px;border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;color:#ffd700;font-size:20px;flex-shrink:0;">▶</div>
           <div style="flex-grow:1;overflow:hidden;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
               <h4 style="margin:0;color:#ffd700;font-size:14px;">${item.titulo || 'Mídia'}</h4>
               <span style="background:#262626;color:#ffd700;font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid rgba(212,175,55,0.3);">${item.categorias ? item.categorias.nome : 'Vitrine'}</span>
             </div>
-            <p style="margin:0;color:#e2e8f0;font-size:12px;line-height:1.4;background:#111;padding:6px 8px;border-radius:4px;border-left:2px solid #ffd700;">${item.descricao || 'Sem descrição.'}</p>
+            <p style="margin:0;color:#e2e8f0;font-size:12px;line-height:1.4;background:#111;padding:6px 8px;border-radius:4px;border-left:2px solid #ffd700;">${item.descricao || item.titulo}</p>
           </div>
           <button class="del-m" data-id="${item.id}" style="background:#d9534f;color:#fff;border:none;padding:6px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold;margin-left:6px;flex-shrink:0;">Excluir</button>
         `;
@@ -812,27 +776,65 @@
       }
     };
 
+    // FORMULÁRIO DE UPLOAD E IMPORTAÇÃO EM LOTE
     document.getElementById('form-up').onsubmit = async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btn-pub');
-      const tit = document.getElementById('inp-titulo').value.trim();
-      const desc = document.getElementById('inp-desc').value.trim();
       const catId = document.getElementById('sel-cat').value;
-      const files = document.getElementById('inp-files').files;
+      const batchLinksText = document.getElementById('inp-batch-links').value.trim();
       const ytLink = document.getElementById('inp-yt-link').value.trim();
+      let tit = document.getElementById('inp-titulo').value.trim();
+      let desc = document.getElementById('inp-desc').value.trim();
+      const files = document.getElementById('inp-files').files;
 
       if (!catId) return alert('Selecione um menu!');
       btn.disabled = true;
+
       try {
-        if (ytLink) {
+        // Se houver links em lote na caixa de texto
+        if (batchLinksText) {
+          const linhas = batchLinksText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+          let count = 0;
+          for (let i = 0; i < linhas.length; i++) {
+            let link = linhas[i];
+            // Extrai se houver separador '|' ou '-'
+            let partes = link.split(/\||\-/);
+            let tituloGerado = partes.length > 1 ? partes[0].trim() : `Vídeo Oficial Chácara Profitter (${i + 1})`;
+            let urlReal = partes.length > 1 ? partes[1].trim() : link.trim();
+            let descGerada = tituloGerado; // Auto-descrição baseada no título
+
+            btn.innerText = `Processando lote ${i + 1} de ${linhas.length}...`;
+            await client.from('conteudos').insert([{
+              titulo: tituloGerado,
+              descricao: descGerada,
+              categoria_id: catId,
+              url: urlReal,
+              categoria: 'video'
+            }]);
+            count++;
+          }
+          alert(`Lote de ${count} vídeos importado e publicado com sucesso! As descrições foram geradas automaticamente.`);
+          document.getElementById('inp-batch-links').value = '';
+        } 
+        // Inserção individual por link único
+        else if (ytLink) {
+          if (!tit) tit = 'Vídeo Oficial Chácara Profitter';
+          if (!desc) desc = tit; // Auto-descrição
+
           await client.from('conteudos').insert([{
-            titulo: tit || 'Vídeo Oficial',
-            descricao: desc || 'Vídeo exclusivo Chácara Profitter.',
+            titulo: tit,
+            descricao: desc,
             categoria_id: catId,
             url: ytLink,
             categoria: 'video'
           }]);
-        } else if (files && files.length > 0) {
+          alert('Vídeo publicado com sucesso!');
+          document.getElementById('inp-yt-link').value = '';
+          document.getElementById('inp-titulo').value = '';
+          document.getElementById('inp-desc').value = '';
+        }
+        // Upload de ficheiro local
+        else if (files && files.length > 0) {
           for (let i = 0; i < files.length; i++) {
             const file = files[i];
             btn.innerText = `A enviar ${i + 1} de ${files.length}...`;
@@ -840,29 +842,30 @@
             const { error: upErr } = await client.storage.from('chacara-media').upload(fName, file);
             if (upErr) throw upErr;
             const url = client.storage.from('chacara-media').getPublicUrl(fName).data.publicUrl;
+            let nomeLimpo = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+            let tFinal = tit ? (files.length > 1 ? `${tit} (${i + 1})` : tit) : nomeLimpo;
+            let dFinal = desc || tFinal; // Auto-descrição
+
             await client.from('conteudos').insert([{
-              titulo: tit ? (files.length > 1 ? `${tit} (${i + 1})` : tit) : 'Mídia Chácara Profitter',
-              descricao: desc,
+              titulo: tFinal,
+              descricao: dFinal,
               categoria_id: catId,
               url: url,
               categoria: 'geral'
             }]);
           }
+          alert('Upload concluído com sucesso!');
+          document.getElementById('inp-files').value = '';
         } else {
-          throw new Error('Selecione um ficheiro ou cole um link do YouTube!');
+          throw new Error('Insira links em lote, um link único ou selecione ficheiros!');
         }
 
-        alert('Publicação concluída com sucesso!');
-        document.getElementById('inp-files').value = '';
-        document.getElementById('inp-yt-link').value = '';
-        document.getElementById('inp-titulo').value = '';
-        document.getElementById('inp-desc').value = '';
         await carregarListaMidias();
         sincronizarVitrineUniversal(client);
       } catch (err) {
         alert('Erro ao publicar: ' + err.message);
       } finally {
-        btn.innerText = '🚀 Publicar Mídia / Vídeo';
+        btn.innerText = '🚀 Processar e Publicar Vídeos';
         btn.disabled = false;
       }
     };
@@ -904,7 +907,7 @@
     const { data: { session } } = await client.auth.getSession();
     if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
       if (window.location.hash.includes('access_token')) {
-        injetarPainelCompleto(client, session.user.email);
+        injetarModalCompleto(client, session.user.email);
       }
     }
   };
