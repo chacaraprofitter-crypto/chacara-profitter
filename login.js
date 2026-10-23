@@ -6,19 +6,19 @@
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
-  // Paleta Completa Especializada da Chácara Profitter (+50 Ícones)
+  // Paleta Atualizada com Sauna, Duchas, Spa e Ambientes em Destaque
   const GALERIA_ICONES = [
+    // Sauna, Duchas, Spa & Banheiros (Destaque)
+    '🧖', '🚿', '♨️', '💦', '🛁', '🧼', '🪞',
     // Varanda, Descanso & Quartos
     '🛖', '🌴', '🛏️', '🛋️', '🪑', '🧘',
-    // Banheiros, Duchas, Sauna & Spa
-    '🚿', '🧖', '🛁', '♨️', '💦', '🧼', '🪞',
     // Churrasqueira, Fogo & Gastronomia
     '🥩', '🍖', '🍢', '🔥', '🍽️', '🍕', '🥘', '☕', '🍷', '🥂', '🍻', '🍹',
     // Lago, Pesca, Clube & Lazer Náutico
     '🛶', '🚣', '🎣', '🐟', '🦆', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐', '🏃', '🚴',
     // Iluminação, Noite & Área Externa
     '✨', '💡', '🏮', '🌙', '🌅', '☀️', '🌳', '🏡', '🏞️', '🌺', '🌿',
-    // Estrutura, Mídia & Serviços
+    // Estrutura, Mídia & Eventos
     '🚗', '📶', '📺', '🎬', '🎵', '🎉', '🛎️', '⭐'
   ];
 
@@ -326,7 +326,7 @@
     }
   }
 
-  // Painel Administrativo com Central Completa de Ambientes e Paleta Expandida
+  // Painel Administrativo com Sauna e Duchas em Destaque na Paleta
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -369,7 +369,7 @@
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">3. Título do Ambiente</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Área da Sauna & Duchas" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
+              <input type="text" id="inp-titulo" placeholder="Ex: Área de Sauna & Duchas" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Descrição Ultra Premium</label>
@@ -389,18 +389,18 @@
 
       <!-- ABA 2: GESTAO COMPLETA DE MENUS -->
       <div id="secao-categorias" style="display:block;max-width:1150px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Galeria Completa de Ícones</h3>
+        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine com Ícones de Sauna, Duchas & Varanda</h3>
         <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Selecione qualquer ícone abaixo para aplicar no novo menu ou clique em <b>✏️ Editar</b> no menu desejado para trocar o ícone e subir novas fotos.</p>
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone Especializado da Chácara (+50 Opções):</label>
-            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:170px;overflow-y:auto;"></div>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone (Sauna, Duchas, Varanda, Lago, etc.):</label>
+            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:180px;overflow-y:auto;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Nome do Novo Menu</label>
-              <input type="text" id="new-cat-name" placeholder="Ex: 🛖 VARANDA COM REDE" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
+              <input type="text" id="new-cat-name" placeholder="Ex: 🧖🚿 SAUNA & DUCHAS" required style="width:100%;padding:9px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
             </div>
             <div style="width:260px;">
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:3px;font-weight:bold;">Pertence a (Submenu)</label>
@@ -643,7 +643,7 @@
               btnUp.disabled = true;
               try {
                 for (let i = 0; i < files.length; i++) {
-                  btnUp.innerText = `A enviar foto ${i + 1} de${files.length}...`;
+                  btnUp.innerText = `A enviar foto ${i + 1} de ${files.length}...`;
                   const file = files[i];
                   const fName = Date.now() + '_' + i + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
                   const { error: upErr } = await client.storage.from('chacara-media').upload(fName, file);
@@ -772,7 +772,7 @@
       try {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
-          btn.innerText = `A enviar ${i + 1} de${files.length}...`;
+          btn.innerText = `A enviar ${i + 1} de ${files.length}...`;
           const fName = Date.now() + '_' + i + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
           const { error: upErr } = await client.storage.from('chacara-media').upload(fName, file);
           if (upErr) throw upErr;
