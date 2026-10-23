@@ -1,15 +1,27 @@
 ﻿(function() {
-  if (window.__chacaraQuantumMultimedia) return;
-  window.__chacaraQuantumMultimedia = true;
+  if (window.__chacaraQuantumMultimediaMaster) return;
+  window.__chacaraQuantumMultimediaMaster = true;
 
   const SB_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
   const SB_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YHCm';
   const ADMIN_EMAIL = 'sidneyjer68@gmail.com';
 
+  // Super Galeria Mestra de Ícones (Vídeos em Destaque + Todos os Ambientes)
   const GALERIA_ICONES = [
-    '🎬', '📺', '🎥', '🍿', '🎵', '📸', '🛋️', '🛖', '🌴', '🛏️',
-    '🧖', '🚿', '♨️', '💦', '🛁', '🥩', '🍖', '🔥', '🍽️', '🍷',
-    '🛶', '🎣', '🏛️', '🏊', '🎾', '⚽', '✨', '💡', '🌙', '⭐'
+    // 🎬 Vídeos, Cinema & Multimédia (Destaque Principal)
+    '🎬', '🎥', '📺', '📹', '📼', '▶️', '📸', '🎵', '🎶', '🎤', '🍿',
+    // 🧖 Sauna, Duchas, Spa & Banheiros
+    '🧖', '🚿', '♨️', '💦', '🛁', '🧼', '🪞',
+    // 🛖 Varanda, Descanso, Redes & Quartos
+    '🛖', '🌴', '🛏️', '🛋️', '🪑', '🧘',
+    // 🥩 Churrasqueira, Fogo & Gastronomia
+    '🥩', '🍖', '🍢', '🔥', '🍽️', '🍕', '🥘', '☕', '🍷', '🥂', '🍻', '🍹',
+    // 🛶 Lago, Pesca, Clube & Lazer
+    '🛶', '🚣', '🎣', '🐟', '🦆', '🏛️', '🏊', '🎱', '🏓', '🎾', '⚽', '🏐', '🏃', '🚴',
+    // ✨ Iluminação, Noite & Área Externa
+    '✨', '💡', '🏮', '🌙', '🌅', '☀️', '🌳', '🏡', '🏞️', '🌺', '🌿',
+    // 🚗 Estrutura & Eventos
+    '🚗', '📶', '🎉', '🛎️', '⭐'
   ];
 
   let inputFocadoParaIcone = null;
@@ -175,7 +187,7 @@
   `;
   document.head.appendChild(css);
 
-  // Lightbox Cinema Multimídia (Suporta Imagem, Vídeo e YouTube)
+  // Lightbox Cinema Multimídia
   window.abrirModalCinema = function(url, tit, desc, badge) {
     let m = document.getElementById('modal-cinema-quantum');
     if (m) m.remove();
@@ -213,7 +225,7 @@
     document.body.appendChild(m);
   };
 
-  // Sincronização Dinâmica da Vitrine (Incluindo Vídeos Oficiais)
+  // Sincronização Dinâmica da Vitrine
   async function sincronizarVitrineUniversal(client, menuParaAtivar) {
     try {
       const { data: categorias } = await client.from('categorias').select('*').order('created_at', { ascending: true });
@@ -379,7 +391,7 @@
     }
   }
 
-  // Painel Administrativo com Gestão de Vídeos & Imagens
+  // Painel Administrativo com Super Galeria Completa e Ícones de Vídeo
   async function injetarPainelCompleto(client, email) {
     let p = document.getElementById('quantum-admin-root');
     if (p) { p.style.display = 'flex'; return; }
@@ -391,7 +403,7 @@
     p.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:20px;flex-wrap:wrap;gap:15px;flex-shrink:0;">
         <div>
-          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO MULTIMÍDIA (FOTOS & VÍDEOS)</h2>
+          <h2 style="margin:0;color:#ffd700;font-size:22px;letter-spacing:1px;">⚡ PAINEL MESTRE QUÂNTICO | GESTÃO MULTIMÍDIA TOTAL</h2>
           <p style="margin:4px 0 0 0;color:#aaa;font-size:12px;">Admin Autenticado: <b style="color:#ffd700;">${email}</b></p>
         </div>
         <div>
@@ -401,14 +413,14 @@
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;flex-shrink:0;">
-        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir Mídias (Fotos/Vídeos)</button>
+        <button id="tab-conteudos-btn" style="background:#222;color:#ccc;border:1px solid #444;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📸 Inserir Mídias (Fotos & Vídeos)</button>
         <button id="tab-categorias-btn" style="background:#ffd700;color:#000;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">📂 Gerenciar Menus & Ambientes</button>
       </div>
 
-      <!-- ABA 1: UPLOAD DE MIDIAS (FOTOS E VÍDEOS) -->
+      <!-- ABA 1: UPLOAD -->
       <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Adicionar Fotos ou Vídeos Oficiais</h3>
+          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">Adicionar Fotos ou Links de Vídeo</h3>
           <form id="form-up" style="display:flex;flex-direction:column;gap:12px;">
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Escolha o Menu ou Destino *</label>
@@ -417,20 +429,20 @@
               </select>
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. Enviar Ficheiro de Vídeo ou Foto (Opcional)</label>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">2. Enviar Ficheiro (Foto/Vídeo)</label>
               <input type="file" id="inp-files" accept="image/*,video/*" style="width:100%;color:#fff;padding:8px;background:#1e1e1e;border:1px solid #444;border-radius:6px;cursor:pointer;font-size:12px;">
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">OU 3. Cole o Link do YouTube / Vimeo (Recomendado para Vídeos)</label>
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">OU 3. Cole o Link do YouTube / Vimeo</label>
               <input type="text" id="inp-yt-link" placeholder="Ex: https://www.youtube.com/watch?v=..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;box-sizing:border-box;">
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Título do Vídeo / Ambiente</label>
-              <input type="text" id="inp-titulo" placeholder="Ex: Tour Oficial Chácara Profitter" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
+              <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">4. Título</label>
+              <input type="text" id="inp-titulo" placeholder="Ex: Tour Virtual Completo" style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;">
             </div>
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">5. Descrição Ultra Premium</label>
-              <textarea id="inp-desc" rows="3" placeholder="Conheça todos os detalhes exclusivos..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
+              <textarea id="inp-desc" rows="3" placeholder="Descrição detalhada..." style="width:100%;padding:9px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;font-size:13px;"></textarea>
             </div>
             <button type="submit" id="btn-pub" style="background:#ffd700;color:#000;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;">🚀 Publicar Mídia / Vídeo</button>
           </form>
@@ -446,13 +458,13 @@
 
       <!-- ABA 2: GESTAO DE MENUS -->
       <div id="secao-categorias" style="display:block;max-width:1150px;margin:0 auto;width:100%;background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;">
-        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine & Vídeos Oficiais</h3>
-        <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Crie novos menus, adicione links do YouTube para a seção <b>Vídeos Oficiais</b> ou edite qualquer ambiente existente.</p>
+        <h3 style="color:#ffd700;margin-top:0;">Gerenciar Menus da Vitrine (Super Galeria de Ícones)</h3>
+        <p style="color:#aaa;font-size:12px;margin:0 0 16px 0;">Selecione um ícone de vídeo 🎬, sauna 🧖, varanda 🛖 ou qualquer outro abaixo para criar ou editar menus.</p>
         
         <form id="form-cat" style="display:flex;flex-direction:column;gap:14px;margin-bottom:25px;background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
           <div>
-            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone:</label>
-            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:170px;overflow-y:auto;"></div>
+            <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:6px;font-weight:bold;">Selecione um Ícone (Vídeos, Sauna, Duchas, Varanda, etc.):</label>
+            <div id="galeria-icones-container" style="display:flex;flex-wrap:wrap;gap:8px;background:#111;padding:12px;border-radius:8px;border:1px solid #333;max-height:220px;overflow-y:auto;"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:220px;">
@@ -488,6 +500,7 @@
       btnEmoji.type = 'button';
       btnEmoji.className = 'palette-btn-emoji';
       btnEmoji.innerText = emoji;
+      btnEmoji.title = `Aplicar ícone ${emoji}`;
       btnEmoji.onclick = () => {
         iconeContainer.querySelectorAll('button').forEach(b => b.style.borderColor = '#383838');
         btnEmoji.style.borderColor = '#ffd700';
@@ -636,9 +649,9 @@
                 </div>
               </div>
 
-              <!-- 2. UPLOAD DIRETO DE FOTOS/VÍDEOS NESTE MENU -->
+              <!-- 2. UPLOAD DIRETO -->
               <div style="background:#161616;padding:14px;border-radius:6px;border:1px solid #2a2a2a;">
-                <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">📸 Adicionar Mídia / Vídeo em "${item.nome}"</div>
+                <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">📸 Adicionar Mídia ou Vídeo em "${item.nome}"</div>
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div>
                     <label style="display:block;font-size:11px;color:#ccc;margin-bottom:3px;">Link do YouTube / Vimeo (Opcional)</label>
@@ -658,7 +671,7 @@
                 </div>
               </div>
 
-              <!-- 3. LISTA DE FOTOS/VÍDEOS EXISTENTES -->
+              <!-- 3. LISTA -->
               <div>
                 <div style="color:#ffd700;font-size:13px;font-weight:bold;margin-bottom:8px;">🖼️ Mídias Atuais (${fotosMenu ? fotosMenu.length : 0})</div>
                 <div class="box-fotos-atuais-inline" style="max-height:220px;overflow-y:auto;padding-right:4px;">
