@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chácara Profitter | Mansão Cinematográfica no Clube de Campo Fazenda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { gold: '#D4AF37', goldLight: '#F5E6B3', dark: '#05080E', surface: '#0B1220', card: '#121C2F', uv: '#9B51E0' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-box { background: rgba(11, 18, 32, 0.94); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.28); }
+    .gold-gradient { background: linear-gradient(135deg, #F5E6B3 0%, #D4AF37 50%, #99781E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .active-filter { background: linear-gradient(135deg, #F5E6B3 0%, #D4AF37 100%) !important; color: #05080E !important; font-weight: 700 !important; box-shadow: 0 0 25px rgba(212, 175, 55, 0.45); }
+    .fade-slide { opacity: 0; transition: opacity 1.2s ease-in-out; position: absolute; inset: 0; z-index: 0; }
+    .fade-slide.active { opacity: 1; z-index: 1; }
+    @keyframes kenBurns { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    .atrio-img-animada { animation: kenBurns 12s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-100 antialiased selection:bg-brand-gold selection:text-brand-dark overflow-x-hidden">
+
+  <!-- CABEÇALHO LUXURY COM LOGIN GOOGLE -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-box">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full border border-brand-gold/50 flex items-center justify-center bg-brand-surface shadow-lg">
+          <i data-lucide="crown" class="w-6 h-6 text-brand-gold"></i>
+        </div>
+        <div>
+          <span class="font-serif text-lg tracking-wider text-white font-bold block leading-none">CHÁCARA PROFITTER</span>
+          <span class="text-[9px] tracking-[0.28em] text-brand-gold uppercase block mt-1">Clube de Campo Fazenda • Itatiba/SP</span>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
+        <a href="#diferencial" class="hover:text-brand-gold transition-colors">O Conceito</a>
+        <a href="#galeria-premium" class="hover:text-brand-gold transition-colors">Menu de Álbuns</a>
+        <a href="#videos-reais" class="hover:text-brand-gold transition-colors">Vídeos Oficiais</a>
+        <a href="#avaliacoes" class="hover:text-brand-gold transition-colors">Avaliações 5★</a>
+        <a href="#reserva" class="px-5 py-2.5 rounded-full bg-brand-gold text-brand-dark font-bold hover:bg-brand-goldLight transition-all">Reservar WhatsApp</a>
+        
+        <!-- Botão de Autenticação Google -->
+        <div id="auth-container">
+          <button onclick="loginWithGoogle()" class="px-4 py-2 rounded-full border border-brand-gold/40 text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-all flex items-center gap-2 text-[11px]">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i> Login Google
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAINEL ADMINISTRATIVO CMS -->
+  <div id="admin-panel" class="hidden fixed top-24 right-6 z-50 bg-brand-surface border-2 border-brand-gold p-6 rounded-3xl shadow-2xl max-w-md w-full">
+    <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-800">
+      <h3 class="font-serif font-bold text-brand-gold flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5"></i> Painel Admin CMS</h3>
+      <button onclick="logoutAdmin()" class="text-xs text-red-400 hover:underline">Sair</button>
+    </div>
+    <form onsubmit="handleAddNewPhoto(event)" class="space-y-3">
+      <div>
+        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1">Título da Foto</label>
+        <input type="text" id="admin-title" required class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-slate-700 text-white text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1">ID do Google Drive ou URL</label>
+        <input type="text" id="admin-url" required placeholder="Ex: 1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT" class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-slate-700 text-white text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1">Ambiente / Categoria</label>
+        <select id="admin-cat" class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-slate-700 text-white text-xs">
+          <option value="piscina">Piscina & Átrio</option>
+          <option value="clube">Clube & Lago</option>
+          <option value="gourmet">Espaço Gourmet</option>
+          <option value="noite-uv">Noite & UV</option>
+          <option value="quartos">Suítes & Quartos</option>
+          <option value="festas">Salão de Festas</option>
+          <option value="living">Living & Lareira</option>
+          <option value="cozinha">&#127869;&#65039; COZINHA AMERICANA</option>
+          <option value="banheiros">Banheiros & Varanda</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1">Descrição</label>
+        <textarea id="admin-desc" rows="2" class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-slate-700 text-white text-xs"></textarea>
+      </div>
+      <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest hover:bg-brand-goldLight transition-all">Adicionar Foto ao Álbum</button>
+    </form>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden">
+    <div class="absolute inset-0 z-0 overflow-hidden" id="hero-slides">
+      <div class="fade-slide active"><img src="https://lh3.googleusercontent.com/d/1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT=w1920" class="w-full h-full object-cover"></div>
+      <div class="fade-slide"><img src="https://lh3.googleusercontent.com/d/15tYGdza9AHSPKcf66lILDryR-c6Wnujv=w1920" class="w-full h-full object-cover"></div>
+      <div class="fade-slide"><img src="https://lh3.googleusercontent.com/d/1ScWdLxhq6q9yIuzc6kNf1qvb8StJ_vCz=w1920" class="w-full h-full object-cover"></div>
+      <div class="fade-slide"><img src="https://lh3.googleusercontent.com/d/1X1OIxRzT4uyp5WuD7MS3mOxDtQrsAAHd=w1920" class="w-full h-full object-cover"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/65 to-brand-dark/40 z-10"></div>
+    </div>
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2" id="hero-dots"></div>
+    <div class="relative z-20 max-w-5xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-box mb-6 border border-brand-gold/40 shadow-xl">
+        <i data-lucide="sparkles" class="w-4 h-4 text-brand-gold"></i>
+        <span class="text-[11px] uppercase tracking-widest text-slate-200">Alto Padrão de Temporada em Itatiba/SP</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl lg:text-7xl font-serif text-white font-bold leading-tight mb-6">A Única com a <span class="gold-gradient italic">Piscina no Centro</span> da Casa</h1>
+      <p class="text-base sm:text-xl text-slate-200 font-light max-w-3xl mx-auto mb-6 leading-relaxed drop-shadow">750 m² construídos em conceito de resort privativo dentro do mais exclusivo Clube de Campo Fazenda, de frente para o lago e com total segurança 24h a 150 metros.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+        <a href="#reserva" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest hover:scale-105 shadow-xl shadow-brand-gold/25 transition-all flex items-center justify-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Consultar Período Disponível</a>
+        <a href="#galeria-premium" class="w-full sm:w-auto px-8 py-4 rounded-full glass-box text-white font-semibold text-xs uppercase tracking-widest hover:border-brand-gold transition-all flex items-center justify-center gap-2"><i data-lucide="folder-open" class="w-4 h-4 text-brand-gold"></i> Menu de Álbuns Ultra Premium</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAL — ÁTRIO CENTRAL -->
+  <section id="diferencial" class="py-24 bg-brand-surface relative border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs uppercase font-bold tracking-widest text-brand-gold flex items-center gap-2"><i data-lucide="gem" class="w-4 h-4"></i> Arquitetura Incomparável</span>
+          <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold leading-tight">O Conceito <span class="gold-gradient">Átrio Central</span></h2>
+          <p class="text-slate-300 leading-relaxed font-light">Enquanto chácaras comuns possuem a piscina isolada no fundo, na <strong>Chácara Profitter</strong> a piscina é o núcleo geométrico da mansão. Todos os quartos abrem portas de correr de vidro diretamente para a água e para o espaço gourmet.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl glass-box"><i data-lucide="moon" class="w-5 h-5 text-brand-gold mb-2"></i><h4 class="text-sm font-bold text-white mb-1">Iluminação UV Noturna</h4><p class="text-xs text-slate-400">Sistema importado com luz ultravioleta para banhos noturnos de piscina.</p></div>
+            <div class="p-4 rounded-xl glass-box"><i data-lucide="flame" class="w-5 h-5 text-brand-gold mb-2"></i><h4 class="text-sm font-bold text-white mb-1">Dupla Lareira</h4><p class="text-xs text-slate-400">Lareira interna em alvenaria e lareira externa de chão (Fire Pit).</p></div>
+          </div>
+        </div>
+        <div class="lg:col-span-6">
+          <div class="rounded-3xl overflow-hidden glass-box p-3 shadow-2xl relative border-2 border-brand-gold/40">
+            <div class="relative w-full pb-[56.25%] rounded-2xl overflow-hidden bg-black shadow-inner">
+              <img src="https://lh3.googleusercontent.com/d/1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT=w1600" class="absolute inset-0 w-full h-full object-cover atrio-img-animada">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 pointer-events-none"></div>
+              <div class="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-black/65 border border-brand-gold/40 text-[10px] uppercase tracking-widest text-brand-gold font-bold flex items-center gap-1.5 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Destaque • Átrio Central
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU DE ÁLBUNS ULTRA PREMIUM -->
+  <section id="galeria-premium" class="py-24 bg-brand-dark relative border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-box mb-4 border border-brand-gold/30">
+          <i data-lucide="sparkles" class="w-4 h-4 text-brand-gold"></i>
+          <span class="text-[11px] uppercase tracking-widest text-brand-gold font-bold">Curadoria Exclusiva por Setores</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold">Menu de Álbuns & Ambientes</h2>
+        <p class="text-slate-400 text-sm mt-3">Explore cada detalhe da Chácara Profitter organizado por estilo, ambiente e localidade.</p>
+      </div>
+
+      <!-- BOTÕES DE FILTRO -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-14" id="filter-buttons">
+        <button onclick="filterGallery('all', this)" class="filter-btn active-filter px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold transition-all">✨ Todos os Ambientes</button>
+        <button onclick="filterGallery('piscina', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🏊 Piscina & Átrio</button>
+        <button onclick="filterGallery('clube', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🌳 Clube & Lago</button>
+        <button onclick="filterGallery('gourmet', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🥩 Espaço Gourmet</button>
+        <button onclick="filterGallery('noite-uv', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🔮 Noite & UV</button>
+        <button onclick="filterGallery('quartos', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🛏️ Suítes & Quartos</button>
+        <button onclick="filterGallery('festas', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🎉 Salão de Festas</button>
+        <button onclick="filterGallery('living', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🍷 Living & Lareira</button>
+        <button onclick="filterGallery('cozinha', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">☕ &#127869;&#65039; COZINHA AMERICANA</button>
+        <button onclick="filterGallery('banheiros', this)" class="filter-btn px-5 py-3 rounded-full text-xs uppercase tracking-wider font-semibold bg-brand-card text-slate-300 hover:text-white transition-all">🚿 Banheiros & Varanda</button>
+      </div>
+
+      <!-- GRID DE FOTOS DINÂMICO -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- VÍDEOS OFICIAIS -->
+  <section id="videos-reais" class="py-24 bg-brand-surface relative border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Tour Audiovisual Imersivo</span>
+        <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold mt-2">Vídeos Oficiais do Imóvel</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="glass-box p-4 rounded-3xl"><div class="relative w-full pb-[56.25%] rounded-2xl overflow-hidden bg-black mb-4"><iframe src="https://drive.google.com/file/d/1VXa-NUCYBkCcIEpE4PjOc2JEU6nWjOfq/preview" class="absolute inset-0 w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><h3 class="text-base font-bold text-white">01. Vídeo da Piscina Central</h3></div>
+        <div class="glass-box p-4 rounded-3xl"><div class="relative w-full pb-[56.25%] rounded-2xl overflow-hidden bg-black mb-4"><iframe src="https://drive.google.com/file/d/1Oi2ycS2HOfX9l5KB4yHBczvt_ARk4brV/preview" class="absolute inset-0 w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><h3 class="text-base font-bold text-white">02. Vídeo do Espaço Gourmet</h3></div>
+        <div class="glass-box p-4 rounded-3xl"><div class="relative w-full pb-[56.25%] rounded-2xl overflow-hidden bg-black mb-4"><iframe src="https://drive.google.com/file/d/1IE1BO_fSLWesWXIknDsKCafzyLYaFl_D/preview" class="absolute inset-0 w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><h3 class="text-base font-bold text-white">03. Tour Completo Chácara Profitter</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÕES -->
+  <section id="avaliacoes" class="py-24 bg-brand-dark relative border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-5xl font-serif text-white font-bold">O Que Diz Quem Já Se Hospedou</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-box p-8 rounded-3xl"><p class="text-slate-300 text-sm italic mb-6">"Lugar incrível e impecável! A piscina no centro da casa é um espetáculo à parte, parece um resort."</p><h4 class="text-sm font-bold text-white">Marcos Castro & Família</h4></div>
+        <div class="glass-box p-8 rounded-3xl"><p class="text-slate-300 text-sm italic mb-6">"Fizemos o aniversário no salão de festas e foi inesquecível. Fogão a lenha e lareira externa perfeitos!"</p><h4 class="text-sm font-bold text-white">Renata Almeida</h4></div>
+        <div class="glass-box p-8 rounded-3xl"><p class="text-slate-300 text-sm italic mb-6">"A chácara mais bonita de Itatiba sem dúvidas. Atendimento direto com o proprietário Sidney com muita clareza."</p><h4 class="text-sm font-bold text-white">Daniel Fonseca</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVA WHATSAPP -->
+  <section id="reserva" class="py-24 bg-brand-surface relative border-t border-slate-800">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="glass-box p-8 md:p-12 rounded-3xl shadow-2xl">
+        <div class="text-center mb-8"><h2 class="text-3xl sm:text-4xl font-serif text-white font-bold">Consultar Período Disponível</h2></div>
+        <form onsubmit="handleBooking(event)" class="space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input type="text" id="name" required placeholder="Seu Nome" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm">
+            <input type="tel" id="phone" required placeholder="Seu WhatsApp" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <input type="date" id="checkin" required class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm">
+            <input type="date" id="checkout" required class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm">
+            <select id="guests" class="w-full px-4 py-3.5 rounded-xl bg-brand-dark border border-slate-700 text-white text-sm"><option value="Até 25 pessoas" selected>Até 25 pessoas</option></select>
+          </div>
+          <button type="submit" class="w-full py-4 rounded-xl bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest">Validar Período pelo WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 bg-brand-dark border-t border-slate-800 text-center text-xs text-slate-400">
+    <p class="font-bold text-white uppercase tracking-wider mb-1">Chácara Profitter • Clube de Campo Fazenda Itatiba/SP</p>
+    <p>Avenida dos Marmelos, 173 • WhatsApp: (11) 97250-1377</p>
+  </footer>
+
+  <!-- MODAL LIGHTBOX -->
+  <div id="photo-modal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4" onclick="closePhoto()">
+    <img id="modal-image" src="" alt="Foto Ampliada" class="max-w-full max-h-[85vh] rounded-2xl object-contain border border-brand-gold/40 shadow-2xl">
+  </div>
+
+  <!-- SCRIPT SUPABASE & CMS -->
+  <script>
+    lucide.createIcons();
+
+    // SLIDER HERO
+    let currentHeroSlide = 0;
+    const heroSlides = document.querySelectorAll('#hero-slides .fade-slide');
+    const heroDotsContainer = document.getElementById('hero-dots');
+    heroSlides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `h-2 rounded-full transition-all ${idx === 0 ? 'w-8 bg-brand-gold' : 'w-2 bg-white/40'}`;
+      dot.onclick = () => setHeroSlide(idx);
+      heroDotsContainer.appendChild(dot);
+    });
+    function setHeroSlide(index) {
+      heroSlides[currentHeroSlide].classList.remove('active');
+      currentHeroSlide = index;
+      heroSlides[currentHeroSlide].classList.add('active');
+      Array.from(heroDotsContainer.children).forEach((dot, idx) => {
+        dot.className = `h-2 rounded-full transition-all ${idx === currentHeroSlide ? 'w-8 bg-brand-gold' : 'w-2 bg-white/40'}`;
+      });
+    }
+    setInterval(() => { setHeroSlide((currentHeroSlide + 1) % heroSlides.length); }, 3500);
+
+    // DADOS PADRÃO (FALLBACK INTELIGENTE)
+    const fallbackPhotos = [
+      { id: "1thoGLotFFZ3YewCCyLw25sc8dlDgHjCT", category_id: "piscina", tag: "Átrio Central", badge: "bg-brand-gold text-brand-dark", title: "A Piscina no Centro da Casa", description: "O átrio central geométrico que conecta todos os quartos e o espaço gourmet." },
+      { id: "1r8pMcvH_ny-q-VP1_HfEvOkrO2bz-C4G", category_id: "piscina", tag: "Deque Molhado", badge: "bg-brand-gold text-brand-dark", title: "Deque Integrado aos Quartos", description: "Abra a porta de vidro do quarto e saia diretamente na água da piscina." },
+      { id: "1fjaE3Zp6hzscUfdIFYanI8569y3OodzP", category_id: "piscina", tag: "Solarium", badge: "bg-brand-gold text-brand-dark", title: "Solário Privativo da Piscina", description: "Área para espreguiçadeiras com sol abundante durante o dia inteiro." },
+      { id: "11xkJl9_r7v2Mo75ulBKvjgXM6lfzJfel", category_id: "piscina", tag: "Pátio Aquático", badge: "bg-brand-gold text-brand-dark", title: "Circulação do Pátio Molhado", description: "Passagem fluida entre o deque, o living e o complexo gastronômico." },
+      { id: "15tYGdza9AHSPKcf66lILDryR-c6Wnujv", category_id: "clube", tag: "Clube & Lago", badge: "bg-emerald-500 text-white", title: "Lago em Frente à Propriedade", description: "Vista cinematográfica para o lago principal do Clube de Campo." },
+      { id: "10garicjoEdLcbGdB1zSsntdq3I9jbsN_", category_id: "clube", tag: "Clube & Lago", badge: "bg-emerald-500 text-white", title: "Área Verde do Condomínio", description: "Tranquilidade e segurança para caminhadas em volta do lago." },
+      { id: "12_gGwBSTY8lj61kYvex_T0kk71IHlHLX", category_id: "clube", tag: "Clube & Lago", badge: "bg-emerald-500 text-white", title: "Bosque Nativo Preservado", description: "Clima ameno de serra a cerca de 1 hora de São Paulo." },
+      { id: "1CH1UTiRUfnStQduiz0mtOlbKGjSHz7kq", category_id: "clube", tag: "Terreno 2.000 m²", badge: "bg-emerald-500 text-white", title: "2.000 m² de Terreno Privativo", description: "Área gramada ampla com árvores e paisagismo integrado." },
+      { id: "1X1OIxRzT4uyp5WuD7MS3mOxDtQrsAAHd", category_id: "gourmet", tag: "Churrasqueira", badge: "bg-red-500 text-white", title: "Churrasqueira com Sistema Grill", description: "Bancada completa para churrascos em família com vista para a piscina." },
+      { id: "1vRTn_12cPcj_05oHSILxaK9hfgGn_mEQ", category_id: "gourmet", tag: "Fogão a Lenha", badge: "bg-red-500 text-white", title: "Fogão a Lenha Caipira", description: "Chapa tradicional de ferro fundido para a autêntica culinária da fazenda." },
+      { id: "1ScWdLxhq6q9yIuzc6kNf1qvb8StJ_vCz", category_id: "noite-uv", tag: "Iluminação UV", badge: "bg-purple-500 text-white", title: "Iluminação Ultravioleta Importada", description: "Efeito néon sensorial na água para banhos noturnos de piscina." },
+      { id: "1WrYz7Pv-jg4dieJdN-LbUM6IE4kz7nDR", category_id: "noite-uv", tag: "Piscina Noturna", badge: "bg-purple-500 text-white", title: "Piscina Noturna em Neon", description: "Atmosfera cinematográfica e relaxante sob o céu estrelado." },
+      { id: "1ARlPpUlVwGzAsJ1x7WDLoIcRFbUbJZG7", category_id: "quartos", tag: "Suíte Master", badge: "bg-purple-400 text-brand-dark", title: "Suíte Master com Saída Piscina", description: "Porta envidraçada panorâmica com acesso imediato ao deque molhado." },
+      { id: "1jaKisZ0sJZLL0PCdzxBDtRv1Cbte6GJX", category_id: "quartos", tag: "Suíte", badge: "bg-purple-400 text-brand-dark", title: "Suíte com Vista para o Átrio", description: "Iluminação natural generosa e vista constante para o espelho d'água." },
+      { id: "1EjIQg-s2WZ3gywAIZ-3EhVm5qzVJ8PAN", category_id: "festas", tag: "Salão de Festas", badge: "bg-amber-500 text-brand-dark", title: "Salão de Festas Coberto", description: "Espaço amplo com pé-direito alto para celebrações familiares e recepções." },
+      { id: "1tN4ISHhevEtB6kCauJmzNjo2flr3s8Mw", category_id: "living", tag: "Lareira Interna", badge: "bg-amber-600 text-white", title: "Living com Lareira em Alvenaria", description: "Lareira interna no living para aconchego nos dias e noites mais frias." },
+      { id: "1vbwAywbE6oboq0S-y0enVHG530COLv2D", category_id: "cozinha", tag: "Sala de Jantar", badge: "bg-teal-500 text-brand-dark", title: "Sala de Jantar Principal", description: "Mesa ampla para refeições confortáveis reunindo toda a família." },
+      { id: "1_vFca-jRO0tZR1fLNRXHlNCBonOTYdap", category_id: "banheiros", tag: "Banheiro Suíte", badge: "bg-sky-400 text-brand-dark", title: "Banheiro Privativo da Suíte Master", description: "Box blindex, acabamento moderno e total privacidade para o casal." }
+    ];
+
+    // CONFIGURAÇÃO DO SUPABASE
+    const SUPABASE_URL = 'https://coeqgbxxxwvlprdwrkqp.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_Csi4t6CSdeg8Ymems-udEg_FML2YH...';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let photosData = [];
+    let currentFilter = 'all';
+
+    async function initApp() {
+      await checkUserSession();
+      await fetchPhotos();
+    }
+
+    async function checkUserSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      const container = document.getElementById('auth-container');
+      const adminPanel = document.getElementById('admin-panel');
+
+      if (session) {
+        const userEmail = session.user.email;
+        container.innerHTML = `<span class="text-xs text-brand-gold font-bold">Olá, ${session.user.user_metadata.full_name || userEmail}</span>`;
+        if(adminPanel) adminPanel.classList.remove('hidden');
+      }
+    }
+
+    // EXPOSTO GLOBALMENTE PARA O BOTÃO FUNCIONAR
+    window.loginWithGoogle = async function() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+      });
+      if (error) alert('Erro ao autenticar com Google: ' + error.message);
+    }
+
+    window.logoutAdmin = async function() {
+      await supabase.auth.signOut();
+      window.location.reload();
+    }
+
+    async function fetchPhotos() {
+      const { data, error } = await supabase.from('photos').select('*').order('created_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        photosData = data;
+      } else {
+        photosData = fallbackPhotos;
+      }
+      renderGallery(currentFilter);
+    }
+
+    window.handleAddNewPhoto = async function(e) {
+      e.preventDefault();
+      const title = document.getElementById('admin-title').value;
+      const rawUrl = document.getElementById('admin-url').value;
+      const category_id = document.getElementById('admin-cat').value;
+      const description = document.getElementById('admin-desc').value;
+
+      const image_url = rawUrl.length < 40 ? `https://lh3.googleusercontent.com/d/${rawUrl}=w1600` : rawUrl;
+
+      const { error } = await supabase.from('photos').insert([{ title, image_url, category_id, description }]);
+      if (error) {
+        alert('Erro ao salvar foto: ' + error.message);
+      } else {
+        alert('Foto adicionada com sucesso ao Supabase!');
+        document.getElementById('admin-url').value = '';
+        document.getElementById('admin-title').value = '';
+        document.getElementById('admin-desc').value = '';
+        fetchPhotos();
+      }
+    }
+
+    window.deletePhoto = async function(id) {
+      if (confirm('Tem certeza que deseja deletar esta foto?')) {
+        const { error } = await supabase.from('photos').delete().eq('id', id);
+        if (!error) fetchPhotos();
+        else alert('Erro ao deletar: ' + error.message);
+      }
+    }
+
+    function renderGallery(filter) {
+      currentFilter = filter;
+      const grid = document.getElementById('gallery-grid');
+      grid.innerHTML = '';
+
+      const filtered = filter === 'all' ? photosData : photosData.filter(p => p.category_id === filter);
+
+      filtered.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = "glass-box rounded-3xl overflow-hidden shadow-xl group cursor-pointer border border-brand-gold/20 hover:border-brand-gold/60 transition-all duration-300 hover:-translate-y-1.5 relative";
+        
+        const imgSource = photo.image_url ? (photo.image_url.startsWith('http') ? photo.image_url : `https://lh3.googleusercontent.com/d/${photo.image_url}=w800`) : `https://lh3.googleusercontent.com/d/${photo.id}=w800`;
+        const modalSource = photo.image_url && photo.image_url.startsWith('http') ? photo.image_url : `https://lh3.googleusercontent.com/d/${photo.image_url || photo.id}=w1600`;
+
+        card.onclick = () => openPhotoModal(modalSource);
+
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session && photo.id && typeof photo.id === 'string' && photo.id.length > 20) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = "absolute top-4 right-4 z-30 bg-red-600/90 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-all";
+            deleteBtn.innerHTML = `<i data-lucide="trash-2" class="w-4 h-4"></i>`;
+            deleteBtn.onclick = (ev) => { ev.stopPropagation(); deletePhoto(photo.id); };
+            card.appendChild(deleteBtn);
+            lucide.createIcons();
+          }
+        });
+
+        card.innerHTML += `
+          <div class="relative h-72 overflow-hidden bg-black/50">
+            <img src="${imgSource}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/30 to-transparent opacity-80"></div>
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-brand-gold text-brand-dark shadow-lg">${photo.tag || photo.category_id}</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-xl font-bold text-white group-hover:text-brand-gold transition-colors">${photo.title}</h3>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">${photo.description || photo.desc || ''}</p>
+            <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-brand-gold">
+              <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i> Ampliar em Alta Definição
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    window.filterGallery = function(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active-filter');
+        b.classList.add('bg-brand-card', 'text-slate-300');
+      });
+      if (btn) {
+        btn.classList.add('active-filter');
+        btn.classList.remove('bg-brand-card', 'text-slate-300');
+      }
+      renderGallery(category);
+    }
+
+    window.openPhotoModal = function(src) {
+      document.getElementById('modal-image').src = src;
+      document.getElementById('photo-modal').classList.replace('hidden', 'flex');
+    }
+    window.closePhoto = function() { document.getElementById('modal-image').src = ''; document.getElementById('photo-modal').classList.replace('flex', 'hidden'); }
+
+    window.handleBooking = function(e) {
+      e.preventDefault();
+      const msg = `*CONSULTA DE RESERVA - CHÁCARA PROFITTER*%0A*Nome:* ${encodeURIComponent(document.getElementById('name').value)}%0A*Check-in:* ${encodeURIComponent(document.getElementById('checkin').value)}`;
+      window.open(`https://wa.me/5511972501377?text=${msg}`, '_blank');
+    }
+
+    initApp();
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- INICIO 🍽️ 🍽️ 🍽️ COZINHA AMERICANA ULTRA PREMIUM -->
+<section id="album-cozinha" style="max-width:1300px;margin:60px auto 40px auto;padding:0 20px;font-family:sans-serif;">
+  <div style="text-align:center;margin-bottom:32px;">
+    <span style="color:#ffd700;letter-spacing:3px;font-size:12px;font-weight:bold;text-transform:uppercase;">✦ ALTO PADRÃO DE TEMPORADA ✦</span>
+    <h2 style="color:#ffffff;font-size:30px;margin:8px 0 0 0;letter-spacing:1px;font-family:serif;">🍽️ 🍽️ 🍽️ 🍽️ COZINHA AMERICANA COMPLETA</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+    
+    <!-- Foto 1 -->
+    <div style="background:#0d0d0d;border:1px solid rgba(212,175,55,0.4);border-radius:14px;overflow:hidden;box-shadow:0 12px 35px rgba(0,0,0,0.85);">
+      <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000;">
+        <img src="fotos/cozinha/cozinha_1.jpg" alt="Cozinha Americana" style="width:100%;height:100%;object-fit:cover;">
+        <span style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.85);color:#ffd700;border:1px solid rgba(212,175,55,0.6);font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;">🍽️ 🍽️ 🍽️ 🍽️ COZINHA AMERICANA</span>
+      </div>
+      <div style="padding:16px;background:linear-gradient(180deg,#161616 0%,#0a0a0a 100%);border-top:1px solid rgba(212,175,55,0.2);">
+        <h4 style="margin:0 0 8px 0;color:#ffd700;font-size:15px;font-weight:bold;">✦ Cozinha Americana com Ilha Central (1)</h4>
+        <p style="margin:0;color:#f1f5f9;font-size:13px;line-height:1.5;background:rgba(212,175,55,0.06);padding:10px 12px;border-radius:6px;border-left:3px solid #ffd700;">
+          Ampla cozinha americana com ilha, duas geladeiras, dois micro-ondas, forno e todos os utensílios.
+        </p>
+      </div>
+    </div>
+
+    <!-- Foto 2 -->
+    <div style="background:#0d0d0d;border:1px solid rgba(212,175,55,0.4);border-radius:14px;overflow:hidden;box-shadow:0 12px 35px rgba(0,0,0,0.85);">
+      <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000;">
+        <img src="fotos/cozinha/cozinha_2.jpg" alt="Cozinha Americana" style="width:100%;height:100%;object-fit:cover;">
+        <span style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.85);color:#ffd700;border:1px solid rgba(212,175,55,0.6);font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;">🍽️ 🍽️ 🍽️ 🍽️ COZINHA AMERICANA</span>
+      </div>
+      <div style="padding:16px;background:linear-gradient(180deg,#161616 0%,#0a0a0a 100%);border-top:1px solid rgba(212,175,55,0.2);">
+        <h4 style="margin:0 0 8px 0;color:#ffd700;font-size:15px;font-weight:bold;">✦ Eletrodomésticos & Bancadas (2)</h4>
+        <p style="margin:0;color:#f1f5f9;font-size:13px;line-height:1.5;background:rgba(212,175,55,0.06);padding:10px 12px;border-radius:6px;border-left:3px solid #ffd700;">
+          Ampla cozinha americana com ilha, duas geladeiras, dois micro-ondas, forno e todos os utensílios.
+        </p>
+      </div>
+    </div>
+
+    <!-- Foto 3 -->
+    <div style="background:#0d0d0d;border:1px solid rgba(212,175,55,0.4);border-radius:14px;overflow:hidden;box-shadow:0 12px 35px rgba(0,0,0,0.85);">
+      <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000;">
+        <img src="fotos/cozinha/cozinha_3.jpg" alt="Cozinha Americana" style="width:100%;height:100%;object-fit:cover;">
+        <span style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.85);color:#ffd700;border:1px solid rgba(212,175,55,0.6);font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;">🍽️ 🍽️ 🍽️ 🍽️ COZINHA AMERICANA</span>
+      </div>
+      <div style="padding:16px;background:linear-gradient(180deg,#161616 0%,#0a0a0a 100%);border-top:1px solid rgba(212,175,55,0.2);">
+        <h4 style="margin:0 0 8px 0;color:#ffd700;font-size:15px;font-weight:bold;">✦ Utensílios & Espaço Gourmet Integrado (3)</h4>
+        <p style="margin:0;color:#f1f5f9;font-size:13px;line-height:1.5;background:rgba(212,175,55,0.06);padding:10px 12px;border-radius:6px;border-left:3px solid #ffd700;">
+          Ampla cozinha americana com ilha, duas geladeiras, dois micro-ondas, forno e todos os utensílios.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- FIM 🍽️ 🍽️ 🍽️ COZINHA AMERICANA ULTRA PREMIUM -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="login.js?v=1792793748"></script>
+</body>
+</html>
+
+
+
+
+
