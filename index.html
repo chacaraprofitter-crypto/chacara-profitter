@@ -570,121 +570,28 @@
 
 
 
-<script src="login.js?v=1792847964"></script>
+<script src="login.js?v=1792848864"></script>
     <script src='vitrine-premium.js?v=1792811571'></script>
 
 
-<!-- MOTOR QUÂNTICO DEFINITIVO -->
+
+<!-- MOTOR VITRINE DE ALTA PRIORIDADE 1792848864 -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // A. Varredura e aniquilação do código estático antigo
-    const elementos = document.querySelectorAll('h1, h2, h3, h4, span, p');
-    elementos.forEach(el => {
-        if (el.innerText && el.innerText.toUpperCase().includes('COZINHA AMERICANA')) {
-            let container = el.closest('.container') || el.closest('section');
-            if (container) {
-                container.style.display = 'none';
-                container.innerHTML = '';
-            }
+document.addEventListener('DOMContentLoaded', () => {
+    // Esconde a Cozinha Americana estática forçosamente por JavaScript
+    document.querySelectorAll('.container, section, div').forEach(el => {
+        if(el.innerText && el.innerText.toUpperCase().includes('COZINHA AMERICANA')) {
+            el.style.display = 'none';
         }
     });
 
-    // B. Injeta a Vitrine Dinâmica conectada ao Supabase
+    // Constrói o palco da Vitrine Híbrida
     const vitrineHtml = 
-        <div class="container mt-5" id="vitrine-videos-admin">
+        <div class="container mt-5 mb-5" style="position:relative; z-index:9999;">
             <div class="row text-center mb-5 mt-5">
                 <div class="col-12">
-                    <h2 style="color:#d4af37; letter-spacing:2px; font-weight:300; text-transform:uppercase;">VÍDEOS OFICIAIS DA MANSÃO</h2>
-                    <div id="grid-videos-supabase" class="row mt-4 justify-content-center"></div>
-                </div>
-            </div>
-        </div>
-    ;
-    
-    // Posiciona a nova vitrine no topo da página
-    const header = document.querySelector('header');
-    if (header) {
-        header.insertAdjacentHTML('afterend', vitrineHtml);
-    } else {
-        document.body.insertAdjacentHTML('afterbegin', vitrineHtml);
-    }
-
-    // C. Conexão exclusiva com a Área Admin
-    setTimeout(async () => {
-        if (typeof supabase !== 'undefined') {
-            const { data } = await supabase.from('conteudos').select('*');
-            if (data) {
-                const grid = document.getElementById('grid-videos-supabase');
-                data.forEach(item => {
-                    // Renderiza apenas se houver link de vídeo válido cadastrado no Admin
-                    if (item.url_midia && (item.url_midia.includes('mp4') || item.url_midia.includes('archive.org'))) {
-                        grid.innerHTML += 
-                        <div class="col-md-4 mb-4">
-                            <div class="card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; overflow:hidden;">
-                                <video src=" + item.url_midia + " controls style="width:100%; height:250px; object-fit:cover;"></video>
-                                <div class="p-3">
-                                    <h4 style="color:#d4af37; font-size:1.1rem; text-transform:uppercase;"> + (item.titulo || 'Destaque') + </h4>
-                                </div>
-                            </div>
-                        </div>;
-                    }
-                });
-            }
-        }
-    }, 1500);
-});
-</script>
-
-<!-- MOTOR VITRINE ADMIN DEFINITIVO -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Esconder a Cozinha Americana estática forçosamente
-    document.querySelectorAll('h1, h2, h3, h4, h5, p, span, div').forEach(el => {
-        if(el.textContent && el.textContent.toUpperCase().includes('COZINHA AMERICANA')) {
-            let pai = el.closest('.container') || el.closest('section');
-            if(pai) pai.style.display = 'none !important';
-            el.style.display = 'none !important';
-        }
-    });
-
-    // Criar espaço da Vitrine Admin controlada pelo Supabase
-    const vitrine = document.createElement('div');
-    vitrine.className = 'container mt-5';
-    vitrine.innerHTML = '<div class="row text-center mb-5"><div class="col-12"><h2 style="color:#d4af37; font-weight:300; text-transform:uppercase; letter-spacing:2px;">VÍDEOS OFICIAIS</h2><div id="grid-videos-admin" class="row mt-4 justify-content-center"></div></div></div>';
-    
-    const cabecalho = document.querySelector('header');
-    if(cabecalho) cabecalho.after(vitrine);
-    else document.body.prepend(vitrine);
-
-    // Puxar os vídeos do painel Admin
-    setTimeout(async () => {
-        if(typeof supabase !== 'undefined') {
-            const { data } = await supabase.from('conteudos').select('*');
-            if(data) {
-                const grid = document.getElementById('grid-videos-admin');
-                data.forEach(item => {
-                    if(item.url_midia && (item.url_midia.includes('mp4') || item.url_midia.includes('archive.org'))) {
-                        grid.innerHTML += '<div class="col-md-4 mb-4"><div class="card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; overflow:hidden;"><video src="'+item.url_midia+'" controls style="width:100%; height:250px; object-fit:cover;"></video><div class="p-3"><h4 style="color:#d4af37;">'+(item.titulo || 'Destaque')+'</h4></div></div></div>';
-                    }
-                });
-            }
-        }
-    }, 1500);
-});
-</script>
-
-
-
-
-<!-- MOTOR VITRINE MULTIMÉDIA ADMIN -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const vitrineHtml = 
-        <div class="container mt-5 mb-5" id="vitrine-oficial-admin">
-            <div class="row text-center mb-5 mt-5">
-                <div class="col-12">
-                    <h2 style="color:#d4af37; letter-spacing:2px; font-weight:300; text-transform:uppercase;">VITRINE DA MANSÃO</h2>
-                    <div id="grid-vitrine-dinamica" class="row mt-4 justify-content-center"></div>
+                    <h2 style="color:#d4af37; letter-spacing:2px; text-transform:uppercase; font-weight:300;">DESTAQUES DA MANSÃO</h2>
+                    <div id="grid-vitrine-absoluta" class="row mt-4 justify-content-center"></div>
                 </div>
             </div>
         </div>
@@ -692,49 +599,37 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const header = document.querySelector('header');
     if(header) header.insertAdjacentHTML('afterend', vitrineHtml);
-    else document.body.insertAdjacentHTML('afterbegin', vitrineHtml);
-
+    
     setTimeout(async () => {
         if(typeof supabase !== 'undefined') {
             const { data } = await supabase.from('conteudos').select('*'); 
             if(data) {
-                const grid = document.getElementById('grid-vitrine-dinamica');
+                const grid = document.getElementById('grid-vitrine-absoluta');
                 data.forEach(item => {
                     const menu = (item.menu || item.categoria || '').toUpperCase();
-                    
-                    // ROTEAMENTO: Exibe estritamente itens onde o menu escolhido inclui 'VITRINE' ou 'VÍDEOS OFICIAIS'
-                    const isVitrine = menu.includes('VITRINE') || menu.includes('VÍDEOS OFICIAIS'); 
-                    
-                    const url = item.url_midia || item.url_video || item.url_imagem || item.link || '';
-                    
-                    if(url && isVitrine) {
-                        const isImg = url.match(/\.(jpeg|jpg|gif|png|webp)(\?.*)?$/i);
-                        let mediaTag = '';
+                    // Interceta apenas o que for rotulado como Vitrine ou Vídeos Oficiais no Admin
+                    if(menu.includes('VITRINE') || menu.includes('VÍDEOS OFICIAIS')) {
+                        const url = item.url_midia || item.url_imagem || item.link || '';
+                        if(!url) return;
                         
-                        // Auto-deteção de formato baseada no link inserido no Admin
-                        if (isImg) {
-                            mediaTag = <img src=" + url + " style="width:100%; height:250px; object-fit:cover;">;
-                        } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                            const ytId = url.split('v=')[1]?.split('&')[0] || url.split('youtu.be/')[1]?.split('?')[0];
-                            mediaTag = <iframe src="https://www.youtube.com/embed/ + ytId + " style="width:100%; height:250px; border:none;" allowfullscreen></iframe>;
-                        } else {
-                            mediaTag = <video src=" + url + " controls style="width:100%; height:250px; object-fit:cover; background:#000;"></video>;
-                        }
+                        // Deteção inteligente de formato
+                        const isImg = url.match(/\.(jpeg|jpg|gif|png|webp)(\?.*)?$/i);
+                        let mediaTag = isImg 
+                            ? <img src=" + url + " style="width:100%; height:250px; object-fit:cover; border-radius:12px 12px 0 0;">
+                            : <video src=" + url + " controls style="width:100%; height:250px; object-fit:cover; background:#000; border-radius:12px 12px 0 0;"></video>;
 
                         grid.innerHTML += 
                         <div class="col-md-4 mb-4">
-                            <div class="card premium-card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; overflow:hidden; box-shadow: 0 8px 25px rgba(212,175,55,0.15);">
+                            <div class="card premium-card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; box-shadow: 0 8px 25px rgba(212,175,55,0.15);">
                                  + mediaTag + 
-                                <div class="p-3">
-                                    <h4 style="color:#d4af37; font-size:1.1rem; text-transform:uppercase; font-weight:bold;"> + (item.titulo || 'Destaque') + </h4>
-                                </div>
+                                <div class="p-3"><h4 style="color:#d4af37; text-transform:uppercase; font-size:1.1rem; font-weight:bold;"> + (item.titulo || 'Destaque') + </h4></div>
                             </div>
                         </div>;
                     }
                 });
             }
         }
-    }, 1200);
+    }, 1500);
 });
 </script>
 </body>
