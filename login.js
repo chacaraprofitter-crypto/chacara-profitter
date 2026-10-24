@@ -981,3 +981,33 @@ window.addEventListener('load', () => {
         }
     }, 500);
 });
+
+// --- FILTRO QUÂNTICO - VITRINE PREMIUM ---
+window.addEventListener('load', () => {
+    let verificador = setInterval(() => {
+        let cartoes = document.querySelectorAll('.card, div[class*="col-"]');
+        
+        if (cartoes.length > 0) {
+            let cozinhaEncontrada = false;
+            
+            cartoes.forEach(cartao => {
+                let texto = cartao.innerText || '';
+                
+                // Consolidar as Cozinhas repetidas
+                if (texto.includes('COZINHA AMERICANA') || texto.includes('Cozinha Americana')) {
+                    if (!cozinhaEncontrada) {
+                        cozinhaEncontrada = true; 
+                        // Aplicar estética de luxo ao cartão principal
+                        cartao.style.border = '1px solid #d4af37'; 
+                        cartao.style.boxShadow = '0 8px 25px rgba(212, 175, 55, 0.2)';
+                        cartao.style.backgroundColor = '#0a0a0a';
+                    } else {
+                        // Esconder os cartões extra que estão sem vídeo
+                        cartao.style.display = 'none';
+                    }
+                }
+            });
+            clearInterval(verificador);
+        }
+    }, 500);
+});
