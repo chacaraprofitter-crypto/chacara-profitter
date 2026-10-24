@@ -941,3 +941,43 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// --- MOTOR DE LIMPEZA ULTRA PREMIUM ---
+window.addEventListener('load', () => {
+    // Fica a verificar a página a cada meio segundo até a base de dados carregar os cartões
+    let verificador = setInterval(() => {
+        let cartoes = document.querySelectorAll('.card, div[class*="col-"]');
+        
+        if (cartoes.length > 0) {
+            let cozinhaEncontrada = false;
+            
+            cartoes.forEach(cartao => {
+                let texto = cartao.innerText || '';
+                
+                // Se encontrar os cartões da Cozinha
+                if (texto.includes('COZINHA AMERICANA') || texto.includes('Cozinha Americana')) {
+                    if (!cozinhaEncontrada) {
+                        // Mantém apenas o PRIMEIRO cartão e aplica o design Premium
+                        cozinhaEncontrada = true; 
+                        cartao.innerHTML = cartao.innerHTML.replace(' (1)', '');
+                        cartao.style.border = '1px solid #d4af37'; // Borda dourada clássica
+                        cartao.style.boxShadow = '0 8px 25px rgba(212, 175, 55, 0.15)';
+                    } else {
+                        // Esconde todos os outros repetidos e pretos (2, 3, etc)
+                        cartao.style.display = 'none';
+                    }
+                }
+            });
+
+            // Esconde botões e links mortos/não funcionais em toda a vitrine
+            document.querySelectorAll('a').forEach(link => {
+                if (link.getAttribute('href') === '#' || link.getAttribute('href') === '') {
+                    link.style.display = 'none';
+                }
+            });
+
+            // Para o verificador após limpar o lixo
+            clearInterval(verificador);
+        }
+    }, 500);
+});
