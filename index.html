@@ -558,8 +558,72 @@
 
 
 
-<script src="login.js?v=1792837403"></script>
+<script src="login.js?v=1792839569"></script>
     <script src='vitrine-premium.js?v=1792811571'></script>
+<!-- MOTOR QUÂNTICO DE AUTORIDADE ADMIN -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. ANIQUILAÇÃO DO CÓDIGO FANTASMA ESTÁTICO
+    const limparLixo = () => {
+        document.querySelectorAll('h1, h2, h3, .card, div[class*="col-"]').forEach(el => {
+            const txt = el.innerText || '';
+            if(txt.includes('COZINHA AMERICANA') || txt.includes('Cozinha Americana') || txt.includes('Ilha Central')) {
+                el.remove(); // Destrói o HTML antigo pela raiz
+            }
+        });
+    };
+    limparLixo();
+    setTimeout(limparLixo, 500); // Segunda passada de segurança
+
+    // 2. CRIAÇÃO DA NOVA VITRINE DE LUXO CONTROLADA PELO ADMIN
+    const vitrine = document.createElement('div');
+    vitrine.className = 'container mt-5';
+    vitrine.innerHTML = 
+        <div class="row text-center mb-5 mt-5">
+            <div class="col-12"><h2 style="color:#d4af37; letter-spacing:2px; font-weight:300;">VÍDEOS OFICIAIS</h2><div id="v-videos" class="row mt-4 justify-content-center"></div></div>
+        </div>
+        <div class="row text-center mb-5">
+            <div class="col-12"><h2 style="color:#d4af37; letter-spacing:2px; font-weight:300;">DESTAQUES DA MANSÃO</h2><div id="v-fotos" class="row mt-4 justify-content-center"></div></div>
+        </div>
+    ;
+    
+    // Insere a nova vitrine após o banner principal
+    const header = document.querySelector('header') || document.body;
+    header.parentNode.insertBefore(vitrine, header.nextSibling);
+
+    // 3. AUTO-SINCRONIZAÇÃO COM A ÁREA ADMIN (SUPABASE)
+    const carregarDoAdmin = async () => {
+        if (typeof supabase === 'undefined') return;
+        try {
+            const { data, error } = await supabase.from('conteudos').select('*');
+            if(data) {
+                const gridVideos = document.getElementById('v-videos');
+                const gridFotos = document.getElementById('v-fotos');
+                
+                data.forEach(item => {
+                    // O Sistema separa automaticamente Vídeo de Foto pelo link
+                    const isVideo = item.url_midia && (item.url_midia.includes('mp4') || item.url_midia.includes('archive.org'));
+                    const urlVisual = item.url_imagem || item.url_midia || '';
+                    
+                    if (!urlVisual) return; // Se estiver vazio, não mostra nada
+                    
+                    const card = <div class="col-md-4 mb-4">
+                                    <div class="card premium-card" style="background:rgba(15,15,15,0.95); border:1px solid #d4af37; box-shadow:0 8px 25px rgba(212,175,55,0.15); border-radius:12px; overflow:hidden; transition: transform 0.4s ease;">
+                                         + (isVideo ? <video src="+item.url_midia+" controls playsinline style="width:100%; height:250px; object-fit:cover;"></video> 
+                                                     : <img src="+urlVisual+" style="width:100%; height:250px; object-fit:cover;">) + 
+                                        <div class="p-3"><h4 style="color:#d4af37; text-transform:uppercase; font-size:1.1rem; font-weight:bold;">+(item.titulo || 'Destaque')+</h4></div>
+                                    </div>
+                                  </div>;
+                    
+                    if(isVideo) gridVideos.innerHTML += card;
+                    else gridFotos.innerHTML += card;
+                });
+            }
+        } catch(e) { console.log('A aguardar dados do Admin...'); }
+    };
+    setTimeout(carregarDoAdmin, 1000); // Dá tempo para o Supabase ligar
+});
+</script>
 </body>
 </html>
 
