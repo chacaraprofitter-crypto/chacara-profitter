@@ -392,7 +392,7 @@
       <!-- ABA 1: UPLOAD & IMPORTACAO EM LOTE -->
       <div id="secao-conteudos" style="display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1350px;margin:0 auto;width:100%;flex-grow:1;">
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;height:fit-content;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">ADICIONAR MÍDIA (FOTO OU VÍDEO) PARA A VITRINE</h3>
+          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;">ADICIONAR VÍDEO OU IMPORTAÇÃO EM MASSA</h3>
           <form id="form-up" style="display:flex;flex-direction:column;gap:12px;">
             <div>
               <label style="display:block;font-size:12px;color:#ffd700;margin-bottom:4px;font-weight:bold;">1. Escolha o Menu (Ex: VÍDEOS OFICIAIS) *</label>
@@ -416,7 +416,7 @@
         </div>
 
         <div style="background:#141414;padding:20px;border-radius:12px;border:1px solid #282828;display:flex;flex-direction:column;max-height:560px;">
-          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;flex-shrink:0;">VITRINE OFICIAL: FOTOS E VÍDEOS</h3>
+          <h3 style="color:#ffd700;margin-top:0;border-bottom:1px solid #222;padding-bottom:8px;font-size:15px;flex-shrink:0;">MÍDIAS & VÍDEOS CADASTRADOS</h3>
           <div id="lista-midias" style="overflow-y:auto;flex-grow:1;padding-right:4px;">
             <p style="color:#888;text-align:center;margin-top:30px;">A carregar...</p>
           </div>
