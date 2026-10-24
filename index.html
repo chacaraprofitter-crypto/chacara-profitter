@@ -570,7 +570,7 @@
 
 
 
-<script src="login.js?v=1792846154"></script>
+<script src="login.js?v=1792846296"></script>
     <script src='vitrine-premium.js?v=1792811571'></script>
 
 
@@ -673,72 +673,66 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- MOTOR QUÂNTICO DE FOTOS DESTAQUE -->
+
+
+<!-- MOTOR VITRINE MULTIMÉDIA ADMIN -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // A. Cria a estrutura visual de luxo para as Fotos Destaque
-    const containerFotos = document.createElement('div');
-    containerFotos.className = 'container mt-5 mb-5';
-    containerFotos.innerHTML = 
-        <div class="row text-center mb-4 mt-5">
-            <div class="col-12">
-                <h2 style="color:#d4af37; letter-spacing:2px; font-weight:300; text-transform:uppercase;">DESTAQUES DA MANSÃO</h2>
-                <div id="grid-fotos-admin" class="row mt-4 justify-content-center"></div>
+document.addEventListener('DOMContentLoaded', () => {
+    const vitrineHtml = 
+        <div class="container mt-5 mb-5" id="vitrine-oficial-admin">
+            <div class="row text-center mb-5 mt-5">
+                <div class="col-12">
+                    <h2 style="color:#d4af37; letter-spacing:2px; font-weight:300; text-transform:uppercase;">VITRINE DA MANSÃO</h2>
+                    <div id="grid-vitrine-dinamica" class="row mt-4 justify-content-center"></div>
+                </div>
             </div>
         </div>
     ;
     
-    // B. Posiciona o bloco visual abaixo do cabeçalho de forma segura
     const header = document.querySelector('header');
-    if (header) {
-        header.insertAdjacentElement('afterend', containerFotos);
-    } else {
-        document.body.prepend(containerFotos);
-    }
+    if(header) header.insertAdjacentHTML('afterend', vitrineHtml);
+    else document.body.insertAdjacentHTML('afterbegin', vitrineHtml);
 
-    // C. Conexão direta com a Área Admin (Supabase)
     setTimeout(async () => {
-        if (typeof supabase !== 'undefined') {
-            try {
-                const { data, error } = await supabase.from('conteudos').select('*');
-                if (data && !error) {
-                    const gridFotos = document.getElementById('grid-fotos-admin');
-                    let countFotos = 0;
+        if(typeof supabase !== 'undefined') {
+            const { data } = await supabase.from('conteudos').select('*'); 
+            if(data) {
+                const grid = document.getElementById('grid-vitrine-dinamica');
+                data.forEach(item => {
+                    const menu = (item.menu || item.categoria || '').toUpperCase();
+                    // Aceita itens do menu Vitrine ou Vídeos Oficiais
+                    const isVitrine = menu.includes('VITRINE') || menu.includes('VÍDEOS') || !menu; 
+                    const url = item.url_midia || item.url_video || item.url_imagem || item.link || '';
                     
-                    data.forEach(item => {
-                        // Inteligência do Motor: Identifica o que é Foto e separa do que é Vídeo
-                        let urlVisual = item.url_imagem || item.url_capa || item.url_foto; 
-                        let ehVideo = item.url_midia && (item.url_midia.includes('mp4') || item.url_midia.includes('archive.org'));
+                    if(url && isVitrine) {
+                        const isImg = url.match(/\.(jpeg|jpg|gif|png|webp)(\?.*)?$/i);
+                        let mediaTag = '';
                         
-                        // Se o Admin inseriu link de imagem direto no campo de mídia, tratamos como foto
-                        if (item.url_midia && item.url_midia.match(/\.(jpeg|jpg|gif|png|webp)$/i)) {
-                            urlVisual = item.url_midia;
-                            ehVideo = false;
+                        if (isImg) {
+                            mediaTag = <img src=" + url + " style="width:100%; height:250px; object-fit:cover;">;
+                        } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                            const ytId = url.split('v=')[1]?.split('&')[0] || url.split('youtu.be/')[1]?.split('?')[0];
+                            mediaTag = <iframe src="https://www.youtube.com/embed/ + ytId + " style="width:100%; height:250px; border:none;" allowfullscreen></iframe>;
+                        } else {
+                            mediaTag = <video src=" + url + " controls style="width:100%; height:250px; object-fit:cover; background:#000;"></video>;
                         }
-                        
-                        // Renderização: Se tem imagem e não é um vídeo oficial, é uma Foto Destaque!
-                        if (urlVisual && !ehVideo) {
-                            gridFotos.innerHTML += 
-                            <div class="col-md-4 mb-4">
-                                <div class="card premium-card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; overflow:hidden; box-shadow: 0 8px 25px rgba(212,175,55,0.15); transition: transform 0.4s ease;">
-                                    <img src=" + urlVisual + " alt="Destaque" style="width:100%; height:250px; object-fit:cover;">
-                                    <div class="p-3">
-                                        <h4 style="color:#d4af37; font-size:1.1rem; text-transform:uppercase; font-weight:bold;"> + (item.titulo || 'Destaque Exclusivo') + </h4>
-                                    </div>
+
+                        grid.innerHTML += 
+                        <div class="col-md-4 mb-4">
+                            <div class="card premium-card" style="background:#0a0a0a; border:1px solid #d4af37; border-radius:12px; overflow:hidden; box-shadow: 0 8px 25px rgba(212,175,55,0.15);">
+                                 + mediaTag + 
+                                <div class="p-3">
+                                    <h4 style="color:#d4af37; font-size:1.1rem; text-transform:uppercase; font-weight:bold;"> + (item.titulo || 'Destaque') + </h4>
                                 </div>
-                            </div>;
-                            countFotos++;
-                        }
-                    });
-                }
-            } catch(e) {
-                console.error("Erro Quântico de Sincronização:", e);
+                            </div>
+                        </div>;
+                    }
+                });
             }
         }
     }, 1200);
 });
 </script>
-<!-- FIM MOTOR FOTOS -->
 </body>
 </html>
 
