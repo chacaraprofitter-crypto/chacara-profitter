@@ -564,3 +564,102 @@
 
 
 
+
+<style>
+  .player-vitrine-isolado {
+      position: relative !important;
+      border-radius: 20px !important;
+      overflow: hidden !important;
+      aspect-ratio: 9/16 !important; 
+      background: #000 !important;
+      border: 1px solid rgba(212, 175, 55, 0.4) !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      height: auto !important;
+      transition: transform 0.3s ease !important;
+      margin-bottom: 20px !important;
+  }
+  .player-vitrine-isolado video.video-ativo {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      z-index: 10 !important; 
+      border-radius: 20px !important;
+      display: block !important;
+      pointer-events: auto !important; 
+  }
+  .titulo-vitrine-isolado {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      padding: 60px 10px 25px 10px !important;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%) !important;
+      color: #e8d08c !important;
+      text-align: center !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 1.15rem !important;
+      z-index: 20 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+      margin: 0 !important;
+      pointer-events: none !important; 
+  }
+</style>
+<script>
+  let restauracaoTopoOficial = setInterval(() => {
+    const v1 = "https://archive.org/download/slideshow-chacara-final/Piscina%20Noite%20cascata%20%2B%20golfinho.mp4";
+    const v2 = "https://archive.org/download/slideshow-chacara-final/Piscina%20do%20alto%20dia.mp4";
+    const v3 = "https://archive.org/download/slideshow-chacara-final/video%20piscina%20cascata.mp4";
+    const links = [v1, v2, v3];
+    const titulos = ["01. Piscina à Noite", "02. Piscina do Alto", "03. Piscina Cascata"];
+
+    const medias = Array.from(document.querySelectorAll('video, iframe')).slice(0, 3);
+    
+    if (medias.length >= 3) {
+        medias.forEach((media, i) => {
+            let container = media.closest('div');
+            if (!container) return;
+
+            if (container.dataset.topoHomologado !== "sim") {
+                container.className = 'player-vitrine-isolado';
+                container.style = "";
+                
+                let titulosAntigos = container.querySelectorAll('h3, .titulo-vitrine-isolado');
+                titulosAntigos.forEach(t => t.remove());
+
+                let novoTitulo = document.createElement('h3');
+                novoTitulo.className = "titulo-vitrine-isolado";
+                novoTitulo.innerText = titulos[i];
+                container.appendChild(novoTitulo);
+
+                if (media.tagName.toLowerCase() === 'iframe') {
+                    media.style.setProperty('display', 'none', 'important');
+                    let novoVideo = document.createElement('video');
+                    novoVideo.className = 'video-ativo';
+                    novoVideo.controls = true;
+                    novoVideo.playsInline = true;
+                    novoVideo.src = links[i];
+                    container.appendChild(novoVideo);
+                } else {
+                    media.classList.add('video-ativo');
+                    media.controls = true;
+                    if(!media.src.includes(links[i].split('/').pop())) {
+                        media.src = links[i];
+                    }
+                }
+
+                container.dataset.topoHomologado = "sim";
+            }
+        });
+    }
+  }, 300);
+
+  setTimeout(() => clearInterval(restauracaoTopoOficial), 6000);
+</script>
+</body>
