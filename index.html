@@ -29,19 +29,19 @@
     @keyframes kenBurns { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
     .atrio-img-animada { animation: kenBurns 12s infinite ease-in-out; }
   </style>
-    <!-- INICIO META TAGS ULTRA PREMIUM (WHATSAPP / OPEN GRAPH) -->
+        <!-- INICIO META TAGS ULTRA PREMIUM (WHATSAPP / OPEN GRAPH) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://chacaraprofitter.com.br/" />
     <meta property="og:site_name" content="Chácara Profitter • Clube de Campo Fazenda" />
-    <meta property="og:title" content="✨ Chácara Profitter | Mansão & Clube de Campo Exclusivo em Itatiba/SP" />
-    <meta property="og:description" content="Alto padrão de temporada: Piscina com Cascata, Sala de 110m² (5 ambientes com Lareira), Cozinha Americana com Ilha e Área Gourmet completa pertinho da piscina. Consulte disponibilidade!" />
-    <meta property="og:image" content="https://chacaraprofitter.com.br/fotos/cozinha/og-capa.jpg" />
+    <meta property="og:title" content="✨ Chácara Profitter | A Única com a Piscina no Centro da Casa (Itatiba/SP)" />
+    <meta property="og:description" content="750 m² construídos em conceito de resort privativo dentro do Clube de Campo Fazenda, de frente para o lago e segurança 24h. Sala de 110m² (5 ambientes) e Área Gourmet completa pertinho da piscina!" />
+    <meta property="og:image" content="https://chacaraprofitter.com.br/fotos/cozinha/cozinha_3.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta name="description" content="Aluguel de temporada de alto padrão em Itatiba/SP. Piscina com cascata, área gourmet completa com churrasqueira e forno a lenha, sala de 110m² e lazer completo." />
+    <meta name="description" content="750 m² construídos em conceito de resort privativo dentro do mais exclusivo Clube de Campo Fazenda em Itatiba/SP, de frente para o lago e segurança 24h." />
     <meta name="theme-color" content="#05070a" />
-    <link rel="icon" type="image/svg+xml" href="assets/brand/logo-cp.svg?v=2" /><circle cx='50' cy='50' r='48' fill='%2305070a' stroke='%23d4af37' stroke-width='4'/><text x='50%' y='56%' dominant-baseline='middle' text-anchor='middle' fill='%23e8d08c' font-family='Georgia, serif' font-weight='bold' font-size='44'>CP</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="assets/brand/logo-cp.svg?v=3" />
     <!-- FIM META TAGS ULTRA PREMIUM -->
 </head>
 <body class="bg-brand-dark text-slate-100 antialiased selection:bg-brand-gold selection:text-brand-dark overflow-x-hidden">
@@ -571,35 +571,46 @@
 
 
 <script src="login.js?v=1792767488"></script>
+<style id="estilo-circulo-logo">
+  .logo-brasao-ativo {
+      background-image: url('assets/brand/logo-cp.svg?v=3') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-color: #05070a !important;
+      border: 1.5px solid #d4af37 !important;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.45) !important;
+  }
+</style>
 <script id="script-logo-fixo">
-  (function aplicarLogoHeader() {
+  (function preencherCirculoLogo() {
     let tentativas = 0;
-    let timerLogo = setInterval(() => {
+    let timer = setInterval(() => {
       tentativas++;
-      // Localiza o título CHÁCARA PROFITTER no topo
-      const elementos = Array.from(document.querySelectorAll('header *, nav *, div'));
-      const textoMarca = elementos.find(el => el.children.length === 0 && el.textContent && el.textContent.trim() === 'CHÁCARA PROFITTER');
+      // Procura qualquer elemento no topo que contenha "PROFITTER" (ignorando maiúsculas/minúsculas)
+      const todos = Array.from(document.querySelectorAll('header *, nav *, a *, div'));
+      const elTexto = todos.find(el => el.children.length === 0 && /PROFITTER/i.test(el.textContent || ''));
       
-      if (textoMarca) {
-        // Sobe até o container do bloco da marca e encontra o elemento circular ao lado
-        const containerPai = textoMarca.parentElement ? textoMarca.parentElement.parentElement : null;
-        if (containerPai) {
-          const circulo = containerPai.querySelector('div, img, span, svg');
-          if (circulo && circulo !== textoMarca && circulo !== textoMarca.parentElement) {
-            if (circulo.tagName.toLowerCase() === 'img') {
-              circulo.src = 'assets/brand/logo-cp.svg?v=2';
-              circulo.style.objectFit = 'cover';
-            } else {
-              circulo.innerHTML = '<img src="assets/brand/logo-cp.svg?v=2" alt="CP" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;display:block;" />';
-            }
-            circulo.style.border = '1.5px solid #d4af37';
-            circulo.style.boxShadow = '0 0 12px rgba(212,175,55,0.4)';
-            clearInterval(timerLogo);
+      if (elTexto) {
+        // Sobe na estrutura do menu para localizar a moldura redonda ao lado do título
+        let blocoMarca = elTexto.closest('a') || elTexto.parentElement.parentElement;
+        if (blocoMarca) {
+          const candidatos = Array.from(blocoMarca.querySelectorAll('div, span, img'));
+          const circulo = candidatos.find(c => {
+            const st = window.getComputedStyle(c);
+            const rect = c.getBoundingClientRect();
+            return (st.borderRadius && st.borderRadius !== '0px') && rect.width >= 28 && rect.width <= 80 && Math.abs(rect.width - rect.height) <= 6;
+          });
+          
+          if (circulo) {
+            circulo.classList.add('logo-brasao-ativo');
+            circulo.innerHTML = '<img src="assets/brand/logo-cp.svg?v=3" alt="Chácara Profitter" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;display:block;" />';
+            clearInterval(timer);
           }
         }
       }
-      if (tentativas > 20) clearInterval(timerLogo);
-    }, 250);
+      if (tentativas > 25) clearInterval(timer);
+    }, 200);
   })();
 </script>
 </body>
@@ -707,35 +718,46 @@
 
   setTimeout(() => clearInterval(restauracaoTopoOficial), 6000);
 </script>
+<style id="estilo-circulo-logo">
+  .logo-brasao-ativo {
+      background-image: url('assets/brand/logo-cp.svg?v=3') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-color: #05070a !important;
+      border: 1.5px solid #d4af37 !important;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.45) !important;
+  }
+</style>
 <script id="script-logo-fixo">
-  (function aplicarLogoHeader() {
+  (function preencherCirculoLogo() {
     let tentativas = 0;
-    let timerLogo = setInterval(() => {
+    let timer = setInterval(() => {
       tentativas++;
-      // Localiza o título CHÁCARA PROFITTER no topo
-      const elementos = Array.from(document.querySelectorAll('header *, nav *, div'));
-      const textoMarca = elementos.find(el => el.children.length === 0 && el.textContent && el.textContent.trim() === 'CHÁCARA PROFITTER');
+      // Procura qualquer elemento no topo que contenha "PROFITTER" (ignorando maiúsculas/minúsculas)
+      const todos = Array.from(document.querySelectorAll('header *, nav *, a *, div'));
+      const elTexto = todos.find(el => el.children.length === 0 && /PROFITTER/i.test(el.textContent || ''));
       
-      if (textoMarca) {
-        // Sobe até o container do bloco da marca e encontra o elemento circular ao lado
-        const containerPai = textoMarca.parentElement ? textoMarca.parentElement.parentElement : null;
-        if (containerPai) {
-          const circulo = containerPai.querySelector('div, img, span, svg');
-          if (circulo && circulo !== textoMarca && circulo !== textoMarca.parentElement) {
-            if (circulo.tagName.toLowerCase() === 'img') {
-              circulo.src = 'assets/brand/logo-cp.svg?v=2';
-              circulo.style.objectFit = 'cover';
-            } else {
-              circulo.innerHTML = '<img src="assets/brand/logo-cp.svg?v=2" alt="CP" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;display:block;" />';
-            }
-            circulo.style.border = '1.5px solid #d4af37';
-            circulo.style.boxShadow = '0 0 12px rgba(212,175,55,0.4)';
-            clearInterval(timerLogo);
+      if (elTexto) {
+        // Sobe na estrutura do menu para localizar a moldura redonda ao lado do título
+        let blocoMarca = elTexto.closest('a') || elTexto.parentElement.parentElement;
+        if (blocoMarca) {
+          const candidatos = Array.from(blocoMarca.querySelectorAll('div, span, img'));
+          const circulo = candidatos.find(c => {
+            const st = window.getComputedStyle(c);
+            const rect = c.getBoundingClientRect();
+            return (st.borderRadius && st.borderRadius !== '0px') && rect.width >= 28 && rect.width <= 80 && Math.abs(rect.width - rect.height) <= 6;
+          });
+          
+          if (circulo) {
+            circulo.classList.add('logo-brasao-ativo');
+            circulo.innerHTML = '<img src="assets/brand/logo-cp.svg?v=3" alt="Chácara Profitter" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;display:block;" />';
+            clearInterval(timer);
           }
         }
       }
-      if (tentativas > 20) clearInterval(timerLogo);
-    }, 250);
+      if (tentativas > 25) clearInterval(timer);
+    }, 200);
   })();
 </script>
 </body>
