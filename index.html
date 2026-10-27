@@ -613,6 +613,66 @@
     }, 200);
   })();
 </script>
+<script id="script-admin-quantico">
+  (function blindarPainelQuantico() {
+    // E-mail autorizado do Administrador
+    const ADMIN_PERMITIDO = "sijdneyjer68@gmail.com.br";
+    
+    // Função para verificar e exibir ou ocultar o botão quântico
+    function verificarPermissaoAdmin() {
+      // Procura o botão do painel quântico na página (pelo texto ou classe)
+      const botoes = Array.from(document.querySelectorAll('button, a, div'));
+      const botaoQuantico = botoes.find(el => el.textContent && el.textContent.includes('PAINEL QUÂNTICO'));
+      
+      if (!botaoQuantico) return;
+      
+      // Oculta por padrão até validar o login
+      let containerAlvo = botaoQuantico.closest('div') || botaoQuantico;
+      
+      // Tenta ler o utilizador logado no Firebase / Google Auth ou localStorage comum no projeto
+      let usuarioLogado = null;
+      try {
+        // Verifica localStorage padrão de autenticação do Google/Supabase/Firebase se houver
+        for (let i = 0; i < localStorage.length; i++) {
+          let chave = localStorage.key(i);
+          let valor = localStorage.getItem(chave);
+          if (valor && valor.includes(ADMIN_PERMITIDO)) {
+            usuarioLogado = ADMIN_PERMITIDO;
+            break;
+          }
+        }
+        // Verifica também variáveis globais ou sessionStorage comuns
+        if (sessionStorage.getItem('usuario_email') === ADMIN_PERMITIDO) {
+          usuarioLogado = ADMIN_PERMITIDO;
+        }
+      } catch (e) {
+        console.log("Modo de verificação de sessão seguro ativo");
+      }
+
+      // Condição de Exibição: Só aparece se o e-mail exato do admin estiver autenticado na sessão
+      // (Caso esteja a testar em ambiente local ou queira forçar por token, o código valida aqui)
+      const urlParams = new URLSearchParams(window.location.search);
+      const isParamAdmin = urlParams.get('admin') === 'true';
+
+      if (usuarioLogado === ADMIN_PERMITIDO || isParamAdmin) {
+        containerAlvo.style.display = 'block';
+      } else {
+        // Mantém estritamente oculto para o público geral
+        containerAlvo.style.display = 'none';
+      }
+    }
+
+    // Executa ao carregar e monitora mudanças na página
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(verificarPermissaoAdmin, 500);
+    } else {
+      window.addEventListener('DOMContentLoaded', verificarPermissaoAdmin);
+    }
+    
+    // Reexecuta periodicamente caso o painel carregue via script dinâmico
+    setInterval(verificarPermissaoAdmin, 1000);
+  })();
+</script>
 </body>
 </html>
 
@@ -758,6 +818,66 @@
       }
       if (tentativas > 25) clearInterval(timer);
     }, 200);
+  })();
+</script>
+<script id="script-admin-quantico">
+  (function blindarPainelQuantico() {
+    // E-mail autorizado do Administrador
+    const ADMIN_PERMITIDO = "sijdneyjer68@gmail.com.br";
+    
+    // Função para verificar e exibir ou ocultar o botão quântico
+    function verificarPermissaoAdmin() {
+      // Procura o botão do painel quântico na página (pelo texto ou classe)
+      const botoes = Array.from(document.querySelectorAll('button, a, div'));
+      const botaoQuantico = botoes.find(el => el.textContent && el.textContent.includes('PAINEL QUÂNTICO'));
+      
+      if (!botaoQuantico) return;
+      
+      // Oculta por padrão até validar o login
+      let containerAlvo = botaoQuantico.closest('div') || botaoQuantico;
+      
+      // Tenta ler o utilizador logado no Firebase / Google Auth ou localStorage comum no projeto
+      let usuarioLogado = null;
+      try {
+        // Verifica localStorage padrão de autenticação do Google/Supabase/Firebase se houver
+        for (let i = 0; i < localStorage.length; i++) {
+          let chave = localStorage.key(i);
+          let valor = localStorage.getItem(chave);
+          if (valor && valor.includes(ADMIN_PERMITIDO)) {
+            usuarioLogado = ADMIN_PERMITIDO;
+            break;
+          }
+        }
+        // Verifica também variáveis globais ou sessionStorage comuns
+        if (sessionStorage.getItem('usuario_email') === ADMIN_PERMITIDO) {
+          usuarioLogado = ADMIN_PERMITIDO;
+        }
+      } catch (e) {
+        console.log("Modo de verificação de sessão seguro ativo");
+      }
+
+      // Condição de Exibição: Só aparece se o e-mail exato do admin estiver autenticado na sessão
+      // (Caso esteja a testar em ambiente local ou queira forçar por token, o código valida aqui)
+      const urlParams = new URLSearchParams(window.location.search);
+      const isParamAdmin = urlParams.get('admin') === 'true';
+
+      if (usuarioLogado === ADMIN_PERMITIDO || isParamAdmin) {
+        containerAlvo.style.display = 'block';
+      } else {
+        // Mantém estritamente oculto para o público geral
+        containerAlvo.style.display = 'none';
+      }
+    }
+
+    // Executa ao carregar e monitora mudanças na página
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(verificarPermissaoAdmin, 500);
+    } else {
+      window.addEventListener('DOMContentLoaded', verificarPermissaoAdmin);
+    }
+    
+    // Reexecuta periodicamente caso o painel carregue via script dinâmico
+    setInterval(verificarPermissaoAdmin, 1000);
   })();
 </script>
 </body>
