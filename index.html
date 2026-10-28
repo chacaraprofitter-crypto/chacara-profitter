@@ -624,7 +624,7 @@
 (function() {
   try {
     var ADMIN_PERMITIDO = "sidneyjer68@gmail.com";
-    // Senha Mestra Criptografada em Hash interno para máxima segurança estática
+    var SENHA_MESTRA = "Cielo2@26";
     var CHAVE_SESSAO = "cp_admin_auth_token_seguro";
 
     function isLogado() {
@@ -676,7 +676,7 @@
         + '</div>'
         + '<h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Segurança Máxima</h3>'
         + '<p style="margin:0 0 18px;font-size:13px;color:#9da5b4;line-height:1.4;">Insira o e-mail e a Senha Mestra de Administrador:</p>'
-        + '<input id="input-email-admin-cp" type="email" placeholder="E-mail de Admin..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
+        + '<input id="input-email-admin-cp" type="email" value="sidneyjer68@gmail.com" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
         + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
         + '<div id="erro-msg-cp" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Credenciais ou Senha Mestra incorretas.</div>'
         + '<button id="btn-confirma-cp" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.3);">AUTENTICAR COM SENHA MESTRA</button>'
@@ -687,14 +687,13 @@
       var inputEmail = document.getElementById("input-email-admin-cp");
       var inputSenha = document.getElementById("input-senha-admin-cp");
       var erro = document.getElementById("erro-msg-cp");
-      setTimeout(function() { inputEmail.focus(); }, 100);
+      setTimeout(function() { inputSenha.focus(); }, 100);
 
       function processarLogin() {
         var emailVal = (inputEmail.value || "").trim().toLowerCase();
         var senhaVal = (inputSenha.value || "").trim();
 
-        // Senha Mestra definitiva definida para o projeto: "Profitter2026@"
-        if (emailVal === ADMIN_PERMITIDO && senhaVal === "Profitter2026@") {
+        if (emailVal === ADMIN_PERMITIDO && senhaVal === SENHA_MESTRA) {
           localStorage.setItem(CHAVE_SESSAO, "AUTORIZADO_COM_SUCESSO_CP");
           overlay.remove();
           aplicarVisibilidade();
@@ -896,7 +895,7 @@
 (function() {
   try {
     var ADMIN_PERMITIDO = "sidneyjer68@gmail.com";
-    // Senha Mestra Criptografada em Hash interno para máxima segurança estática
+    var SENHA_MESTRA = "Cielo2@26";
     var CHAVE_SESSAO = "cp_admin_auth_token_seguro";
 
     function isLogado() {
@@ -948,7 +947,7 @@
         + '</div>'
         + '<h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Segurança Máxima</h3>'
         + '<p style="margin:0 0 18px;font-size:13px;color:#9da5b4;line-height:1.4;">Insira o e-mail e a Senha Mestra de Administrador:</p>'
-        + '<input id="input-email-admin-cp" type="email" placeholder="E-mail de Admin..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
+        + '<input id="input-email-admin-cp" type="email" value="sidneyjer68@gmail.com" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
         + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
         + '<div id="erro-msg-cp" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Credenciais ou Senha Mestra incorretas.</div>'
         + '<button id="btn-confirma-cp" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.3);">AUTENTICAR COM SENHA MESTRA</button>'
@@ -959,14 +958,13 @@
       var inputEmail = document.getElementById("input-email-admin-cp");
       var inputSenha = document.getElementById("input-senha-admin-cp");
       var erro = document.getElementById("erro-msg-cp");
-      setTimeout(function() { inputEmail.focus(); }, 100);
+      setTimeout(function() { inputSenha.focus(); }, 100);
 
       function processarLogin() {
         var emailVal = (inputEmail.value || "").trim().toLowerCase();
         var senhaVal = (inputSenha.value || "").trim();
 
-        // Senha Mestra definitiva definida para o projeto: "Profitter2026@"
-        if (emailVal === ADMIN_PERMITIDO && senhaVal === "Profitter2026@") {
+        if (emailVal === ADMIN_PERMITIDO && senhaVal === SENHA_MESTRA) {
           localStorage.setItem(CHAVE_SESSAO, "AUTORIZADO_COM_SUCESSO_CP");
           overlay.remove();
           aplicarVisibilidade();
