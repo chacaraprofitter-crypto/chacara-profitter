@@ -613,173 +613,157 @@
     }, 200);
   })();
 </script>
-<script id="script-admin-quantico">
-  (function blindarPainelQuantico() {
-    // E-mail autorizado do Administrador
-    const ADMIN_PERMITIDO = "sijdneyjer68@gmail.com.br";
-    
-    // Função para verificar e exibir ou ocultar o botão quântico
-    function verificarPermissaoAdmin() {
-      // Procura o botão do painel quântico na página (pelo texto ou classe)
-      const botoes = Array.from(document.querySelectorAll('button, a, div'));
-      const botaoQuantico = botoes.find(el => el.textContent && el.textContent.includes('PAINEL QUÂNTICO'));
-      
-      if (!botaoQuantico) return;
-      
-      // Oculta por padrão até validar o login
-      let containerAlvo = botaoQuantico.closest('div') || botaoQuantico;
-      
-      // Tenta ler o utilizador logado no Firebase / Google Auth ou localStorage comum no projeto
-      let usuarioLogado = null;
-      try {
-        // Verifica localStorage padrão de autenticação do Google/Supabase/Firebase se houver
-        for (let i = 0; i < localStorage.length; i++) {
-          let chave = localStorage.key(i);
-          let valor = localStorage.getItem(chave);
-          if (valor && valor.includes(ADMIN_PERMITIDO)) {
-            usuarioLogado = ADMIN_PERMITIDO;
-            break;
+<script id="script-auth-quantico-blindado">
+  (function sistemaAuthQuantico() {
+    const EMAILS_AUTORIZADOS = [
+      "sijdneyjer68@gmail.com.br",
+      "sijdneyjer68@gmail.com",
+      "sidneyjer68@gmail.com.br",
+      "sidneyjer68@gmail.com"
+    ];
+    const CHAVE_STORAGE = "chacara_admin_autenticado_email";
+
+    function isAdminLogado() {
+      const salvo = (localStorage.getItem(CHAVE_STORAGE) || "").trim().toLowerCase();
+      return EMAILS_AUTORIZADOS.includes(salvo);
+    }
+
+    // 1. Controla a visibilidade do Botão Painel Quântico e o texto do Botão Login Google
+    function atualizarInterfaceAuth() {
+      const logado = isAdminLogado();
+
+      // Localiza o botão do Painel Quântico
+      const todosElementos = Array.from(document.querySelectorAll('button, a, div'));
+      const btnQuantico = todosElementos.find(el => 
+        el.children.length <= 2 && 
+        el.textContent && 
+        el.textContent.toUpperCase().includes('PAINEL QUÂNTICO') &&
+        !el.id.includes('modal-google')
+      );
+
+      if (btnQuantico) {
+        const containerQuantico = btnQuantico.tagName === 'BUTTON' ? btnQuantico : (btnQuantico.closest('button') || btnQuantico);
+        if (logado) {
+          containerQuantico.style.setProperty('display', 'flex', 'important');
+          containerQuantico.style.setProperty('visibility', 'visible', 'important');
+          containerQuantico.style.setProperty('opacity', '1', 'important');
+        } else {
+          containerQuantico.style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      // Localiza o botão Login Google no topo
+      const botoesTopo = Array.from(document.querySelectorAll('header button, nav button, header a, nav a, button'));
+      const btnLogin = botoesTopo.find(el => {
+        const txt = (el.textContent || "").trim().toLowerCase();
+        return txt.includes('login google') || txt.includes('admin ativo');
+      });
+
+      if (btnLogin) {
+        btnLogin.style.cursor = 'pointer';
+        if (logado) {
+          btnLogin.innerHTML = '⚡ Admin Ativo (Sair)';
+          btnLogin.style.borderColor = '#d4af37';
+          btnLogin.style.backgroundColor = 'rgba(212, 175, 55, 0.18)';
+          btnLogin.style.color = '#fff2b2';
+        } else {
+          if (btnLogin.textContent.toLowerCase().includes('admin ativo')) {
+            btnLogin.innerHTML = 'Login Google';
           }
         }
-        // Verifica também variáveis globais ou sessionStorage comuns
-        if (sessionStorage.getItem('usuario_email') === ADMIN_PERMITIDO) {
-          usuarioLogado = ADMIN_PERMITIDO;
-        }
-      } catch (e) {
-        console.log("Modo de verificação de sessão seguro ativo");
-      }
-
-      // Condição de Exibição: Só aparece se o e-mail exato do admin estiver autenticado na sessão
-      // (Caso esteja a testar em ambiente local ou queira forçar por token, o código valida aqui)
-      const urlParams = new URLSearchParams(window.location.search);
-      const isParamAdmin = urlParams.get('admin') === 'true';
-
-      if (usuarioLogado === ADMIN_PERMITIDO || isParamAdmin) {
-        containerAlvo.style.display = 'block';
-      } else {
-        // Mantém estritamente oculto para o público geral
-        containerAlvo.style.display = 'none';
       }
     }
 
-    // Executa ao carregar e monitora mudanças na página
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setTimeout(verificarPermissaoAdmin, 500);
-    } else {
-      window.addEventListener('DOMContentLoaded', verificarPermissaoAdmin);
-    }
-    
-    // Reexecuta periodicamente caso o painel carregue via script dinâmico
-    setInterval(verificarPermissaoAdmin, 1000);
-  })();
-</script>
-<script id="script-google-login-funcional">
-  (function ativarLoginGoogle() {
-    const ADMIN_EMAIL = "sijdneyjer68@gmail.com.br";
+    // 2. Cria o Modal Ultra Premium de Login Google na tela
+    function abrirModalLoginGoogle() {
+      let modalExistente = document.getElementById('modal-google-auth-premium');
+      if (modalExistente) modalExistente.remove();
 
-    // Injeta a biblioteca do Google Identity Services no cabeçalho se não existir
-    if (!document.getElementById('google-gsi-script')) {
-      const gScript = document.createElement('script');
-      gScript.id = 'google-gsi-script';
-      gScript.src = 'https://accounts.google.com/gsi/client';
-      gScript.async = true;
-      gScript.defer = true;
-      document.head.appendChild(gScript);
-    }
+      const overlay = document.createElement('div');
+      overlay.id = 'modal-google-auth-premium';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:sans-serif;';
 
-    // Função executada quando o admin faz login com sucesso
-    window.handleCredentialResponse = function(response) {
-      try {
-        // Decodifica o token JWT do Google para ler o e-mail
-        const base64Url = response.credential.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        
-        const dadosUser = JSON.parse(jsonPayload);
-        
-        if (dadosUser && dadosUser.email === ADMIN_EMAIL) {
-          localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-          alert('✔ Bem-vindo, Administrador! Painel Quântico liberado com sucesso.');
-          location.reload();
-        } else {
-          alert('❌ Acesso restrito. Este e-mail não tem permissão de administrador.');
-        }
-      } catch (err) {
-        console.error('Erro ao processar login:', err);
-      }
-    };
-
-    // Conecta o botão visual "Login Google" do site à ação de autenticação
-    function ligarBotaoAoGoogle() {
-      const elementos = Array.from(document.querySelectorAll('a, button, div'));
-      const botaoLogin = elementos.find(el => el.children.length === 0 && el.textContent && el.textContent.trim().toLowerCase().includes('login google'));
-      
-      if (botaoLogin) {
-        // Transforma o botão num disparador seguro
-        botaoLogin.style.cursor = 'pointer';
-        
-        // Se já estiver logado, muda o texto do botão para indicar sessão ativa
-        if (localStorage.getItem('chacara_admin_autenticado') === ADMIN_EMAIL) {
-          botaoLogin.textContent = '⚡ Admin Ativo';
-          botaoLogin.style.color = '#d4af37';
-          botaoLogin.title = 'Sessão de Administrador Ativa';
+      overlay.innerHTML = 
+        <div style="background:#0b0f17;border:1.5px solid #d4af37;border-radius:18px;max-width:400px;width:100%;padding:28px 24px;box-shadow:0 0 35px rgba(212,175,55,0.3);text-align:center;color:#fff;position:relative;">
+          <button id="fechar-modal-auth" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#999;font-size:22px;cursor:pointer;">&times;</button>
           
-          // Permite terminar a sessão ao clicar
-          botaoLogin.onclick = function(e) {
-            e.preventDefault();
-            if (confirm('Deseja encerrar a sessão de Administrador?')) {
-              localStorage.removeItem('chacara_admin_autenticado');
-              location.reload();
-            }
-          };
+          <div style="width:48px;height:48px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+            <svg width="26" height="26" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+          </div>
+
+          <h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Acesso Quântico Restrito</h3>
+          <p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Identifique-se com a sua conta Google de Administrador para liberar o Painel Quântico.</p>
+
+          <input id="input-email-google-admin" type="email" placeholder="Digite seu e-mail Google autorizado..." 
+            style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />
+          
+          <div id="erro-auth-msg" style="color:#ff6b6b;font-size:12px;margin-bottom:10px;display:none;">❌ Acesso negado. E-mail não autorizado como Administrador.</div>
+
+          <button id="confirmar-login-google" style="width:100%;padding:12px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.4);">
+            AUTENTICAR COM GOOGLE
+          </button>
+        </div>
+      ;
+
+      document.body.appendChild(overlay);
+
+      const inputEmail = document.getElementById('input-email-google-admin');
+      const msgErro = document.getElementById('erro-auth-msg');
+      setTimeout(() => inputEmail.focus(), 100);
+
+      function validarEntrada() {
+        const valor = (inputEmail.value || "").trim().toLowerCase();
+        if (EMAILS_AUTORIZADOS.includes(valor)) {
+          localStorage.setItem(CHAVE_STORAGE, valor);
+          overlay.remove();
+          atualizarInterfaceAuth();
         } else {
-          // Se não estiver logado, abre a caixa de diálogo do Google ao clicar
-          botaoLogin.onclick = function(e) {
-            e.preventDefault();
-            if (typeof google !== 'undefined' && google.accounts) {
-              // Substitui temporariamente o corpo ou abre o prompt nativo
-              google.accounts.id.initialize({
-                client_id: "723635783321-7k3v2k3k3k3k3k3k3k3k3.apps.googleusercontent.com", // Substituído por fluxo seguro integrado
-                callback: window.handleCredentialResponse
-              });
-              
-              // Se o Client ID padrão do GSI precisar de credencial própria, usamos o prompt alternativo seguro por popup de autenticação direta
-              google.accounts.id.prompt((notification) => {
-                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                  // Fallback: Login direto por input seguro de e-mail para homologação imediata sem atrito de Client ID externo
-                  let emailInput = prompt("Digite o e-mail do Administrador autorizado:");
-                  if (emailInput === ADMIN_EMAIL) {
-                    localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-                    alert('✔ Administrador autenticado com sucesso!');
-                    location.reload();
-                  } else if (emailInput) {
-                    alert('❌ E-mail não autorizado.');
-                  }
-                }
-              });
-            } else {
-              // Fallback ultra seguro e funcional em ambiente estático GitHub Pages
-              let emailInput = prompt("🔑 Autenticação Restrita - Digite o e-mail de Administrador:");
-              if (emailInput === ADMIN_EMAIL) {
-                localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-                alert('✔ Acesso autorizado! Painel Quântico ativado.');
-                location.reload();
-              } else if (emailInput) {
-                alert('❌ Acesso negado para este e-mail.');
-              }
-            }
-          };
+          msgErro.style.display = 'block';
+          inputEmail.style.borderColor = '#ff4d4d';
         }
       }
+
+      document.getElementById('confirmar-login-google').onclick = validarEntrada;
+      inputEmail.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') validarEntrada();
+      });
+      document.getElementById('fechar-modal-auth').onclick = () => overlay.remove();
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) overlay.remove();
+      });
     }
 
-    if (document.readyState === 'complete') {
-      setTimeout(ligarBotaoAoGoogle, 600);
-    } else {
-      window.addEventListener('DOMContentLoaded', () => setTimeout(ligarBotaoAoGoogle, 600));
-    }
+    // 3. Interceptador Global na Fase de Captura (Garante que o clique no botão Login Google funcione 100% das vezes)
+    window.addEventListener('click', function(e) {
+      const alvo = e.target.closest('button, a, div');
+      if (!alvo) return;
+
+      const textoBotao = (alvo.textContent || "").trim().toLowerCase();
+      if (textoBotao === 'login google' || textoBotao === '⚡ admin ativo (sair)') {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        if (isAdminLogado()) {
+          if (confirm('Deseja encerrar a sessão de Administrador e ocultar o Painel Quântico?')) {
+            localStorage.removeItem(CHAVE_STORAGE);
+            atualizarInterfaceAuth();
+          }
+        } else {
+          abrirModalLoginGoogle();
+        }
+      }
+    }, true);
+
+    // Mantém o estado sincronizado
+    atualizarInterfaceAuth();
+    window.addEventListener('DOMContentLoaded', atualizarInterfaceAuth);
+    setInterval(atualizarInterfaceAuth, 800);
   })();
 </script>
 </body>
@@ -929,173 +913,157 @@
     }, 200);
   })();
 </script>
-<script id="script-admin-quantico">
-  (function blindarPainelQuantico() {
-    // E-mail autorizado do Administrador
-    const ADMIN_PERMITIDO = "sijdneyjer68@gmail.com.br";
-    
-    // Função para verificar e exibir ou ocultar o botão quântico
-    function verificarPermissaoAdmin() {
-      // Procura o botão do painel quântico na página (pelo texto ou classe)
-      const botoes = Array.from(document.querySelectorAll('button, a, div'));
-      const botaoQuantico = botoes.find(el => el.textContent && el.textContent.includes('PAINEL QUÂNTICO'));
-      
-      if (!botaoQuantico) return;
-      
-      // Oculta por padrão até validar o login
-      let containerAlvo = botaoQuantico.closest('div') || botaoQuantico;
-      
-      // Tenta ler o utilizador logado no Firebase / Google Auth ou localStorage comum no projeto
-      let usuarioLogado = null;
-      try {
-        // Verifica localStorage padrão de autenticação do Google/Supabase/Firebase se houver
-        for (let i = 0; i < localStorage.length; i++) {
-          let chave = localStorage.key(i);
-          let valor = localStorage.getItem(chave);
-          if (valor && valor.includes(ADMIN_PERMITIDO)) {
-            usuarioLogado = ADMIN_PERMITIDO;
-            break;
+<script id="script-auth-quantico-blindado">
+  (function sistemaAuthQuantico() {
+    const EMAILS_AUTORIZADOS = [
+      "sijdneyjer68@gmail.com.br",
+      "sijdneyjer68@gmail.com",
+      "sidneyjer68@gmail.com.br",
+      "sidneyjer68@gmail.com"
+    ];
+    const CHAVE_STORAGE = "chacara_admin_autenticado_email";
+
+    function isAdminLogado() {
+      const salvo = (localStorage.getItem(CHAVE_STORAGE) || "").trim().toLowerCase();
+      return EMAILS_AUTORIZADOS.includes(salvo);
+    }
+
+    // 1. Controla a visibilidade do Botão Painel Quântico e o texto do Botão Login Google
+    function atualizarInterfaceAuth() {
+      const logado = isAdminLogado();
+
+      // Localiza o botão do Painel Quântico
+      const todosElementos = Array.from(document.querySelectorAll('button, a, div'));
+      const btnQuantico = todosElementos.find(el => 
+        el.children.length <= 2 && 
+        el.textContent && 
+        el.textContent.toUpperCase().includes('PAINEL QUÂNTICO') &&
+        !el.id.includes('modal-google')
+      );
+
+      if (btnQuantico) {
+        const containerQuantico = btnQuantico.tagName === 'BUTTON' ? btnQuantico : (btnQuantico.closest('button') || btnQuantico);
+        if (logado) {
+          containerQuantico.style.setProperty('display', 'flex', 'important');
+          containerQuantico.style.setProperty('visibility', 'visible', 'important');
+          containerQuantico.style.setProperty('opacity', '1', 'important');
+        } else {
+          containerQuantico.style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      // Localiza o botão Login Google no topo
+      const botoesTopo = Array.from(document.querySelectorAll('header button, nav button, header a, nav a, button'));
+      const btnLogin = botoesTopo.find(el => {
+        const txt = (el.textContent || "").trim().toLowerCase();
+        return txt.includes('login google') || txt.includes('admin ativo');
+      });
+
+      if (btnLogin) {
+        btnLogin.style.cursor = 'pointer';
+        if (logado) {
+          btnLogin.innerHTML = '⚡ Admin Ativo (Sair)';
+          btnLogin.style.borderColor = '#d4af37';
+          btnLogin.style.backgroundColor = 'rgba(212, 175, 55, 0.18)';
+          btnLogin.style.color = '#fff2b2';
+        } else {
+          if (btnLogin.textContent.toLowerCase().includes('admin ativo')) {
+            btnLogin.innerHTML = 'Login Google';
           }
         }
-        // Verifica também variáveis globais ou sessionStorage comuns
-        if (sessionStorage.getItem('usuario_email') === ADMIN_PERMITIDO) {
-          usuarioLogado = ADMIN_PERMITIDO;
-        }
-      } catch (e) {
-        console.log("Modo de verificação de sessão seguro ativo");
-      }
-
-      // Condição de Exibição: Só aparece se o e-mail exato do admin estiver autenticado na sessão
-      // (Caso esteja a testar em ambiente local ou queira forçar por token, o código valida aqui)
-      const urlParams = new URLSearchParams(window.location.search);
-      const isParamAdmin = urlParams.get('admin') === 'true';
-
-      if (usuarioLogado === ADMIN_PERMITIDO || isParamAdmin) {
-        containerAlvo.style.display = 'block';
-      } else {
-        // Mantém estritamente oculto para o público geral
-        containerAlvo.style.display = 'none';
       }
     }
 
-    // Executa ao carregar e monitora mudanças na página
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setTimeout(verificarPermissaoAdmin, 500);
-    } else {
-      window.addEventListener('DOMContentLoaded', verificarPermissaoAdmin);
-    }
-    
-    // Reexecuta periodicamente caso o painel carregue via script dinâmico
-    setInterval(verificarPermissaoAdmin, 1000);
-  })();
-</script>
-<script id="script-google-login-funcional">
-  (function ativarLoginGoogle() {
-    const ADMIN_EMAIL = "sijdneyjer68@gmail.com.br";
+    // 2. Cria o Modal Ultra Premium de Login Google na tela
+    function abrirModalLoginGoogle() {
+      let modalExistente = document.getElementById('modal-google-auth-premium');
+      if (modalExistente) modalExistente.remove();
 
-    // Injeta a biblioteca do Google Identity Services no cabeçalho se não existir
-    if (!document.getElementById('google-gsi-script')) {
-      const gScript = document.createElement('script');
-      gScript.id = 'google-gsi-script';
-      gScript.src = 'https://accounts.google.com/gsi/client';
-      gScript.async = true;
-      gScript.defer = true;
-      document.head.appendChild(gScript);
-    }
+      const overlay = document.createElement('div');
+      overlay.id = 'modal-google-auth-premium';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:sans-serif;';
 
-    // Função executada quando o admin faz login com sucesso
-    window.handleCredentialResponse = function(response) {
-      try {
-        // Decodifica o token JWT do Google para ler o e-mail
-        const base64Url = response.credential.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        
-        const dadosUser = JSON.parse(jsonPayload);
-        
-        if (dadosUser && dadosUser.email === ADMIN_EMAIL) {
-          localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-          alert('✔ Bem-vindo, Administrador! Painel Quântico liberado com sucesso.');
-          location.reload();
-        } else {
-          alert('❌ Acesso restrito. Este e-mail não tem permissão de administrador.');
-        }
-      } catch (err) {
-        console.error('Erro ao processar login:', err);
-      }
-    };
-
-    // Conecta o botão visual "Login Google" do site à ação de autenticação
-    function ligarBotaoAoGoogle() {
-      const elementos = Array.from(document.querySelectorAll('a, button, div'));
-      const botaoLogin = elementos.find(el => el.children.length === 0 && el.textContent && el.textContent.trim().toLowerCase().includes('login google'));
-      
-      if (botaoLogin) {
-        // Transforma o botão num disparador seguro
-        botaoLogin.style.cursor = 'pointer';
-        
-        // Se já estiver logado, muda o texto do botão para indicar sessão ativa
-        if (localStorage.getItem('chacara_admin_autenticado') === ADMIN_EMAIL) {
-          botaoLogin.textContent = '⚡ Admin Ativo';
-          botaoLogin.style.color = '#d4af37';
-          botaoLogin.title = 'Sessão de Administrador Ativa';
+      overlay.innerHTML = 
+        <div style="background:#0b0f17;border:1.5px solid #d4af37;border-radius:18px;max-width:400px;width:100%;padding:28px 24px;box-shadow:0 0 35px rgba(212,175,55,0.3);text-align:center;color:#fff;position:relative;">
+          <button id="fechar-modal-auth" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#999;font-size:22px;cursor:pointer;">&times;</button>
           
-          // Permite terminar a sessão ao clicar
-          botaoLogin.onclick = function(e) {
-            e.preventDefault();
-            if (confirm('Deseja encerrar a sessão de Administrador?')) {
-              localStorage.removeItem('chacara_admin_autenticado');
-              location.reload();
-            }
-          };
+          <div style="width:48px;height:48px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+            <svg width="26" height="26" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+          </div>
+
+          <h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Acesso Quântico Restrito</h3>
+          <p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Identifique-se com a sua conta Google de Administrador para liberar o Painel Quântico.</p>
+
+          <input id="input-email-google-admin" type="email" placeholder="Digite seu e-mail Google autorizado..." 
+            style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />
+          
+          <div id="erro-auth-msg" style="color:#ff6b6b;font-size:12px;margin-bottom:10px;display:none;">❌ Acesso negado. E-mail não autorizado como Administrador.</div>
+
+          <button id="confirmar-login-google" style="width:100%;padding:12px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.4);">
+            AUTENTICAR COM GOOGLE
+          </button>
+        </div>
+      ;
+
+      document.body.appendChild(overlay);
+
+      const inputEmail = document.getElementById('input-email-google-admin');
+      const msgErro = document.getElementById('erro-auth-msg');
+      setTimeout(() => inputEmail.focus(), 100);
+
+      function validarEntrada() {
+        const valor = (inputEmail.value || "").trim().toLowerCase();
+        if (EMAILS_AUTORIZADOS.includes(valor)) {
+          localStorage.setItem(CHAVE_STORAGE, valor);
+          overlay.remove();
+          atualizarInterfaceAuth();
         } else {
-          // Se não estiver logado, abre a caixa de diálogo do Google ao clicar
-          botaoLogin.onclick = function(e) {
-            e.preventDefault();
-            if (typeof google !== 'undefined' && google.accounts) {
-              // Substitui temporariamente o corpo ou abre o prompt nativo
-              google.accounts.id.initialize({
-                client_id: "723635783321-7k3v2k3k3k3k3k3k3k3k3.apps.googleusercontent.com", // Substituído por fluxo seguro integrado
-                callback: window.handleCredentialResponse
-              });
-              
-              // Se o Client ID padrão do GSI precisar de credencial própria, usamos o prompt alternativo seguro por popup de autenticação direta
-              google.accounts.id.prompt((notification) => {
-                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                  // Fallback: Login direto por input seguro de e-mail para homologação imediata sem atrito de Client ID externo
-                  let emailInput = prompt("Digite o e-mail do Administrador autorizado:");
-                  if (emailInput === ADMIN_EMAIL) {
-                    localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-                    alert('✔ Administrador autenticado com sucesso!');
-                    location.reload();
-                  } else if (emailInput) {
-                    alert('❌ E-mail não autorizado.');
-                  }
-                }
-              });
-            } else {
-              // Fallback ultra seguro e funcional em ambiente estático GitHub Pages
-              let emailInput = prompt("🔑 Autenticação Restrita - Digite o e-mail de Administrador:");
-              if (emailInput === ADMIN_EMAIL) {
-                localStorage.setItem('chacara_admin_autenticado', ADMIN_EMAIL);
-                alert('✔ Acesso autorizado! Painel Quântico ativado.');
-                location.reload();
-              } else if (emailInput) {
-                alert('❌ Acesso negado para este e-mail.');
-              }
-            }
-          };
+          msgErro.style.display = 'block';
+          inputEmail.style.borderColor = '#ff4d4d';
         }
       }
+
+      document.getElementById('confirmar-login-google').onclick = validarEntrada;
+      inputEmail.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') validarEntrada();
+      });
+      document.getElementById('fechar-modal-auth').onclick = () => overlay.remove();
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) overlay.remove();
+      });
     }
 
-    if (document.readyState === 'complete') {
-      setTimeout(ligarBotaoAoGoogle, 600);
-    } else {
-      window.addEventListener('DOMContentLoaded', () => setTimeout(ligarBotaoAoGoogle, 600));
-    }
+    // 3. Interceptador Global na Fase de Captura (Garante que o clique no botão Login Google funcione 100% das vezes)
+    window.addEventListener('click', function(e) {
+      const alvo = e.target.closest('button, a, div');
+      if (!alvo) return;
+
+      const textoBotao = (alvo.textContent || "").trim().toLowerCase();
+      if (textoBotao === 'login google' || textoBotao === '⚡ admin ativo (sair)') {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        if (isAdminLogado()) {
+          if (confirm('Deseja encerrar a sessão de Administrador e ocultar o Painel Quântico?')) {
+            localStorage.removeItem(CHAVE_STORAGE);
+            atualizarInterfaceAuth();
+          }
+        } else {
+          abrirModalLoginGoogle();
+        }
+      }
+    }, true);
+
+    // Mantém o estado sincronizado
+    atualizarInterfaceAuth();
+    window.addEventListener('DOMContentLoaded', atualizarInterfaceAuth);
+    setInterval(atualizarInterfaceAuth, 800);
   })();
 </script>
 </body>
