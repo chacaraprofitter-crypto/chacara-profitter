@@ -613,15 +613,6 @@
     }, 200);
   })();
 </script>
-<style id="estilo-bloqueio-quantico">
-  /* Oculta imediatamente o botão Painel Quântico para qualquer visitante não autenticado */
-  html:not([data-admin-logado="true"]) .btn-quantico-bloqueado {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-</style>
 <script id="script-auth-quantico-blindado">
 (function() {
   var EMAILS_ADMIN = [
@@ -643,57 +634,45 @@
 
   function sincronizarEstadoAdmin() {
     var logado = adminEstaLogado();
-    if (logado) {
-      document.documentElement.setAttribute("data-admin-logado", "true");
-    } else {
-      document.documentElement.removeAttribute("data-admin-logado");
-    }
 
-    // 1. Localiza o botão ABRIR PAINEL QUÂNTICO e oculta se não estiver logado como Admin
-    var candidatos = document.querySelectorAll("button, a, div");
-    for (var i = 0; i < candidatos.length; i++) {
-      var el = candidatos[i];
-      if (el.id && el.id.indexOf("modal-google") !== -1) continue;
+    // 1. Controla o botão ABRIR PAINEL QUÂNTICO apenas se o estado visual precisar mudar
+    var botoes = document.querySelectorAll("button, a");
+    for (var i = 0; i < botoes.length; i++) {
+      var el = botoes[i];
       var txt = (el.textContent || "").toUpperCase();
       if (txt.indexOf("PAINEL QUÂNTICO") !== -1 || txt.indexOf("PAINEL QUANTICO") !== -1) {
-        var ehBotao = (el.tagName === "BUTTON" || el.tagName === "A");
-        var estilo = window.getComputedStyle(el);
-        var ehFlutuante = (estilo.position === "fixed" && el.offsetHeight < 150);
-
-        if (ehBotao || ehFlutuante) {
-          var alvo = el.closest("button") || el;
-          if (logado) {
-            alvo.classList.remove("btn-quantico-bloqueado");
-            alvo.style.setProperty("display", " inline-flex", "important");
-            alvo.style.setProperty("visibility", "visible", "important");
-            alvo.style.setProperty("opacity", "1", "important");
-            alvo.style.setProperty("pointer-events", "auto", "important");
-          } else {
-            alvo.classList.add("btn-quantico-bloqueado");
-            alvo.style.setProperty("display", "none", "important");
-            alvo.style.setProperty("visibility", "hidden", "important");
-            alvo.style.setProperty("opacity", "0", "important");
-            alvo.style.setProperty("pointer-events", "none", "important");
+        if (logado) {
+          if (el.getAttribute("data-visivel") !== "sim") {
+            el.setAttribute("data-visivel", "sim");
+            el.style.setProperty("display", "inline-flex", "important");
+            el.style.setProperty("visibility", "visible", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("pointer-events", "auto", "important");
+          }
+        } else {
+          if (el.getAttribute("data-visivel") !== "nao") {
+            el.setAttribute("data-visivel", "nao");
+            el.style.setProperty("display", "none", "important");
+            el.style.setProperty("visibility", "hidden", "important");
+            el.style.setProperty("opacity", "0", "important");
+            el.style.setProperty("pointer-events", "none", "important");
           }
         }
       }
-    }
 
-    // 2. Atualiza o botão Login Google no topo direito
-    var botoesMenu = document.querySelectorAll("button, a");
-    for (var j = 0; j < botoesMenu.length; j++) {
-      var btn = botoesMenu[j];
-      var t = (btn.textContent || "").trim().toLowerCase();
+      // 2. Atualiza o botão Login Google no topo direito apenas 1 vez por mudança de estado
+      var t = (el.textContent || "").trim().toLowerCase();
       if (t === "login google" || t.indexOf("admin conectado") !== -1) {
-        btn.style.cursor = "pointer";
-        if (logado) {
-          btn.textContent = "⚡ Admin Conectado (Sair)";
-          btn.style.borderColor = "#d4af37";
-          btn.style.backgroundColor = "rgba(212, 175, 55, 0.2)";
-          btn.style.color = "#fff2b2";
-        } else {
-          btn.textContent = "Login Google";
-          btn.style.backgroundColor = "transparent";
+        if (logado && el.getAttribute("data-status-btn") !== "logado") {
+          el.setAttribute("data-status-btn", "logado");
+          el.textContent = "⚡ Admin Conectado (Sair)";
+          el.style.borderColor = "#d4af37";
+          el.style.backgroundColor = "rgba(212, 175, 55, 0.2)";
+          el.style.color = "#fff2b2";
+        } else if (!logado && el.getAttribute("data-status-btn") !== "deslogado") {
+          el.setAttribute("data-status-btn", "deslogado");
+          el.textContent = "Login Google";
+          el.style.backgroundColor = "transparent";
         }
       }
     }
@@ -710,18 +689,17 @@
     var caixa = document.createElement("div");
     caixa.style.cssText = "background:#0b0f17;border:1.5px solid #d4af37;border-radius:16px;max-width:400px;width:100%;padding:28px 24px;box-shadow:0 0 40px rgba(212,175,55,0.35);text-align:center;color:#ffffff;position:relative;";
 
-    var htmlInterno = '';
-    htmlInterno += '<button id="btn-fechar-login-google" type="button" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#aaa;font-size:24px;cursor:pointer;">&times;</button>';
-    htmlInterno += '<div style="width:50px;height:50px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">';
-    htmlInterno += '<span style="font-size:26px;font-weight:bold;color:#4285F4;font-family:Georgia,serif;">G</span>';
-    htmlInterno += '</div>';
-    htmlInterno += '<h3 style="margin:0 0 8px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Login Google • Administrador</h3>';
-    htmlInterno += '<p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Acesso exclusivo. Digite a conta Google de Administrador para exibir o Painel Quântico:</p>';
-    htmlInterno += '<input id="campo-email-admin-google" type="email" placeholder="Seu e-mail Google de Admin..." style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />';
-    htmlInterno += '<div id="aviso-erro-login-google" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Conta não autorizada. O Painel Quântico é restrito ao proprietário.</div>';
-    htmlInterno += '<button id="btn-confirmar-login-google" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;">ENTRAR COM CONTA GOOGLE</button>';
+    caixa.innerHTML = ''
+      + '<button id="btn-fechar-login-google" type="button" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#aaa;font-size:24px;cursor:pointer;">&times;</button>'
+      + '<div style="width:50px;height:50px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+      + '<span style="font-size:26px;font-weight:bold;color:#4285F4;font-family:Georgia,serif;">G</span>'
+      + '</div>'
+      + '<h3 style="margin:0 0 8px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Login Google • Administrador</h3>'
+      + '<p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Acesso exclusivo. Digite a conta Google de Administrador para liberar o Painel Quântico:</p>'
+      + '<input id="campo-email-admin-google" type="email" placeholder="sidneyjer68@gmail.com.br" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
+      + '<div id="aviso-erro-login-google" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Conta não autorizada. Acesso restrito ao Administrador.</div>'
+      + '<button id="btn-confirmar-login-google" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;">ENTRAR COM CONTA GOOGLE</button>';
 
-    caixa.innerHTML = htmlInterno;
     fundo.appendChild(caixa);
     document.body.appendChild(fundo);
 
@@ -750,7 +728,6 @@
     };
   }
 
-  // Intercepta o clique no botão Login Google no topo direito
   window.addEventListener("click", function(e) {
     var el = e.target;
     while (el && el !== document.body) {
@@ -774,14 +751,9 @@
     }
   }, true);
 
-  // Monitora continuamente o DOM para que o botão NUNCA apareça para visitantes
-  sincronizarEstadoAdmin();
   document.addEventListener("DOMContentLoaded", sincronizarEstadoAdmin);
   window.addEventListener("load", sincronizarEstadoAdmin);
-  setInterval(sincronizarEstadoAdmin, 300);
-
-  var observer = new MutationObserver(sincronizarEstadoAdmin);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  setInterval(sincronizarEstadoAdmin, 600);
 })();
 </script>
 </body>
@@ -931,15 +903,6 @@
     }, 200);
   })();
 </script>
-<style id="estilo-bloqueio-quantico">
-  /* Oculta imediatamente o botão Painel Quântico para qualquer visitante não autenticado */
-  html:not([data-admin-logado="true"]) .btn-quantico-bloqueado {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-</style>
 <script id="script-auth-quantico-blindado">
 (function() {
   var EMAILS_ADMIN = [
@@ -961,57 +924,45 @@
 
   function sincronizarEstadoAdmin() {
     var logado = adminEstaLogado();
-    if (logado) {
-      document.documentElement.setAttribute("data-admin-logado", "true");
-    } else {
-      document.documentElement.removeAttribute("data-admin-logado");
-    }
 
-    // 1. Localiza o botão ABRIR PAINEL QUÂNTICO e oculta se não estiver logado como Admin
-    var candidatos = document.querySelectorAll("button, a, div");
-    for (var i = 0; i < candidatos.length; i++) {
-      var el = candidatos[i];
-      if (el.id && el.id.indexOf("modal-google") !== -1) continue;
+    // 1. Controla o botão ABRIR PAINEL QUÂNTICO apenas se o estado visual precisar mudar
+    var botoes = document.querySelectorAll("button, a");
+    for (var i = 0; i < botoes.length; i++) {
+      var el = botoes[i];
       var txt = (el.textContent || "").toUpperCase();
       if (txt.indexOf("PAINEL QUÂNTICO") !== -1 || txt.indexOf("PAINEL QUANTICO") !== -1) {
-        var ehBotao = (el.tagName === "BUTTON" || el.tagName === "A");
-        var estilo = window.getComputedStyle(el);
-        var ehFlutuante = (estilo.position === "fixed" && el.offsetHeight < 150);
-
-        if (ehBotao || ehFlutuante) {
-          var alvo = el.closest("button") || el;
-          if (logado) {
-            alvo.classList.remove("btn-quantico-bloqueado");
-            alvo.style.setProperty("display", " inline-flex", "important");
-            alvo.style.setProperty("visibility", "visible", "important");
-            alvo.style.setProperty("opacity", "1", "important");
-            alvo.style.setProperty("pointer-events", "auto", "important");
-          } else {
-            alvo.classList.add("btn-quantico-bloqueado");
-            alvo.style.setProperty("display", "none", "important");
-            alvo.style.setProperty("visibility", "hidden", "important");
-            alvo.style.setProperty("opacity", "0", "important");
-            alvo.style.setProperty("pointer-events", "none", "important");
+        if (logado) {
+          if (el.getAttribute("data-visivel") !== "sim") {
+            el.setAttribute("data-visivel", "sim");
+            el.style.setProperty("display", "inline-flex", "important");
+            el.style.setProperty("visibility", "visible", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("pointer-events", "auto", "important");
+          }
+        } else {
+          if (el.getAttribute("data-visivel") !== "nao") {
+            el.setAttribute("data-visivel", "nao");
+            el.style.setProperty("display", "none", "important");
+            el.style.setProperty("visibility", "hidden", "important");
+            el.style.setProperty("opacity", "0", "important");
+            el.style.setProperty("pointer-events", "none", "important");
           }
         }
       }
-    }
 
-    // 2. Atualiza o botão Login Google no topo direito
-    var botoesMenu = document.querySelectorAll("button, a");
-    for (var j = 0; j < botoesMenu.length; j++) {
-      var btn = botoesMenu[j];
-      var t = (btn.textContent || "").trim().toLowerCase();
+      // 2. Atualiza o botão Login Google no topo direito apenas 1 vez por mudança de estado
+      var t = (el.textContent || "").trim().toLowerCase();
       if (t === "login google" || t.indexOf("admin conectado") !== -1) {
-        btn.style.cursor = "pointer";
-        if (logado) {
-          btn.textContent = "⚡ Admin Conectado (Sair)";
-          btn.style.borderColor = "#d4af37";
-          btn.style.backgroundColor = "rgba(212, 175, 55, 0.2)";
-          btn.style.color = "#fff2b2";
-        } else {
-          btn.textContent = "Login Google";
-          btn.style.backgroundColor = "transparent";
+        if (logado && el.getAttribute("data-status-btn") !== "logado") {
+          el.setAttribute("data-status-btn", "logado");
+          el.textContent = "⚡ Admin Conectado (Sair)";
+          el.style.borderColor = "#d4af37";
+          el.style.backgroundColor = "rgba(212, 175, 55, 0.2)";
+          el.style.color = "#fff2b2";
+        } else if (!logado && el.getAttribute("data-status-btn") !== "deslogado") {
+          el.setAttribute("data-status-btn", "deslogado");
+          el.textContent = "Login Google";
+          el.style.backgroundColor = "transparent";
         }
       }
     }
@@ -1028,18 +979,17 @@
     var caixa = document.createElement("div");
     caixa.style.cssText = "background:#0b0f17;border:1.5px solid #d4af37;border-radius:16px;max-width:400px;width:100%;padding:28px 24px;box-shadow:0 0 40px rgba(212,175,55,0.35);text-align:center;color:#ffffff;position:relative;";
 
-    var htmlInterno = '';
-    htmlInterno += '<button id="btn-fechar-login-google" type="button" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#aaa;font-size:24px;cursor:pointer;">&times;</button>';
-    htmlInterno += '<div style="width:50px;height:50px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">';
-    htmlInterno += '<span style="font-size:26px;font-weight:bold;color:#4285F4;font-family:Georgia,serif;">G</span>';
-    htmlInterno += '</div>';
-    htmlInterno += '<h3 style="margin:0 0 8px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Login Google • Administrador</h3>';
-    htmlInterno += '<p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Acesso exclusivo. Digite a conta Google de Administrador para exibir o Painel Quântico:</p>';
-    htmlInterno += '<input id="campo-email-admin-google" type="email" placeholder="Seu e-mail Google de Admin..." style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />';
-    htmlInterno += '<div id="aviso-erro-login-google" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Conta não autorizada. O Painel Quântico é restrito ao proprietário.</div>';
-    htmlInterno += '<button id="btn-confirmar-login-google" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;">ENTRAR COM CONTA GOOGLE</button>';
+    caixa.innerHTML = ''
+      + '<button id="btn-fechar-login-google" type="button" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#aaa;font-size:24px;cursor:pointer;">&times;</button>'
+      + '<div style="width:50px;height:50px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+      + '<span style="font-size:26px;font-weight:bold;color:#4285F4;font-family:Georgia,serif;">G</span>'
+      + '</div>'
+      + '<h3 style="margin:0 0 8px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Login Google • Administrador</h3>'
+      + '<p style="margin:0 0 18px;font-size:13px;color:#b0b8c4;line-height:1.4;">Acesso exclusivo. Digite a conta Google de Administrador para liberar o Painel Quântico:</p>'
+      + '<input id="campo-email-admin-google" type="email" placeholder="sidneyjer68@gmail.com.br" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1px solid #d4af37;background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
+      + '<div id="aviso-erro-login-google" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Conta não autorizada. Acesso restrito ao Administrador.</div>'
+      + '<button id="btn-confirmar-login-google" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;">ENTRAR COM CONTA GOOGLE</button>';
 
-    caixa.innerHTML = htmlInterno;
     fundo.appendChild(caixa);
     document.body.appendChild(fundo);
 
@@ -1068,7 +1018,6 @@
     };
   }
 
-  // Intercepta o clique no botão Login Google no topo direito
   window.addEventListener("click", function(e) {
     var el = e.target;
     while (el && el !== document.body) {
@@ -1092,14 +1041,9 @@
     }
   }, true);
 
-  // Monitora continuamente o DOM para que o botão NUNCA apareça para visitantes
-  sincronizarEstadoAdmin();
   document.addEventListener("DOMContentLoaded", sincronizarEstadoAdmin);
   window.addEventListener("load", sincronizarEstadoAdmin);
-  setInterval(sincronizarEstadoAdmin, 300);
-
-  var observer = new MutationObserver(sincronizarEstadoAdmin);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  setInterval(sincronizarEstadoAdmin, 600);
 })();
 </script>
 </body>
