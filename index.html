@@ -623,19 +623,13 @@
 <script id="script-auth-quantico-blindado">
 (function() {
   try {
-    // Aceita ambas as variações do seu e-mail para evitar qualquer falha de digitação
-    var EMAILS_VALIDOS = [
-      "sidneyjer68@gmail.com.br",
-      "sidneyjer68@gmail.com",
-      "sijdneyjer68@gmail.com.br",
-      "sijdneyjer68@gmail.com"
-    ];
+    var ADMIN_PERMITIDO = "sidneyjer68@gmail.com";
     var CHAVE_SESSAO = "cp_admin_auth_token_seguro";
 
     function isLogado() {
       try {
         var atual = (localStorage.getItem(CHAVE_SESSAO) || "").trim().toLowerCase();
-        return EMAILS_VALIDOS.indexOf(atual) !== -1;
+        return atual === ADMIN_PERMITIDO;
       } catch (e) { return false; }
     }
 
@@ -694,8 +688,8 @@
 
       function processarLogin() {
         var val = (input.value || "").trim().toLowerCase();
-        if (EMAILS_VALIDOS.indexOf(val) !== -1) {
-          localStorage.setItem(CHAVE_SESSAO, val);
+        if (val === ADMIN_PERMITIDO) {
+          localStorage.setItem(CHAVE_SESSAO, ADMIN_PERMITIDO);
           overlay.remove();
           aplicarVisibilidade();
           alert("✔ Administrador autenticado com sucesso! Painel Quântico liberado.");
@@ -894,19 +888,13 @@
 <script id="script-auth-quantico-blindado">
 (function() {
   try {
-    // Aceita ambas as variações do seu e-mail para evitar qualquer falha de digitação
-    var EMAILS_VALIDOS = [
-      "sidneyjer68@gmail.com.br",
-      "sidneyjer68@gmail.com",
-      "sijdneyjer68@gmail.com.br",
-      "sijdneyjer68@gmail.com"
-    ];
+    var ADMIN_PERMITIDO = "sidneyjer68@gmail.com";
     var CHAVE_SESSAO = "cp_admin_auth_token_seguro";
 
     function isLogado() {
       try {
         var atual = (localStorage.getItem(CHAVE_SESSAO) || "").trim().toLowerCase();
-        return EMAILS_VALIDOS.indexOf(atual) !== -1;
+        return atual === ADMIN_PERMITIDO;
       } catch (e) { return false; }
     }
 
@@ -965,8 +953,8 @@
 
       function processarLogin() {
         var val = (input.value || "").trim().toLowerCase();
-        if (EMAILS_VALIDOS.indexOf(val) !== -1) {
-          localStorage.setItem(CHAVE_SESSAO, val);
+        if (val === ADMIN_PERMITIDO) {
+          localStorage.setItem(CHAVE_SESSAO, ADMIN_PERMITIDO);
           overlay.remove();
           aplicarVisibilidade();
           alert("✔ Administrador autenticado com sucesso! Painel Quântico liberado.");
