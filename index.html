@@ -677,7 +677,10 @@
         + '<h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Segurança Máxima</h3>'
         + '<p style="margin:0 0 18px;font-size:13px;color:#9da5b4;line-height:1.4;">Insira o e-mail e a Senha Mestra de Administrador:</p>'
         + '<input id="input-email-admin-cp" type="email" value="sidneyjer68@gmail.com" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
-        + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
+        + '<div style="position:relative;width:100%;margin-bottom:12px;">'
+        + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 40px 11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;outline:none;text-align:center;" />'
+        + '<span id="toggle-olho-senha" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;user-select:none;" title="Mostrar/Ocultar Senha">👁️</span>'
+        + '</div>'
         + '<div id="erro-msg-cp" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Credenciais ou Senha Mestra incorretas.</div>'
         + '<button id="btn-confirma-cp" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.3);">AUTENTICAR COM SENHA MESTRA</button>'
         + '</div>';
@@ -686,8 +689,21 @@
 
       var inputEmail = document.getElementById("input-email-admin-cp");
       var inputSenha = document.getElementById("input-senha-admin-cp");
+      var olhoBtn = document.getElementById("toggle-olho-senha");
       var erro = document.getElementById("erro-msg-cp");
+      
       setTimeout(function() { inputSenha.focus(); }, 100);
+
+      // Evento de clique para o ícone do olho
+      olhoBtn.onclick = function() {
+        if (inputSenha.type === "password") {
+          inputSenha.type = "text";
+          olhoBtn.textContent = "🙈";
+        } else {
+          inputSenha.type = "password";
+          olhoBtn.textContent = "👁️";
+        }
+      };
 
       function processarLogin() {
         var emailVal = (inputEmail.value || "").trim().toLowerCase();
@@ -948,7 +964,10 @@
         + '<h3 style="margin:0 0 6px;font-size:19px;color:#f3e5ab;font-family:Georgia,serif;">Segurança Máxima</h3>'
         + '<p style="margin:0 0 18px;font-size:13px;color:#9da5b4;line-height:1.4;">Insira o e-mail e a Senha Mestra de Administrador:</p>'
         + '<input id="input-email-admin-cp" type="email" value="sidneyjer68@gmail.com" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:10px;outline:none;text-align:center;" />'
-        + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;margin-bottom:12px;outline:none;text-align:center;" />'
+        + '<div style="position:relative;width:100%;margin-bottom:12px;">'
+        + '<input id="input-senha-admin-cp" type="password" placeholder="Senha Mestra..." style="width:100%;box-sizing:border-box;padding:11px 40px 11px 14px;border-radius:10px;border:1px solid rgba(212,175,55,0.4);background:#111722;color:#fff;font-size:14px;outline:none;text-align:center;" />'
+        + '<span id="toggle-olho-senha" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;user-select:none;" title="Mostrar/Ocultar Senha">👁️</span>'
+        + '</div>'
         + '<div id="erro-msg-cp" style="color:#ff6b6b;font-size:12px;margin-bottom:12px;display:none;">❌ Credenciais ou Senha Mestra incorretas.</div>'
         + '<button id="btn-confirma-cp" type="button" style="width:100%;padding:13px;border-radius:999px;border:none;background:linear-gradient(135deg,#f9e498,#d4af37,#9a7b1c);color:#05070a;font-weight:bold;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(212,175,55,0.3);">AUTENTICAR COM SENHA MESTRA</button>'
         + '</div>';
@@ -957,8 +976,21 @@
 
       var inputEmail = document.getElementById("input-email-admin-cp");
       var inputSenha = document.getElementById("input-senha-admin-cp");
+      var olhoBtn = document.getElementById("toggle-olho-senha");
       var erro = document.getElementById("erro-msg-cp");
+      
       setTimeout(function() { inputSenha.focus(); }, 100);
+
+      // Evento de clique para o ícone do olho
+      olhoBtn.onclick = function() {
+        if (inputSenha.type === "password") {
+          inputSenha.type = "text";
+          olhoBtn.textContent = "🙈";
+        } else {
+          inputSenha.type = "password";
+          olhoBtn.textContent = "👁️";
+        }
+      };
 
       function processarLogin() {
         var emailVal = (inputEmail.value || "").trim().toLowerCase();
